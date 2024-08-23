@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /netflixdobetter
+Disallow: /404
+
+Sitemap: https://georgebaskerville.me/sitemap-index.xml
