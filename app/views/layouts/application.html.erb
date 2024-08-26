@@ -1,16 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>George Baskerville</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/_astro/favicon.Cx_LjgYc.jpg" />
+    <title>George Baskerville</title>
+    <meta name="description" content="George Baskerville's personal website." />
+    <meta property="og:title" content="George Baskerville" />
+    <meta property="og:description" content="George Baskerville's personal website." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/_astro/icon.BsFpH_F6.jpg" />
+    <link rel="stylesheet" href="/_astro/contact.CJUtR9d3.css" />
+    <link rel="stylesheet" href="/styles/globals.css" />
+    <script type="module" src="/_astro/hoisted.AeAG-5qU.js"></script>
+    <script type="module" src="/_astro/page.DFwqf4PB.js"></script>
+      <script type="module" src="/libraries/core-js-custom.min.js"></script>
   </head>
 
   <body>
-    <%= yield %>
+    <div class="background-animation"></div>
+    <main data-controller="scroll-locker" class="bg-base-100 text-base-content overflow-y-scroll" lang="en">
+      <div data-scroll-locker-target="content">
+        <%= yield %>
+      </div>
+    </main>
   </body>
 </html>
