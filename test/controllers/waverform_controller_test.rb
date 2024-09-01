@@ -1,6 +1,6 @@
 require "test_helper"
 
-class CreditsControllerTest < ActionDispatch::IntegrationTest
+class WaverformControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

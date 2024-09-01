@@ -1,0 +1,83 @@
+version: '3.5'
+
+services:
+  bunkerweb:
+    image: bunkerity/bunkerweb:1.5.9
+    ports:
+      - 80:8080
+      - 443:8443
+    labels:
+      - "bunkerweb.INSTANCE=yes"
+    environment:
+      - SERVER_NAME=geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me
+      - HTTP_PORT=80
+      - HTTPS_PORT=443
+      - MULTISITE=yes
+      - USE_API=no
+      - LETS_ENCRYPT_CLEAR_OLD_CERTS=yes
+      - API_WHITELIST_IP=127.0.0.0/8 10.20.30.0/24
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_USE_BUNKERNET=no
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_USE_CORS=yes
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_CORS_ALLOW_ORIGIN=^(https:\/\/)(www\.)?(geor\.me|blog\.geor\.me|pixelfed\.geor\.me|bluesky\.geor\.me)$
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_CORS_ALLOW_CREDENTIALS=yes
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_USE_CLIENT_CACHE=yes
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_COOKIE_FLAGS=* HttpOnly SameSite=Strict
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_AUTO_LETS_ENCRYPT=yes
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_EMAIL_LETS_ENCRYPT=gulf.fugues_0j@icloud.com
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_USE_METRICS=no
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_REDIRECT_HTTP_TO_HTTPS=yes
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_SERVE_FILES=no
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_HTTP3=yes
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_USE_OPEN_FILE_CACHE=yes
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_USE_REVERSE_PROXY=yes
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_REVERSE_PROXY_SSL_SNI=yes
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_REVERSE_PROXY_SSL_SNI_NAME=yes
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_USE_PROXY_CACHE=yes
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_REVERSE_PROXY_WS=yes
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_REVERSE_PROXY_KEEPALIVE=yes
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_USE_ANTIBOT=javascript
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_CROSS_ORIGIN_OPENER_POLICY=same-origin
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_CROSS_ORIGIN_EMBEDDER_POLICY=require-corp
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_CROSS_ORIGIN_RESOURCE_POLICY=same-origin
+      - geor.me blog.geor.me pixelfed.geor.me bluesky.geor.me_MODSECURITY_CRS_VERSION=nightly
+    networks:
+      - bw-universe
+      - bw-services
+
+  bw-scheduler:
+    image: bunkerity/bunkerweb-scheduler:1.5.9
+    depends_on:
+      - bunkerweb
+      - bw-docker
+    volumes:
+      - bw-data:/data
+    environment:
+      - DOCKER_HOST=tcp://bw-docker:2375
+    networks:
+      - bw-universe
+      - bw-docker
+
+  bw-docker:
+    image: tecnativa/docker-socket-proxy:nightly
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - CONTAINERS=1
+      - LOG_LEVEL=warning
+    networks:
+      - bw-docker
+
+volumes:
+  bw-data:
+
+networks:
+  bw-universe:
+    name: bw-universe
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.20.30.0/24
+  bw-services:
+    name: bw-services
+  bw-docker:
+    name: bw-docker
