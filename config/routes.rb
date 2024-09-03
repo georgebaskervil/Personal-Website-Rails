@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get "/waverform", to: "waverform#index"
+  get "/waveform", to: "waveform#index"
   get "/privacy", to: "privacy#index"
   get "/licensing", to: "licensing#index"
   get "/extras", to: "extras#index"

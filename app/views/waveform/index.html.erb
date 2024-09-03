@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="/styles/waveform.css" />
-<div class="container mx-auto px-4 py-0 w-full">
+<%= stylesheet_link_tag 'waveform', media: 'all' %>
+<div data-controller="waveform" class="container mx-auto px-4 py-0 w-full">
   <div id="controls">
     <label for="fileInput">Upload .wav File:</label>
     <input type="file" id="fileInput" accept=".wav" />

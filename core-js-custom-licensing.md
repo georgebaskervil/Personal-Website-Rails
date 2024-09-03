@@ -1,6 +1,6 @@
 # Project Licensing
 
-The licensing for this project is quite complex, because of how many different licenses the component projects are under.
+The licensing for this core-js-custom is quite complex, because of how many different licenses the component projects are under.
 
 ## Section 1: core-js
 

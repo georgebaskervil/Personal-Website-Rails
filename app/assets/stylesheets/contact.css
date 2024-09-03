@@ -1,0 +1,19 @@
+.container {
+    max-width: 100%;
+  }
+  .p-spacing {
+    margin-bottom: 1em;
+  }
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 24px;
+  }
+
+  p {
+    margin-bottom: 0px;
+  }
+
+  ul {
+    margin-left: 32px;
+    margin-bottom: 16px;
+  }

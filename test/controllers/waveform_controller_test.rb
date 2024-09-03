@@ -1,6 +1,6 @@
 require "test_helper"
 
-class WaverformControllerTest < ActionDispatch::IntegrationTest
+class WaveformControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

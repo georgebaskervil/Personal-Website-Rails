@@ -14,40 +14,31 @@
     <meta property="og:description" content="George Baskerville's personal website." />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/_astro/icon.BsFpH_F6.jpg" />
-    <link rel="stylesheet" href="/_astro/contact.CJUtR9d3.css" />
-    <link rel="stylesheet" href="/styles/globals.css" />
-    <script type="module" src="/_astro/hoisted.AeAG-5qU.js"></script>
-    <script type="module" src="/_astro/page.DFwqf4PB.js"></script>
-      <script type="module" src="/libraries/core-js-custom.min.js"></script>
   </head>
 
   <body>
     <div class="background-animation"></div>
-    <main data-controller="scroll-locker" class="bg-base-100 text-base-content overflow-y-scroll" lang="en">
-      <div data-scroll-locker-target="content">
-        <div class="mx-auto min-h-screen flex flex-col gap-9 px-10 py-8 md:gap-20 md:py-8">
-          <header class="flex w-full gap-3 md:gap-2 flex-row justify-between pb-5 md:pb-0">
-            <a href="/" class="text-sm md:text-xl lg:text-xl whitespace-nowrap mr-4 text-text">George Baskerville</a>
-            <nav class="text-xs md:text-sm lg:text-sm custom-breadcrumbs text-text">
-              <ul>
-                <li><a class="text-accent" href="/">Home</a></li>
-                <li><a class="" href="https://blog.geor.me/">Posts</a></li>
-                <li><a class="" href="https://pixelfed.geor.me/">Pictures</a></li>
-                <li><a class="" href="/contact">Contact</a></li>
-                <li><a class="" href="/licensing">Licensing</a></li>
-                <li><a class="" href="/extras">Extras</a></li>
-                <li><a class="" href="/credits">Credits</a></li>
-                <li><a class="" href="/privacy">Privacy</a></li>
-              </ul>
-            </nav>
-          </header>
-            <div class="flex-grow">
-              <main>
-                <%= yield %>
-              </main>
-            </div>
-        </div>
+      <div class="mx-auto min-h-screen flex flex-col gap-9 px-10 py-8 md:gap-20 md:py-8">
+        <header class="flex w-full gap-3 md:gap-2 flex-row justify-between pb-5 md:pb-0">
+          <a href="/" class="text-sm md:text-xl lg:text-xl whitespace-nowrap mr-4 text-text">George Baskerville</a>
+          <nav class="text-xs md:text-sm lg:text-sm custom-breadcrumbs text-text">
+            <ul>
+              <li><a class="text-accent" href="/">Home</a></li>
+              <li><a class="" href="https://blog.geor.me/">Posts</a></li>
+              <li><a class="" href="https://pixelfed.geor.me/">Pictures</a></li>
+              <li><a class="" href="/contact">Contact</a></li>
+              <li><a class="" href="/licensing">Licensing</a></li>
+              <li><a class="" href="/extras">Extras</a></li>
+              <li><a class="" href="/credits">Credits</a></li>
+              <li><a class="" href="/privacy">Privacy</a></li>
+            </ul>
+          </nav>
+        </header>
+          <div class="flex-grow">
+            <main>
+              <%= yield %>
+            </main>
+          </div>
       </div>
-    </main>
   </body>
 </html>
