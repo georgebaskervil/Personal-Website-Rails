@@ -69,7 +69,7 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter = :resque
-  # config.active_job.queue_name_prefix = "personal_website_container_v2_production"
+  # config.active_job.queue_name_prefix = "personal_website_rails_webpack_production"
 
   config.action_mailer.perform_caching = false
 
@@ -88,10 +88,10 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-  # config.hosts = [
-  #   "example.com",     # Allow requests from example.com
-  #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
-  # ]
+   config.hosts = [
+     "geor.me",     # Allow requests from example.com
+     /.*\.geor\.me/ # Allow requests from subdomains like `www.example.com`
+   ]
   # Skip DNS rebinding protection for the default health check endpoint.
-  # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+   config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 end

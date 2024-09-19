@@ -1,57 +1,67 @@
-<!doctype html>
-
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" type="image/svg+xml" href="/_astro/favicon.Cx_LjgYc.jpg" />
-  <title>George Baskerville</title>
-  <meta name="description" content="George Baskerville's personal website." />
-  <meta property="og:title" content="George Baskerville" />
-  <meta property="og:description" content="George Baskerville's personal website." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="/_astro/icon.BsFpH_F6.jpg" />
-  <meta property="og:url" content="https://georgebaskerville.me/404/" />
-  <link rel="sitemap" type="application/xml" title="Sitemap" href="https://georgebaskerville.me/sitemap-index.xml" />
-  <link rel="stylesheet" href="/_astro/contact.CJUtR9d3.css" />
-  <script type="module" src="/_astro/hoisted.AeAG-5qU.js"></script>
-  <script type="module" src="/_astro/page.DFwqf4PB.js"></script>
+  <title>The page you were looking for doesn't exist (404)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+  .rails-default-error-page {
+    background-color: #EFEFEF;
+    color: #2E2F30;
+    text-align: center;
+    font-family: arial, sans-serif;
+    margin: 0;
+  }
+
+  .rails-default-error-page div.dialog {
+    width: 95%;
+    max-width: 33em;
+    margin: 4em auto 0;
+  }
+
+  .rails-default-error-page div.dialog > div {
+    border: 1px solid #CCC;
+    border-right-color: #999;
+    border-left-color: #999;
+    border-bottom-color: #BBB;
+    border-top: #B00100 solid 4px;
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+    background-color: white;
+    padding: 7px 12% 0;
+    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
+  }
+
+  .rails-default-error-page h1 {
+    font-size: 100%;
+    color: #730E15;
+    line-height: 1.5em;
+  }
+
+  .rails-default-error-page div.dialog > p {
+    margin: 0 0 1em;
+    padding: 1em;
+    background-color: #F7F7F7;
+    border: 1px solid #CCC;
+    border-right-color: #999;
+    border-left-color: #999;
+    border-bottom-color: #999;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-top-color: #DADADA;
+    color: #666;
+    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
+  }
+  </style>
 </head>
-<div class="background-animation"></div>
-<html class="bg-base-100 text-base-content overflow-y-scroll" lang="en">
 
-<body>
-
-  <div class="mx-auto min-h-screen flex flex-col gap-9 px-10 py-8 md:gap-20 md:py-8">
-    <header class="flex w-full gap-3 md:gap-2 flex-row justify-between pb-5 md:pb-0">
-      <a href="/" class="text-sm md:text-xl lg:text-xl whitespace-nowrap mr-4 text-text">George Baskerville</a>
-      <nav class="text-xs md:text-sm lg:text-sm custom-breadcrumbs text-text">
-        <ul>
-          <li><a class="" href="/">Home</a></li>
-          <li><a class="" href="https://blog.geor.me/">Posts</a></li>
-          <li><a class="" href="https://pixelfed.geor.me/">Pictures</a></li>
-          <li><a class="" href="/contact">Contact</a></li>
-          <li><a class="" href="/licensing">Licensing</a></li>
-          <li><a class="" href="/extras">Extras</a></li>
-          <li><a class="" href="/credits">Credits</a></li>
-          <li><a class="" href="/privacy">Privacy</a></li>
-        </ul>
-      </nav>
-    </header>
-    <div class="flex-grow">
-      <div class="hero absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <div class="hero-content text-center">
-          <div class="max-w-md">
-            <h1 class="text-5xl font-bold text-text">404</h1>
-            <p class="text-lg text-neutral-content py-5 text-text">
-              The page you were looking for doesn't exist.
-            </p>
-            <a href="/" class="link text-accent">Go back home</a>
-          </div>
-        </div>
-      </div>
+<body class="rails-default-error-page">
+  <!-- This file lives in public/404.html -->
+  <div class="dialog">
+    <div>
+      <h1>The page you were looking for doesn't exist.</h1>
+      <p>You may have mistyped the address or the page may have moved.</p>
     </div>
+    <p>If you are the application owner check the logs for more information.</p>
   </div>
-
 </body>
-
 </html>

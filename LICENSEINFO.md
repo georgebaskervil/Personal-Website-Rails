@@ -1,1 +1,1 @@
-Everything except core-js custom is licensed under the license in the LICENSE file, specifically core-js-custom follows some complex custom licensing
+Everything except the fonts is licensed under the license in the LICENSE file. The fonts are licensed under the OFL.

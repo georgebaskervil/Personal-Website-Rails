@@ -8,6 +8,6 @@ Rails.application.config.permissions_policy do |policy|
   policy.gyroscope   :none
   policy.microphone  :none
   policy.usb         :none
-  policy.fullscreen  :self
-  policy.payment     :self, "https://secure.example.com"
+  policy.fullscreen  :none
+  policy.payment     :none
 end

@@ -1,0 +1,68 @@
+.hp-main{
+    @apply flex flex-col gap-10
+}
+
+.hp-article{
+   @apply md:flex-row-reverse md:justify-end md:gap-12
+}
+
+.hp-rows{
+    @apply flex flex-row justify-between sm:grid-cols-3 items-center
+}
+
+.hp-columns{
+    @apply col-span-2 flex flex-col gap-6 md:gap-8 my-auto
+}
+
+.hp-h1{
+    @apply lg:text-4xl md:text-3xl font-bold text-2xl text-text
+}
+
+.hp-h2{
+    @apply w-[90%] leading-6 text-sm sm:text-base text-text
+}
+
+.hp-li-div{
+    @apply text-text
+}
+
+.hp-picture{
+    @apply rounded-lg border-neutral
+}
+
+.hp-article-2{
+    @apply flex flex-col gap-3
+}
+
+.hp-header{
+    @apply flex w-full flex-row justify-between gap-2
+}
+
+.hp-h3{
+    @apply text-lg pb-2 text-text
+}
+
+.hp-small-link{
+    @apply text-sm text-accent no-underline hover:underline
+}
+
+.hp-section{
+    @apply grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4
+}
+
+.hp-proj-div{
+    @apply p-4 rounded-lg border border-neutral shadow-md hover:scale-105 transition-transform duration-300
+}
+
+.hp-proj-internals{
+    @apply flex justify-between gap-3 flex-row items-start
+}
+
+.hp-proj-title{
+    @apply font-semibold text-lg text-text
+}
+
+.hp-proj-desc{
+    @apply text-text mt-1
+}
+

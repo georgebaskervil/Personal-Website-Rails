@@ -4,40 +4,49 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/_astro/favicon.Cx_LjgYc.jpg" />
+    <link rel="icon" type="image/jpeg" href="<%= asset_url('favicon.jpg') %>" />
     <title>George Baskerville</title>
     <meta name="description" content="George Baskerville's personal website." />
     <meta property="og:title" content="George Baskerville" />
     <meta property="og:description" content="George Baskerville's personal website." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/_astro/icon.BsFpH_F6.jpg" />
+    <meta property="og:image" content="<%= asset_url('icon.jpg') %>" />
   </head>
 
   <body>
+    <noscript>
+      <div class="noscript">
+        <span>
+          I believe that JavaScript should be optional on the web, so while this site works best with JavaScript enabled, I've tried to make sure that it works with it disabled too.
+        </span>
+      </div>
+    </noscript>
     <div class="background-animation"></div>
-      <div class="mx-auto min-h-screen flex flex-col gap-9 px-10 py-8 md:gap-20 md:py-8">
-        <header class="flex w-full gap-3 md:gap-2 flex-row justify-between pb-5 md:pb-0">
-          <a href="/" class="text-sm md:text-xl lg:text-xl whitespace-nowrap mr-4 text-text">George Baskerville</a>
-          <nav class="text-xs md:text-sm lg:text-sm custom-breadcrumbs text-text">
-            <ul>
-              <li><a class="text-accent" href="/">Home</a></li>
-              <li><a class="" href="https://blog.geor.me/">Posts</a></li>
-              <li><a class="" href="https://pixelfed.geor.me/">Pictures</a></li>
-              <li><a class="" href="/contact">Contact</a></li>
-              <li><a class="" href="/licensing">Licensing</a></li>
-              <li><a class="" href="/extras">Extras</a></li>
-              <li><a class="" href="/credits">Credits</a></li>
-              <li><a class="" href="/privacy">Privacy</a></li>
-            </ul>
-          </nav>
-        </header>
+      <div class="layout-main">
+          <header class="layout-header">
+            <a href="/" class="layout-home-link">George Baskerville</a>
+            <nav class="layout-nav" data-controller="heading-highlight">
+              <ul>
+                <li><a data-heading-highlight-target="link" class="" href="/">Home</a></li>
+                <li><a data-heading-highlight-target="link" class="" href="https://blog.geor.me/">Posts</a></li>
+                <li><a data-heading-highlight-target="link" class="" href="https://pixelfed.geor.me/">Pictures</a></li>
+                <li><a data-heading-highlight-target="link" class="" href="/contact">Contact</a></li>
+                <li><a data-heading-highlight-target="link" class="" href="/licensing">Licensing</a></li>
+                <li><a data-heading-highlight-target="link" class="" href="/extras">Extras</a></li>
+                <li><a data-heading-highlight-target="link" class="" href="/credits">Credits</a></li>
+                <li><a data-heading-highlight-target="link" class="" href="/privacy">Privacy</a></li>
+              </ul>
+            </nav>
+          </header>
           <div class="flex-grow">
-            <main>
-              <%= yield %>
-            </main>
+              <main>
+                <turbo-frame id="changing_content">
+                  <%= yield %>
+                </turbo-frame>
+              </main>
           </div>
       </div>
   </body>

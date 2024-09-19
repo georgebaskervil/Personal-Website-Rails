@@ -1,7 +1,8 @@
 require "test_helper"
 
 class ExtrasControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+  test "should get index" do
+    get extras_index_url
+    assert_response :success
+  end
 end

@@ -1,0 +1,22 @@
+.e-main{
+   @apply container py-0 w-full;
+}
+
+.e-h1{
+    font-size: 2.5rem;
+    margin-bottom: 24px;
+    @apply text-4xl font-bold mb-4 text-text;
+}
+
+.e-p{
+    margin-bottom: 16px;
+    @apply text-text;
+}
+
+.e-link-1{
+    @apply text-accent;
+}
+
+.e-link-2{
+    @apply text-accent no-underline hover:underline;
+}

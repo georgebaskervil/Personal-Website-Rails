@@ -14,8 +14,8 @@ gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 
-# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
+# Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
+gem "jsbundling-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
@@ -27,7 +27,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
-gem "redis", ">= 4.0.1"
+# gem "redis", ">= 4.0.1"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -66,4 +66,14 @@ group :test do
   gem "selenium-webdriver"
 end
 
+# HTML compressor to minify HTML when sent to the client
+gem 'htmlcompressor', '~> 0.4.0'
+
+# CSS Bundler to use PostCSS
+gem 'cssbundling-rails'
+
+# Rack-attack to rate-limit HTTP endpoints
+gem 'rack-attack'
+
+# fly.io's dockerfile generator to generate a docker compose file for the site.
 gem "dockerfile-rails", ">= 1.6", :group => :development

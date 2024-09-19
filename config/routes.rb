@@ -1,4 +1,21 @@
 Rails.application.routes.draw do
+
+  # redirect old domains to new domain
+  constraints(host: /georgebaskerville\.com|georgebaskerville\.me/) do
+    match '(*any)', to: redirect { |_, request|
+      "https://geor.me/#{request.path}"
+    }, via: :all
+  end
+
+  # Redirects to subdomains
+  match '/posts(/*all)', to: redirect { |params, request|
+    "https://blog.geor.me/#{params[:all]}"
+  }, via: :all 
+
+  match '/pictures(/*all)', to: redirect { |params, request|
+    "https://pixlfed.geor.me/#{params[:all]}"
+  }, via: :all
+
   get "/waveform", to: "waveform#index"
   get "/privacy", to: "privacy#index"
   get "/licensing", to: "licensing#index"
@@ -6,6 +23,7 @@ Rails.application.routes.draw do
   get "/credits", to: "credits#index"
   get "/contact", to: "contact#index"
   root "homepage#index"
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

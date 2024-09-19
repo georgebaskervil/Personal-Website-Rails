@@ -1,0 +1,31 @@
+.wf-canvas {
+    width: 100%;
+    height: 800px;
+    border: 1px solid #2d2a2a;
+  }
+  
+  .wf-controls {
+    margin-bottom: 10px;
+    color: #c0caf5;
+  }
+  
+  .wf-controls input,
+  .wf-controls button {
+    background-color: transparent;
+    color: #c0caf5;
+    border: 1px solid #2d2a2a;
+    padding: 5px;
+    margin-right: 10px;
+  }
+  
+  .wf-controls input[type="file"] {
+    color: transparent;
+  }
+  
+  .wf-controls input[type="file"]::file-selector-button {
+    background-color: transparent;
+    color: #c0caf5;
+    border: 1px solid #2d2a2a;
+    padding: 5px;
+  }
+  
