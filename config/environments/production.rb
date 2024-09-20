@@ -88,10 +88,18 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-   config.hosts = [
-     "geor.me",     # Allow requests from example.com
-     /.*\.geor\.me/ # Allow requests from subdomains like `www.example.com`
-   ]
+  config.hosts = [
+    "geor.me",               # Allow requests from geor.me
+    /.*\.geor\.me/,          # Allow requests from subdomains of geor.me
+    "localhost:3000"         # Allow requests from localhost on port 3000
+  ]
   # Skip DNS rebinding protection for the default health check endpoint.
    config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  # Set a long cache header for static assets (which we can do because of assets pipeline auto-cache busting)
+  config.public_file_server.enabled = true
+  config.public_file_server.headers = {
+    'Cache-Control' => "public, max-age=#{1.week.to_i}"
+  }
+  
 end

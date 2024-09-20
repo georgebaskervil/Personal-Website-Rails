@@ -23,10 +23,11 @@
 @import "tailwind.scss";
 /*import tailwind*/
 
-/*import globals*/
+/*import global items*/
+@import "variables.scss";
 @import "layout.scss";
 @import "globals.scss";
-/*end globals*/
+/*end global items*/
 
 /*start individual style imports*/
 @import "avatar.scss";
