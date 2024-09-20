@@ -8,7 +8,9 @@
         <h2 class="hp-h2">
           I'm a student. I've been interested in the web for a long
           time, making my first site 5 years ago. I'm also a digital
-          privacy advocate and a dark mode enthusiast.
+          privacy advocate and a dark mode enthusiast. 
+          <%= HttpReqCounter.first.count || 0 %> HTTP requests have 
+          been made to this site and a random number is <%= @random_number %>.
         </h2>
         <div class="custom-breadcrumbs hp-li-div">
           <ul>
@@ -31,7 +33,7 @@
         </div>
       </div>
       <picture class="image-container hp-picture">
-        <%= image_tag("icon.jpg", alt: "My avatar", loading: "eager", width: "590", height: "381", decoding: "async",) %>
+        <%= image_tag("icon.jpg", alt: "My avatar", loading: "eager", width: "600", height: "391", decoding: "async",) %>
       </picture>
     </div>
   </article>
