@@ -1,10 +1,9 @@
 module.exports = {
   plugins: [
-    require('postcss-import')({
-      extensions: ['.css','.scss']
+    require("postcss-import")({
+      extensions: [".css", ".scss"],
     }),
-    require("@csstools/postcss-sass")({
-    }),
+    require("@csstools/postcss-sass"),
     require("tailwindcss"),
     require("postcss-preset-env")({
       stage: 3,

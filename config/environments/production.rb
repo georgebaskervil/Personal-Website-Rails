@@ -98,11 +98,4 @@ Rails.application.configure do
 ]
   # Skip DNS rebinding protection for the default health check endpoint.
    config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
-
-  # Set a long cache header for static assets (which we can do because of assets pipeline auto-cache busting)
-  config.public_file_server.enabled = true
-  config.public_file_server.headers = {
-    'Cache-Control' => "public, max-age=#{1.week.to_i}"
-  }
-  
 end

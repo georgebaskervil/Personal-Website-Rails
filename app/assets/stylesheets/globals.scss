@@ -1,5 +1,35 @@
 * {
-  font-family: "SpaceMono", "SpaceMono-Compat", "SpaceMono-IE";
+  font-family: "SpaceMono", "SpaceMono-Compat", "SpaceMono-IE", "Courier-Modified";
+}
+
+@font-face {
+  font-family: "Courier-Modified";
+  src: local("Courier");
+  font-display: swap;
+  font-size: 15px;
+  line-height: 1.7;
+  visibility: visible;
+  letter-spacing: 0.9px;
+  font-weight: 400;
+  word-spacing: -0.55px;
+}
+
+@font-face {
+  font-family: "SpaceMono-IE";
+  src: url("SpaceMono-Regular.eot") format("embedded-opentype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SpaceMono-Compat";
+  src: url("SpaceMono-Regular.woff") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SpaceMono";
+  src: url("SpaceMono-Regular.woff2") format("woff2");
+  font-display: swap;
 }
 
 html {
@@ -15,21 +45,6 @@ body {
 
 .turbo-progress-bar{
   background: $accent;
-}
-
-@font-face {
-  font-family: "SpaceMono-IE";
-  src: url("SpaceMono-Regular.eot") format("embedded-opentype");
-}
-
-@font-face {
-  font-family: "SpaceMono-Compat";
-  src: url("SpaceMono-Regular.woff") format("woff");
-}
-
-@font-face {
-  font-family: "SpaceMono";
-  src: url("SpaceMono-Regular.woff2") format("woff2");
 }
 
 .background-animation {

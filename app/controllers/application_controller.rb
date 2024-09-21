@@ -14,11 +14,12 @@ class ApplicationController < ActionController::Base
   end
 
   def set_random_number
-    # Generate a random number from 0 to 999,999
-    raw_number = rand(1_000_000)
+    # Generate a random number from 100000 to 999999 to ensure it's always six digits
+    raw_number = rand(100000...1000000)
     
-    # Format the number with commas
-    @random_number = raw_number.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
+    formatted_number = raw_number.to_s
+    
+    @random_number = formatted_number.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
   end
 
 end
