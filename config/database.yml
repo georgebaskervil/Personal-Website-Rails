@@ -80,5 +80,5 @@ test:
 production:
   <<: *default
   database: personal_website_rails_webpack_production
-  username: personal_website_rails_webpack
+  username: root
   password: <%= ENV["PERSONAL_WEBSITE_RAILS_WEBPACK_DATABASE_PASSWORD"] %>

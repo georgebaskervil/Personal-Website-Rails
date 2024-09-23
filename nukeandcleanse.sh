@@ -1,0 +1,2 @@
+./dockernuke.sh
+./dbcleanse.sh

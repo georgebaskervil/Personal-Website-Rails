@@ -90,7 +90,8 @@ Rails.application.configure do
   # Enable DNS rebinding protection and other `Host` header attacks.
   config.hosts = [
     "geor.me",        
-    /.*\.geor\.me/,                 
+    /.*\.geor\.me/,   
+    "localhost:3000",             
     "georgebaskerville.me", 
     "georgebaskerville.com", 
     "tsqp.me",                        
