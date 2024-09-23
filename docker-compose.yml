@@ -4,8 +4,8 @@ services:
     build:
       context: .
       args:
-        UID: "1000"
-        GID: "1000"
+        UID: ${UID}
+        GID: ${GID}
     ports:
       - "3000:3000"
     environment:
