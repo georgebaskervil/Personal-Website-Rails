@@ -1,12 +1,5 @@
 Rails.application.routes.draw do
-
-  # Redirect old domains to new domain
-  constraints(host: /georgebaskerville\.com|georgebaskerville\.me|tsqp\.me/) do
-    match '(*any)', to: redirect { |_, request|
-      "https://geor.me/#{request.path}"
-    }, via: :all
-  end
-
+  
   # Redirects to subdomains
   match '/posts(/*all)', to: redirect { |params, request|
     "https://blog.geor.me/#{params[:all]}"
