@@ -11,7 +11,7 @@ Rails.application.configure do
     policy.img_src     :self, :https
     policy.object_src  :none
     policy.script_src  :self, :https
-    policy.style_src   :self, :https, 'unsafe-inline'
+    policy.style_src   :self, :https, "'unsafe-inline'"
   end
 
   # Generate session nonces for permitted scripts and styles
