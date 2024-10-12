@@ -20,7 +20,7 @@ class Rack::Attack
     [
       429,  # status
       {'Content-Type' => 'text/plain', 'Retry-After' => '300'},  # headers, with Retry-After
-      ['Too Many Requests. Please try again later.']  # body
+      ['Rack-Attack has throttled your traffic because you sent too many requests. Please try again later.']  # body
     ]
   end
 
