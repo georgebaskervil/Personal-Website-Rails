@@ -11,11 +11,7 @@ Rails.application.configure do
     policy.img_src     :self, :https
     policy.object_src  :none
     policy.script_src  :self, :https
-    # Hash for Turbo's progress bar style to allow it
-    policy.style_src   :self, :https, "'sha256-WAyOw4V+FqDc35lQPyRADLBWbuNK8ahvYEaQIYF1+Ps='"
-    
-    # If you're using WebSockets or similar:
-    # policy.connect_src :self, :https, 'ws://localhost:3000' if Rails.env.development?
+    policy.style_src   :self, :https, "'unsafe-inline'"
   end
 
   # Generate session nonces for permitted scripts and styles
