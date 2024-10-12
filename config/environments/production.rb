@@ -93,7 +93,8 @@ Rails.application.configure do
     /.*\.geor\.me/,                
     "georgebaskerville.me", 
     "georgebaskerville.com", 
-    "tsqp.me",      
+    "tsqp.me",  
+    "localhost"    
 ]
   # Skip DNS rebinding protection for the default health check endpoint.
    config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
