@@ -77,3 +77,7 @@ gem 'rack-attack'
 
 # fly.io's dockerfile generator to generate a docker compose file for the site.
 gem "dockerfile-rails", ">= 1.6", :group => :development
+
+# sentry sdk to use glitchtip
+gem "sentry-ruby"
+gem "sentry-rails"
