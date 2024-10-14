@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get "/extras", to: "extras#index"
   get "/credits", to: "credits#index"
   get "/contact", to: "contact#index"
+  get "/analytics", to: "analytics#index"
   root "homepage#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
