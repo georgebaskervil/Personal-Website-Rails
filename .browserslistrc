@@ -1,5 +1,8 @@
-ie >= 9
-firefox >= 4
-chrome >= 10
-safari >= 5
-opera >= 11
+Chrome >= 32
+Edge >= 79
+Safari >= 8
+Firefox >= 24
+and_chr >= 129
+iOS >= 8
+and_ff >= 130
+ie 11

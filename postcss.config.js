@@ -5,8 +5,9 @@ module.exports = {
     }),
     require("@csstools/postcss-sass"),
     require("tailwindcss"),
+    require("postcss-inline-rtl"),
     require("postcss-preset-env")({
-      stage: 3,
+      stage: 0,
       features: {
         "custom-properties": false,
       },
@@ -15,9 +16,26 @@ module.exports = {
     require("postcss-flexbugs-fixes"),
     require("cssnano")({
       preset: [
-        "default",
+        "advanced",
         {
+          autoprefixer: false,
           discardComments: { removeAll: true },
+          mergeLonghand: true,
+          calc: { precision: 2 },
+          colormin: true,
+          zindex: true,
+          normalizeString: true,
+          normalizeUrl: true,
+          normalizeCharset: true,
+          mergeRules: true,
+          discardUnused: { fontFace: true, keyframes: true },
+          svgo: {
+            plugins: [
+              { removeViewBox: false },
+              { removeDimensions: true },
+            ],
+          },
+          convertValues: { length: true },
         },
       ],
     }),

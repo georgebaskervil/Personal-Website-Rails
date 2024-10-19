@@ -1,11 +1,8 @@
 <!DOCTYPE html>
-<html data-controller="errors">
+<html dir="ltr" data-controller="errors">
   <head>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
-    <script defer src="https://analytics.geor.me/script.js" data-website-id="b3efe222-2a56-4c2d-a2ce-211f7b6966cc"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/jpeg" href="<%= asset_url('favicon.jpg') %>" />
@@ -15,6 +12,9 @@
     <meta property="og:description" content="George Baskerville's personal website." />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="<%= asset_url('icon.jpg') %>" />
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <script defer src="https://analytics.geor.me/script.js" data-website-id="b3efe222-2a56-4c2d-a2ce-211f7b6966cc"></script>
   </head>
 
   <body>
@@ -33,7 +33,7 @@
                 <li><a data-heading-highlight-target="link" class="" href="/">Home</a></li>
                 <li><a data-heading-highlight-target="link" class="" href="https://blog.geor.me/">Posts</a></li>
                 <li><a data-heading-highlight-target="link" class="" href="https://pixelfed.geor.me/">Pictures</a></li>
-                <li><a data-heading-highlight-target="link" class="" href="https://versioncontrol.geor.me/">Git</a></li>
+                <li><a data-heading-highlight-target="link" class="" href="https://versioncontrol.geor.me/explore/repos">Git</a></li>
                 <li><a data-heading-highlight-target="link" class="" href="https://uptime.geor.me/status/all">Uptime</a></li>
                 <li><a data-heading-highlight-target="link" class="" href="/analytics">Analytics</a></li>
                 <li><a data-heading-highlight-target="link" class="" href="/extras">Extras</a></li>
