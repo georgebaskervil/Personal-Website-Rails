@@ -98,10 +98,4 @@ Rails.application.configure do
 ]
   # Skip DNS rebinding protection for the default health check endpoint.
    config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
-
-    # Use rack deflater for compression
-    config.middleware.use Rack::Deflater
-  
-   # Only enable rack-attack in production
-   Rails.application.config.middleware.use Rack::Attack
 end
