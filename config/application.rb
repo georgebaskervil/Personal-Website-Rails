@@ -23,11 +23,14 @@ module PersonalWebsiteRailsWebpack
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-
-    # Use rack deflater for asset compression
-    config.middleware.use Rack::Deflater
     
     # Add a fonts directory to the rails assets pipeline
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
+
+    # Add an icons directory to the rails assets pipeline
+    config.assets.paths << Rails.root.join("app", "assets", "icons")
+
+    # Add an 88x31 badges directory to the rails assets pipeline
+    config.assets.paths << Rails.root.join("app", "assets", "88x31")
   end
 end

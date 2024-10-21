@@ -4,12 +4,6 @@
 
 import { application } from "./application"
 
-import AstroController from "./astro_controller"
-application.register("astro", AstroController)
-
-import ErrorsController from "./errors_controller"
-application.register("errors", ErrorsController)
-
 import HeadingHighlightController from "./heading_highlight_controller"
 application.register("heading-highlight", HeadingHighlightController)
 

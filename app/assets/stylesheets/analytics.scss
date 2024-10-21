@@ -1,3 +1,18 @@
-.text-analytics{
-    @apply text-text
-}
+.a-main{
+    @apply container py-0 w-full;
+ }
+ 
+ .a-h1{
+     font-size: 2.5rem;
+     margin-bottom: 24px;
+     @apply text-4xl font-bold mb-4 text-text;
+ }
+ 
+ .a-p{
+     margin-bottom: 16px;
+     @apply text-text;
+ }
+ 
+ .a-link{
+     @apply text-accent no-underline hover:underline;
+ }

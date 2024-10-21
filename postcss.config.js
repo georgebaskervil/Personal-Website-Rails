@@ -5,14 +5,12 @@ module.exports = {
     }),
     require("@csstools/postcss-sass"),
     require("tailwindcss"),
-    require("postcss-inline-rtl"),
     require("postcss-preset-env")({
       stage: 0,
       features: {
         "custom-properties": false,
       },
     }),
-    require("cssgrace"),
     require("postcss-flexbugs-fixes"),
     require("cssnano")({
       preset: [
@@ -30,10 +28,7 @@ module.exports = {
           mergeRules: true,
           discardUnused: { fontFace: true, keyframes: true },
           svgo: {
-            plugins: [
-              { removeViewBox: false },
-              { removeDimensions: true },
-            ],
+            plugins: [{ removeViewBox: false }, { removeDimensions: true }],
           },
           convertValues: { length: true },
         },

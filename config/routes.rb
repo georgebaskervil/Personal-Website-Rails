@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   
-  # Redirects to subdomains
   match '/posts(/*all)', to: redirect { |params, request|
     "https://blog.geor.me/#{params[:all]}"
   }, via: :all 
@@ -16,6 +15,8 @@ Rails.application.routes.draw do
   get "/credits", to: "credits#index"
   get "/contact", to: "contact#index"
   get "/analytics", to: "analytics#index"
+  get "/dmca", to: "dmca#index"
+  get "/eightyeightbythirtyone", to: "eightyeightbythirtyone#index"
   root "homepage#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
