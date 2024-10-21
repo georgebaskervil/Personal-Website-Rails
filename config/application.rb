@@ -37,6 +37,6 @@ module PersonalWebsiteRailsWebpack
     config.middleware.use Rack::Deflater
 
     # Only enable rack-attack in production
-    Rails.application.config.middleware.use Rack::Attack
+    config.middleware.use Rack::Attack
   end
 end
