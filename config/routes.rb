@@ -1,20 +1,10 @@
 Rails.application.routes.draw do
-  
-  match '/posts(/*all)', to: redirect { |params, request|
-    "https://blog.geor.me/#{params[:all]}"
-  }, via: :all 
-
-  match '/pictures(/*all)', to: redirect { |params, request|
-    "https://pixlfed.geor.me/#{params[:all]}"
-  }, via: :all
-
   get "/waveform", to: "waveform#index"
   get "/privacy", to: "privacy#index"
   get "/licensing", to: "licensing#index"
-  get "/extras", to: "extras#index"
   get "/credits", to: "credits#index"
   get "/contact", to: "contact#index"
-  get "/analytics", to: "analytics#index"
+  get "/data", to: "data#index"
   get "/dmca", to: "dmca#index"
   get "/eightyeightbythirtyone", to: "eightyeightbythirtyone#index"
   root "homepage#index"

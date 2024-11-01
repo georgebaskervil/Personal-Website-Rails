@@ -1,17 +1,18 @@
 class Rack::Attack
+  Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
 
-  Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new 
+  throttle("req/ip", limit: 1200, period: 1.minutes) { |req| req.ip }
 
-  throttle('req/ip', limit: 120, period: 5.minutes) do |req|
-    req.ip
-  end
-
-  self.throttled_responder = lambda do |request|
-    [
-      429,
-      {'Content-Type' => 'text/plain', 'Retry-After' => '300'},
-      ['I have throttled your traffic because you sent too many requests. Please try again in one minute.']
-    ]
-  end
-
+  self.throttled_responder =
+    lambda do |request|
+      [
+        429, # status
+        { "Content-Type" => "text/plain", "Retry-After" => "60" }, # headers, with Retry-After
+        [
+          "I have throttled your traffic because you sent too many requests. Please try again in one minute"
+        ]
+      ]
+    end
 end
+
+Rails.application.config.middleware.use Rack::Attack
