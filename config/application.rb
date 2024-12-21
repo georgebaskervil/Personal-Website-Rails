@@ -32,11 +32,5 @@ module PersonalWebsiteRailsWebpack
 
     # Add an 88x31 badges directory to the rails assets pipeline
     config.assets.paths << Rails.root.join("app", "assets", "88x31")
-
-    # Use rack deflater for compression
-    config.middleware.use Rack::Deflater
-
-    # Only enable rack-attack in production
-    config.middleware.use Rack::Attack
   end
 end

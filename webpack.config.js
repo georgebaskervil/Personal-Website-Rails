@@ -9,32 +9,38 @@ module.exports = {
   },
   output: {
     filename: "[name].js",
-    chunkFormat: "module",
+    library: {
+      type: "umd", // Change to UMD for browser compatibility
+    },
     path: path.resolve(__dirname, "app/assets/builds"),
     publicPath: "/assets/",
   },
   module: {
     rules: [
       {
-        // JavaScript rule using Babel
-        test: /\.js$/,
-        exclude: /node_modules/,
+        test: /\.m?jsx?$/,
+        include: [
+          path.resolve(__dirname, "app/javascript"),
+          path.resolve(__dirname, "app/assets"),
+        ],
+        exclude: /node_modules\/core-js/,
         use: {
           loader: "babel-loader",
           options: {
             configFile: path.resolve(__dirname, "babel.config.js"),
+            sourceType: "module",
           },
         },
       },
       {
         // CoffeeScript rule
         test: /\.coffee$/,
-        exclude: /node_modules/,
         use: [
           {
             loader: "babel-loader", // First, compile CoffeeScript to ES6
             options: {
               configFile: path.resolve(__dirname, "babel.config.js"),
+              sourceType: "module", // Handle ES modules
             },
           },
           {
@@ -42,6 +48,7 @@ module.exports = {
           },
         ],
       },
+      // ...other rules...
     ],
   },
   optimization: {
@@ -58,6 +65,6 @@ module.exports = {
     }),
   ],
   resolve: {
-    extensions: [".js", ".coffee"], // Tell Webpack to resolve .coffee files
+    extensions: [".js", ".coffee"], // Ensure Webpack resolves .coffee files
   },
 };

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*scss normaliser*/
 @import "../../../node_modules/normalise.scss/normalise.scss";
 /*end scss normaliser*/
@@ -7,6 +8,7 @@
 /*import tailwind*/
 
 /*import global items*/
+@import "lenis.scss";
 @import "variables.scss";
 @import "globals.scss";
 @import "layout.scss";

@@ -7,7 +7,12 @@
         </h1>
         <h2 class="hp-h2">
           I'm a student. I've been interested in the web for a long
-	        time, making my first site 5 years ago. I'm also a digital privacy
+	        time, making my first site <% duration = Time.now - Time.new(2019, 5, 7)
+            years = (duration / (86400 * 365)).to_i
+            remaining_days = duration % (86400 * 365)
+            months = (remaining_days / (86400 * 30)).to_i
+            days = ((remaining_days % (86400 * 30)) / 86400).to_i %>
+           <%= years %> years, <%= months %> months, and <%= days %> days ago. I'm also a digital privacy
 	        advocate and a dark mode enthusiast.
         </h2>
         <div class="custom-breadcrumbs hp-li-div">
@@ -18,21 +23,24 @@
               </a>
             </li>
             <li>
-              <a href="https://versioncontrol.geor.me/explore/repos" rel="noreferrer" target="_blank" class="text-accent">
-                Gitea
+              <a href="https://github.com/georgebaskervil" rel="noreferrer" target="_blank" class="text-accent">
+                GitHub
               </a>
             </li>
           </ul>
         </div>
       </div>
       <picture class="image-container hp-picture">
-        <%= image_tag("icon.jpg", alt: "A picture of me", loading: "eager", width: "654", height: "654", decoding: "async",) %>
+        <source srcset="<%= asset_path('icon.avif') %>" type="image/avif">
+        <source srcset="<%= asset_path('icon.webp') %>" type="image/webp">
+        <source srcset="<%= asset_path('icon.jxl') %>" type="image/jxl">
+        <%= image_tag("icon.jpg", alt: "A picture of me", loading: "eager", width: "654", height: "654", decoding: "sync", fetchpriority: "high") %>
       </picture>
     </div>
   </article>
   <article class="hp-article-2">
     <header class="hp-header">
-      <h3 class="hp-h3">My OSS projects:</h3>
+      <h3 class="hp-h3">My FOSS projects:</h3>
       <a href="https://github.com/georgebaskervil?tab=repositories"
         class="hp-small-link" target="_self" rel="noreferrer">
         See all projects

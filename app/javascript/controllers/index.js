@@ -7,5 +7,8 @@ import { application } from "./application"
 import HeadingHighlightController from "./heading_highlight_controller"
 application.register("heading-highlight", HeadingHighlightController)
 
+import LenisController from "./lenis_controller"
+application.register("lenis", LenisController)
+
 import WaveformController from "./waveform_controller"
 application.register("waveform", WaveformController)
