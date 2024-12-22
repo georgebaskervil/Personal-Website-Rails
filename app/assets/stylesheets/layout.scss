@@ -1,27 +1,27 @@
-.layout-main{
-    @apply mx-auto min-h-screen flex flex-col gap-9 px-10 pt-8 pb-2 md:gap-20
+.layout-main {
+  @apply mx-auto min-h-screen flex flex-col gap-9 px-10 pt-8 pb-2 md:gap-20;
 }
 
-.layout-header{
-    @apply flex w-full gap-3 md:gap-2 flex-row justify-between pb-5 md:pb-0
+.layout-header {
+  @apply flex w-full gap-3 md:gap-2 flex-row justify-between pb-5 md:pb-0;
 }
 
-.layout-home-link{
-    @apply text-sm md:text-xl lg:text-xl whitespace-nowrap mr-4 text-text
+.layout-home-link {
+  @apply text-sm md:text-xl lg:text-xl whitespace-nowrap mr-4 text-text;
 }
 
-.layout-nav{
-    @apply text-xs md:text-sm lg:text-sm custom-breadcrumbs text-text scrollbar-hide
+.layout-nav {
+  @apply text-xs md:text-sm lg:text-sm custom-breadcrumbs text-text scrollbar-hide;
 }
 
-.noscript{
-    background-color: #e8f4f8; 
-    color: #333; 
-    padding: 15px; 
-    top: 0; 
-    z-index: 1000;
-    display: flex; 
-    justify-content: space-between;
-    align-items: center;
-    transition: top 0.3s;
+.noscript {
+  background-color: #e8f4f8;
+  color: #333;
+  padding: 15px;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: top 0.3s;
 }

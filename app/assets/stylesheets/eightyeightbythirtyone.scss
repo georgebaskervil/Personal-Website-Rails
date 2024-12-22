@@ -1,20 +1,22 @@
-.eighty-main{
+.eighty-main {
   @apply container py-0 w-full;
 }
 
-.eighty-h1{
-   font-size: 2.5rem;
-   margin-bottom: 24px;
-   @apply text-4xl font-bold mb-4 text-text;
+.eighty-h1 {
+  font-size: 2.5rem;
+  margin-bottom: 24px;
+
+  @apply text-4xl font-bold mb-4 text-text;
 }
 
-.eighty-p{
-   margin-bottom: 16px;
-   @apply text-text;
+.eighty-p {
+  margin-bottom: 16px;
+
+  @apply text-text;
 }
 
-.eighty-link{
-   @apply text-accent no-underline hover:underline;
+.eighty-link {
+  @apply text-accent no-underline hover:underline;
 }
 
 .badge-grid {

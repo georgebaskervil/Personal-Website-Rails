@@ -47,11 +47,14 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
-  # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
-  # gem "rack-mini-profiler"
+  # Make the code actually look good
+  gem "rubocop-rails-omakase"
 
-  # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  # gem "spring"
+  # Lint ERB files
+  gem "erb_lint"
+
+  # Use the erb formatter to format ERB files
+  gem "erb-formatter", "~> 0.7.3"
 end
 
 group :test do
@@ -61,16 +64,16 @@ group :test do
 end
 
 # HTML compressor to minify HTML when sent to the client
-gem 'htmlcompressor', '~> 0.4.0'
+gem "htmlcompressor", "~> 0.4.0"
 
 # CSS Bundler to use PostCSS
-gem 'cssbundling-rails'
+gem "cssbundling-rails"
 
 # Rack-attack to rate-limit HTTP endpoints
-gem 'rack-attack'
+gem "rack-attack"
 
 # fly.io's dockerfile generator to generate a docker compose file for the site.
-gem "dockerfile-rails", ">= 1.6", :group => :development
+gem "dockerfile-rails", ">= 1.6", group: :development
 
 # sentry sdk to use glitchtip
 gem "sentry-ruby"

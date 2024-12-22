@@ -1,9 +1,9 @@
 * {
-  font-family: "SpaceMono", "SpaceMono-Compat", "SpaceMono-IE", "Courier-Modified";
+  font-family: SpaceMono, SpaceMono-Compat, SpaceMono-IE, Courier-Modified;
 }
 
 @font-face {
-  font-family: "Courier-Modified";
+  font-family: Courier-Modified;
   src: local("Courier");
   font-display: swap;
   font-size: 15px;
@@ -15,19 +15,19 @@
 }
 
 @font-face {
-  font-family: "SpaceMono-IE";
+  font-family: SpaceMono-IE;
   src: url("SpaceMono-Regular.eot") format("embedded-opentype");
   font-display: swap;
 }
 
 @font-face {
-  font-family: "SpaceMono-Compat";
+  font-family: SpaceMono-Compat;
   src: url("SpaceMono-Regular.woff") format("woff");
   font-display: swap;
 }
 
 @font-face {
-  font-family: "SpaceMono";
+  font-family: SpaceMono;
   src: url("SpaceMono-Regular.woff2") format("woff2");
   font-display: swap;
 }
@@ -36,7 +36,7 @@ html {
   background: #1a1b26;
 }
 
-.turbo-progress-bar{
+.turbo-progress-bar {
   background: $accent;
 }
 
@@ -76,11 +76,11 @@ html {
 }
 
 .custom-breadcrumbs > ul > li > a:focus-visible {
-  outline: 2px solid currentColor;
+  outline: 2px solid currentcolor;
   outline-offset: 2px;
 }
 
-.custom-breadcrumbs > ul > li + *:before {
+.custom-breadcrumbs > ul > li + *::before {
   content: "/";
   margin-left: 0.5rem /* 8px */;
   margin-right: 0.75rem /* 12px */;
@@ -89,6 +89,6 @@ html {
   background-color: transparent;
 }
 
-[dir="rtl"] .custom-breadcrumbs > ul > li + *:before {
+[dir="rtl"] .custom-breadcrumbs > ul > li + *::before {
   --tw-rotate: -180deg;
 }

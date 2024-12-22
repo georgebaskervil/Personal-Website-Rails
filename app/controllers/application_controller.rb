@@ -6,5 +6,4 @@ class ApplicationController < ActionController::Base
   def increment_HTTP_req_counter
     HttpReqCounter.first_or_create.increment!(:count)
   end
-  
 end

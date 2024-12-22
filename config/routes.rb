@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get "/posts", to: "posts#index"
+  get "/images", to: "images#index"
+  get "/legal", to: "legal#index"
+  get "/miscellaneous", to: "miscellaneous#index"
   get "/waveform", to: "waveform#index"
   get "/privacy", to: "privacy#index"
   get "/licensing", to: "licensing#index"
