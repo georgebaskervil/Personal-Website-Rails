@@ -15,7 +15,7 @@ module.exports = {
     comparisons: true,
     conditionals: true,
     dead_code: true,
-    drop_console: true,
+    drop_console: false,
     directives: true,
     evaluate: true,
     hoist_funs: true,
