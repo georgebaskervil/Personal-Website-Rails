@@ -11,8 +11,8 @@ gem "sprockets-rails"
 # Use SQLite 3 as the database for Active Record
 gem "sqlite3"
 
-# Use the Puma web server [https://github.com/puma/puma]
-gem "puma", ">= 5.0"
+# Use the falcon web server
+gem "falcon"
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
