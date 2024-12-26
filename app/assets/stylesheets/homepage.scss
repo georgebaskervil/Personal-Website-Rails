@@ -35,11 +35,15 @@
 }
 
 .hp-header {
-  @apply flex w-full flex-row justify-between gap-2;
+  @apply flex w-full flex-row justify-between gap-2 mb-4;
+}
+
+.hp-header-2 {
+  @apply flex w-full flex-row justify-between gap-2 mb-2;
 }
 
 .hp-h3 {
-  @apply text-lg pb-2 text-text;
+  @apply text-lg text-text;
 }
 
 .hp-small-link {
@@ -68,4 +72,8 @@
 
 .hp-proj-svg {
   @apply min-w-[28px] min-h-[28px];
+}
+
+.hp-image-grid-container {
+  @apply grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4;
 }

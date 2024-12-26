@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get "/posts", to: "posts#index"
+  get "/posts/:id", to: "posts#show", as: :post
   get "/images", to: "images#index"
   get "/legal", to: "legal#index"
   get "/miscellaneous", to: "miscellaneous#index"

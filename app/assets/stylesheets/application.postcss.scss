@@ -1,19 +1,16 @@
 @charset "UTF-8";
+
 /*scss normaliser*/
 @import "../../../node_modules/normalise.scss/normalise.scss";
 /*end scss normaliser*/
 
 /*import tailwind*/
 @import "tailwind.scss";
-/*import tailwind*/
+/*emd import tailwind*/
 
-/*import global items*/
-@import "lenis.scss";
+/*import variables*/
 @import "variables.scss";
-@import "globals.scss";
-@import "layout.scss";
-@import "icons.scss";
-/*end global items*/
+/*end import variables*/
 
 /*start individual style imports*/
 @import "avatar.scss";
@@ -24,9 +21,18 @@
 @import "eightyeightbythirtyone.scss";
 @import "homepage.scss";
 @import "layout.scss";
+@import "images.scss";
 @import "legal.scss";
 @import "licensing.scss";
 @import "miscellaneous.scss";
+@import "posts.scss";
 @import "privacy.scss";
 @import "waveform.scss";
 /*end invidiual imports*/
+
+/*import global items*/
+@import "globals.scss";
+@import "layout.scss";
+@import "icons.scss";
+@import "../../../node_modules/lenis/dist/lenis.css";
+/*end global items*/

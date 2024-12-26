@@ -1,10 +1,9 @@
-.image-container {
+.hp-image-container {
   overflow: hidden;
   border-radius: 10px;
   transition: transform 0.3s;
-  border-width: 2px;
 }
 
-.image-container:hover {
+.hp-image-container:hover {
   transform: scale(1.05);
 }

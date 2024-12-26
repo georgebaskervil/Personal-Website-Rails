@@ -92,3 +92,22 @@ html {
 [dir="rtl"] .custom-breadcrumbs > ul > li + *::before {
   --tw-rotate: -180deg;
 }
+
+.dl-link-box {
+  @apply bottom-0 text-left text-comet text-sm mt-0 mb-3;
+}
+
+.dl-link {
+  @apply hover:underline;
+}
+
+.emoji {
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  margin: 0 0.05em 0 0.1em;
+  vertical-align: -0.1em;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 1em 1em;
+}

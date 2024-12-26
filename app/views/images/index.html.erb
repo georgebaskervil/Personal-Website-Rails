@@ -1,2 +1,38 @@
-<h1>Images#index</h1>
-<p>Find me in app/views/images/index.html.erb</p>
+<h1 class="images-title">Latest Pictures:</h1>
+<p class="dl-link-box">
+  Images licensed under CC0 1.0 Universal. Download them on the
+  <a href="https://github.com/georgebaskervil/Personal-Website/tree/main/data/images" 
+    class="dl-link" target="_blank">GitHub repo</a>
+</p>
+
+<article class="images-container">
+  <section class="images-grid">
+    <% @images.each_with_index do |img, index| %>
+      <div class="image-container">
+          <% ext = File.extname(img) %>
+          <% base_name = File.basename(img, ext) %>
+          <a href="https://media.githubusercontent.com/media/georgebaskervil/Personal-Website/refs/heads/main/data/images/<%= base_name.sub(/^resized_/, '') + ext %>" target="_blank">
+            <picture>
+              <% if File.exist?(Rails.root.join("app/assets/photos/AVIFs", "#{base_name}.avif")) %>
+                <source srcset="<%= asset_path("AVIFs/#{base_name}.avif") %>" type="image/avif">
+              <% end %>
+              
+              <% if File.exist?(Rails.root.join("app/assets/photos/WebPs", "#{base_name}.webp")) %>
+                <source srcset="<%= asset_path("WebPs/#{base_name}.webp") %>" type="image/webp">
+              <% end %>
+              
+              <% if File.exist?(Rails.root.join("app/assets/photos/JXLs", "#{base_name}.jxl")) %>
+                <source srcset="<%= asset_path("JXLs/#{base_name}.jxl") %>" type="image/jxl">
+              <% end %>
+              <%= image_tag(
+                  img,
+                  loading: index < 20 ? "eager" : "lazy",
+                  decoding: index < 20 ? "sync" : "async",
+                  fetchpriority: index < 20 ? "high" : "low"
+                  ) %>
+            </picture>
+          </a>
+        </div>
+    <% end %>
+  </section>
+</article>

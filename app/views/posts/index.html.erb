@@ -1,2 +1,19 @@
-<h1>Posts#index</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
+<h1 class="posts-header">Latest Posts</h1>
+
+<p class="dl-link-box">
+  Articles licensed under CC0 1.0 Universal. Download them on the <a
+    href="https://github.com/georgebaskervil/Personal-Website/tree/main/data/articles"  
+    target="_blank">GitHub repo</a
+  >.
+</p>
+
+<section class="posts-section">
+  <% @all_posts.each do |article| %>
+    <div class="posts-card">
+      <h2 class="posts-title"><%= article[:title] %></h2>
+      <p class="posts-content"><%= article[:description] %></p>
+      <p class="posts-published-date">Published on <%= article[:published_at].strftime("%B %d, %Y") %></p>
+            <%= link_to "Read More", post_path(File.basename(article[:file_path], '.md')), class: "posts-read-more-link" %>
+    </div>
+  <% end %>
+</section>

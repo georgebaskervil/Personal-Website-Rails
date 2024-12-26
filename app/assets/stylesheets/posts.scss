@@ -1,0 +1,37 @@
+.posts-text {
+  @apply text-text;
+
+  margin-bottom: 16px;
+}
+
+.posts-header {
+  @apply text-4xl font-bold mb-2 text-text;
+}
+
+.posts-description {
+  @apply text-text mb-4;
+}
+
+.posts-section {
+  @apply grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
+}
+
+.posts-card {
+  @apply p-4 rounded-lg border border-neutral shadow-md hover:shadow-lg transition-shadow duration-300;
+}
+
+.posts-title {
+  @apply text-xl font-semibold mb-2 text-text;
+}
+
+.posts-published-date {
+  @apply text-comet text-sm mb-3;
+}
+
+.posts-read-more-link {
+  @apply text-accent hover:underline mt-4 inline-block;
+}
+
+.posts-content {
+  @apply text-text mb-3;
+}

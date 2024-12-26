@@ -18,13 +18,3 @@
 .l-link {
   @apply text-accent no-underline hover:underline;
 }
-
-.dl-link-box {
-  opacity: 0.4;
-
-  @apply bottom-0 text-left text-white text-sm mt-0 mb-3;
-}
-
-.dl-link {
-  @apply hover:underline;
-}
