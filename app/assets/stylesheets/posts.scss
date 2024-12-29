@@ -18,7 +18,12 @@
 
 .posts-card {
   @apply p-4 rounded-lg border border-neutral shadow-md hover:shadow-lg transition-shadow duration-300;
+  transition: transform 0.3s;
 }
+
+.posts-card:hover {
+  transform: scale(1.05);
+} 
 
 .posts-title {
   @apply text-xl font-semibold mb-2 text-text;

@@ -88,11 +88,13 @@ COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /rails /rails
 
 # Run and own only the runtime files as a non-root user for security
-RUN groupadd --system --gid 1000 rails && \
-    useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
+ARG UID=1000 \
+    GID=1000
+RUN groupadd -f -g $GID rails && \
+    useradd -u $UID -g $GID rails --create-home --shell /bin/bash && \
     mkdir /data && \
-    chown -R 1000:1000 db log storage tmp /data
-USER 1000:1000
+    chown -R rails:rails db log storage tmp /data
+USER rails:rails
 
 # Deployment options
 ENV DATABASE_URL="sqlite3:///data/production.sqlite3" \

@@ -1,6 +1,8 @@
 <article class="posts-article">
   <h1 class="posts-header"><%= @article[:title] %></h1>
   <p class="posts-description"><%= @article[:description] %></p>
-  <p class="posts-published-date">Published on <%= @article[:published_at].strftime("%B %d, %Y") %></p>
+  <p class="posts-published-date"> Articles licensed under CC0 1.0 Universal. Download them on the
+  <a href="https://github.com/georgebaskervil/Personal-Website/tree/main/data/images" 
+    class="dl-link" target="_blank">GitHub repo</a>. Published on <%= @article[:published_at].strftime("%B %d, %Y") %></p>
   <%= sanitize(@article[:content_html], tags: %w[h1 h2 h3 p strong em a ul ol li blockquote code img], attributes: %w[href src alt class]) %>
 </article>

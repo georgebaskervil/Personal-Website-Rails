@@ -10,3 +10,4 @@ config/credentials.yml.enc diff=rails_credentials
 /app/assets/emoji/** filter=lfs diff=lfs merge=lfs -text
 /app/assets/icons/** filter=lfs diff=lfs merge=lfs -text
 /app/assets/photos/** filter=lfs diff=lfs merge=lfs -text
+/app/assets/photos/** filter=lfs diff=lfs merge=lfs -text

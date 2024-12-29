@@ -9,11 +9,10 @@
 
 <section class="posts-section">
   <% @all_posts.each do |article| %>
-    <div class="posts-card">
-      <h2 class="posts-title"><%= article[:title] %></h2>
-      <p class="posts-content"><%= article[:description] %></p>
-      <p class="posts-published-date">Published on <%= article[:published_at].strftime("%B %d, %Y") %></p>
-            <%= link_to "Read More", post_path(File.basename(article[:file_path], '.md')), class: "posts-read-more-link" %>
-    </div>
+    <%= link_to post_path(File.basename(article[:file_path], '.md')), class: "posts-card" do %>
+          <h2 class="posts-title"><%= article[:title] %></h2>
+          <p class="posts-content"><%= article[:description] %></p>
+          <p class="posts-published-date">Published on <%= article[:published_at].strftime("%B %d, %Y") %></p>
+    <% end %>
   <% end %>
 </section>

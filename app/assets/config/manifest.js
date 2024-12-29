@@ -6,3 +6,4 @@
 //= link_tree ../articles
 //= link_tree ../photos
 //= link_tree ../emoji
+//= link_tree ../losslessphotos
