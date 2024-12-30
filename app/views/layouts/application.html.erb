@@ -7,35 +7,45 @@
     <link rel="dns-prefetch" href="analytics.geor.me">
     <link rel="preconnect" href="analytics.geor.me">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <link rel="preload" href="<%= asset_url('SpaceMono-Regular-subset.woff2') %>" as="font" type="font/woff2" crossorigin="anonymous">
+    <link
+      rel="preload"
+      href="<%= asset_url('SpaceMono-Regular-subset.woff2') %>"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    >
     <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
-    <script defer src="https://analytics.geor.me/script.js" data-website-id="b3efe222-2a56-4c2d-a2ce-211f7b6966cc"></script>
+    <script
+      defer
+      src="https://analytics.geor.me/script.js"
+      data-website-id="b3efe222-2a56-4c2d-a2ce-211f7b6966cc"
+    ></script>
     <!--SEO config Options. Will allow these to be configured from elsewhere at
     some point-->
-    <%
-    name = "George Baskerville's Personal Website"
+    <% name = "George Baskerville's Personal Website"
     page_name = "George Baskerville's Personal Website - Home"
-    description = "The personal website of George Baskerville, a software developer and student from the UK."
+    description =
+      "The personal website of George Baskerville, a software developer and student from the UK."
     keywords = "George Baskerville, George, Baskerville, geor.me"
-    preview_image = asset_url('site-screenshot.png')
-    preview_image_url = asset_url('site-screenshot.png')
+    preview_image = asset_url("site-screenshot.png")
+    preview_image_url = asset_url("site-screenshot.png")
     preview_image_type = "image/png"
     preview_image_width = "1435"
     preview_image_height = "780"
-    preview_image_alt = "A preview of the Homepage of George Baskerville's Personal Website"
+    preview_image_alt =
+      "A preview of the Homepage of George Baskerville's Personal Website"
     theme_color = "#1a1b26"
     url = "https://geor.me"
     domain = "geor.me"
     homepage = "https://geor.me/"
-    shortcut_icon = asset_url('favicon.jpg')
-    apple_touch_icon = asset_url('favicon.jpg')
+    shortcut_icon = asset_url("favicon.jpg")
+    apple_touch_icon = asset_url("favicon.jpg")
     locale = "en_GB"
     twitter_site = "@georgebaskervil"
     twitter_creator = "@georgebaskervil"
     windows7_tooltip = "Open George Baskerville's Personal Website"
     windows7_starturl = "/"
-    mastodon_link = "https://mastodon.social/@yourusername"
-    %>
+    mastodon_link = "https://mastodon.social/@yourusername" %>
     <!--Basic HTML metadata-->
     <meta charset="utf-8">
     <meta
@@ -54,7 +64,6 @@
     <link rel="home" href="<%= homepage %>">
     <link rel="shortcut icon" href="<%= shortcut_icon %>" type="image/x-icon">
     <link rel="apple-touch-icon" href="<%= apple_touch_icon %>" type="image/x-icon">
-
     <!--Schema.org metadata-->
     <script type="application/ld+json">
     {
@@ -95,7 +104,6 @@
     <meta property="og:image:alt" content="<%= preview_image_alt %>">
     <meta property="og:description" content="<%= description %>">
     <meta property="og:locale" content="<%= locale %>">
-
     <!--X/Twitter metadata-->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:domain" content="<%= domain %>">
@@ -106,7 +114,6 @@
     <meta name="twitter:image" content="<%= preview_image %>">
     <meta name="twitter:image:alt" content="<%= preview_image_alt %>">
     <meta name="twitter:url" content="<%= url %>">
-
     <!--Old windows pin-to-taskbar metadata-->
     <meta name="msapplication-tooltip" content="<%= windows7_tooltip %>">
     <meta name="msapplication-starturl" content="<%= windows7_starturl %>">
@@ -114,10 +121,8 @@
     <meta name="apple-mobile-web-app-capable" content="no">
     <meta name="apple-mobile-web-app-title" content="<%= name %>">
     <meta name="apple-mobile-web-app-status-bar-style" content="<%= theme_color %>">
-
     <!--Mastodoon and similar fedi metadata-->
     <link rel="me" href="<%= mastodon_link %>">
-
     <!--Some decently important security stuff, just matters that it's present,
     so we don't need to bother search engines by putting it at the top-->
     <%= csrf_meta_tags %>
@@ -128,92 +133,103 @@
     <noscript>
       <div class="noscript">
         <span>
-          I believe that JavaScript should be optional on the web, so while this site works best with JavaScript enabled, I've tried to make sure that it works with it disabled too.
+          I believe that JavaScript should be optional on the web, so while
+          this site works best with JavaScript enabled, I've tried to make sure
+          that it works with it disabled too.
         </span>
       </div>
     </noscript>
-      <aside class="drawer-container" role="complementary" data-controller="drawer">
-        <div class="drawer" aria-labelledby="drawer-title">
-          <div class="drawer-header">
-            <h2 id="drawer-title" class="drawer-title">CC-BY-4.0 Attribution</h2>
-            <button
-              class="drawer-toggle"
-              type="button"
-              data-action="drawer#toggle"
-              aria-label="Toggle drawer"
+    <aside class="drawer-container" role="complementary" data-controller="drawer">
+      <div class="drawer" aria-labelledby="drawer-title">
+        <div class="drawer-header">
+          <h2 id="drawer-title" class="drawer-title">CC-BY-4.0 Attribution</h2>
+          <button
+            class="drawer-toggle"
+            type="button"
+            data-action="drawer#toggle"
+            aria-label="Toggle drawer"
+          >
+            <img
+              src="<%= asset_path 'chevron-up.svg' %>"
+              class="drawer-icons"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+              draggable="false"
+              aria-hidden="true"
+              tabindex="-1"
+              data-drawer-target="icon"
             >
-              <img
-                src="<%= asset_path 'chevron-up.svg' %>"
-                class="drawer-icons"
-                loading="eager"
-                decoding="async"
-                fetchpriority="high"
-                draggable="false"
-                aria-hidden="true"
-                tabindex="-1"
-                data-drawer-target="icon"
-              >
-            </button>
-          </div>
-          <div class="drawer-contents" data-drawer-target="content">
-            <div class="drawer-content-container">
-              <div class="drawer-content">
-                <p>I ❤️ projects under open licenses and want to give
-                  credit to the projects that made this site possible. Currently, this only includes projects where attribution is a license requirement, but I have plans to expand it in the future.</p>
-                  <ul class="drawer-ul-spacing">
-                    <li class="drawer-li-spacing">
-                      #1:
-                      <a href="https://github.com/twitter/twemoji?tab=readme-ov-file" class="drawer-link">Libreverse-Twemoji (Graphics only)</a>
-                      modified from 
-                      <a href="https://github.com/twitter/twemoji?tab=readme-ov-file" class="drawer-link">Twemoji (Graphics only)</a>
-                      by
-                      <a href="https://x.com" class="drawer-link">X Corp</a>
-                      licensed under
-                      <a
-                        href="https://raw.githubusercontent.com/twitter/twemoji/refs/heads/master/LICENSE-GRAPHICS"
-                        class="drawer-link"
-                      >CC-BY-4.0</a>
-                  </li>
-                  <li class="drawer-li-spacing">
-                      #2:
-                      <a href="https://github.com/twitter/twemoji?tab=readme-ov-file" class="drawer-link">Angular Icons</a>
-                      by
-                      <a href="https://dennissnellenberg.com/" class="drawer-link">Dennis Snellenberg</a>
-                      licensed under
-                      <a
-                        href="https://creativecommons.org/licenses/by/3.0/"
-                        class="drawer-link"
-                      >CC-BY-3.0</a>
-                  </li>
-                </ul>
-                <p>Find out more <a href="credits" class="drawer-link">here</a>.</p>
-              </div>
+          </button>
+        </div>
+        <div class="drawer-contents" data-drawer-target="content">
+          <div class="drawer-content-container">
+            <div class="drawer-content">
+              <p>I ❤️ projects under open licenses and want to give credit to
+                the projects that made this site possible. Currently, this only
+                includes projects where attribution is a license requirement,
+                but I have plans to expand it in the future.</p>
+              <ul class="drawer-ul-spacing">
+                <li class="drawer-li-spacing">
+                  #1:
+                  <a
+                    href="https://github.com/twitter/twemoji?tab=readme-ov-file"
+                    class="drawer-link"
+                  >Libreverse-Twemoji (Graphics only)</a>
+                  modified from
+                  <a
+                    href="https://github.com/twitter/twemoji?tab=readme-ov-file"
+                    class="drawer-link"
+                  >Twemoji (Graphics only)</a>
+                  by
+                  <a href="https://x.com" class="drawer-link">X Corp</a>
+                  licensed under
+                  <a
+                    href="https://raw.githubusercontent.com/twitter/twemoji/refs/heads/master/LICENSE-GRAPHICS"
+                    class="drawer-link"
+                  >CC-BY-4.0</a>
+                </li>
+                <li class="drawer-li-spacing">
+                  #2:
+                  <a
+                    href="https://github.com/twitter/twemoji?tab=readme-ov-file"
+                    class="drawer-link"
+                  >Angular Icons</a>
+                  by
+                  <a href="https://dennissnellenberg.com/" class="drawer-link">Dennis Snellenberg</a>
+                  licensed under
+                  <a href="https://creativecommons.org/licenses/by/3.0/" class="drawer-link">CC-BY-3.0</a>
+                </li>
+              </ul>
+              <p>Find out more
+                <a href="credits" class="drawer-link">here</a>.</p>
             </div>
           </div>
         </div>
-      </aside>
-      <div class="layout-main">
-          <header class="layout-header">
-            <a href="/" class="layout-home-link">George Baskerville</a>
-            <nav class="layout-nav" data-controller="heading-highlight">
-            <ul>
-                <li><a data-heading-highlight-target="link" class="" href="/">Home</a></li>
-                <li><a data-heading-highlight-target="link" class="" href="/posts">Posts</a></li>
-                <li><a data-heading-highlight-target="link" class="" href="/images">Images</a></li>
-                <li><a data-heading-highlight-target="link" class="" href="/contact">Contact</a></li>
-                <li><a data-heading-highlight-target="link" class="" href="/data">Data</a></li>
-                <li><a data-heading-highlight-target="link" class="" href="/eightyeightbythirtyone">88x31</a></li>
-                <li><a data-heading-highlight-target="link" class="" href="/waveform">Waveform Viewer</a></li>
-                <li><a data-heading-highlight-target="link" class="" href="/miscellaneous">Miscellaneous</a></li>
-                <li><a data-heading-highlight-target="link" class="" href="/legal">Legal</a></li>
-            </ul>
-            </nav>
-          </header>
-          <div class="flex-grow">
-              <main>
-                  <%= yield %>
-              </main>
-          </div>
       </div>
+    </aside>
+    <div class="layout-main">
+      <header class="layout-header">
+        <a href="/" class="layout-home-link">George Baskerville</a>
+        <nav class="layout-nav" data-controller="heading-highlight">
+          <ul>
+            <li><a data-heading-highlight-target="link" class="" href="/">Home</a></li>
+            <li><a data-heading-highlight-target="link" class="" href="/posts">Posts</a></li>
+            <li><a data-heading-highlight-target="link" class="" href="/images">Images</a></li>
+            <li><a data-heading-highlight-target="link" class="" href="/contact">Contact</a></li>
+            <li><a data-heading-highlight-target="link" class="" href="/data">Data</a></li>
+            <li><a data-heading-highlight-target="link" class="" href="/eightyeightbythirtyone">88x31</a></li>
+            <li><a data-heading-highlight-target="link" class="" href="/waveform">Waveform Viewer</a></li>
+            <li><a data-heading-highlight-target="link" class="" href="/miscellaneous">Miscellaneous</a></li>
+            <li><a data-heading-highlight-target="link" class="" href="/legal">Legal</a></li>
+          </ul>
+        </nav>
+      </header>
+      <div class="flex-grow">
+        <main>
+          <%= yield %>
+        </main>
+      </div>
+    </div>
   </body>
 </html>

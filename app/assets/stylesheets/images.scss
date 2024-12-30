@@ -18,6 +18,7 @@
   @apply relative flex justify-center items-center overflow-hidden;
   @apply transition-all duration-300 ease-in-out; /* Changed from transition-transform to transition-all */
   @apply w-full;
+
   aspect-ratio: 3 / 2;
 
   img {

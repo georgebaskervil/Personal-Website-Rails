@@ -1,6 +1,7 @@
 const path = require("node:path");
 const webpack = require("webpack");
 const TerserPlugin = require("terser-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: "production",
@@ -48,6 +49,27 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              url: false,
+            },
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                config: path.resolve(__dirname, "postcss.config.js"),
+              },
+            },
+          },
+          "sass-loader",
+        ],
+      },
       // ...other rules...
     ],
   },
@@ -56,6 +78,7 @@ module.exports = {
     minimizer: [
       new TerserPlugin({
         terserOptions: require("./terser.config.js"),
+        extractComments: false,
       }),
     ],
   },
@@ -63,8 +86,11 @@ module.exports = {
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1,
     }),
+    new MiniCssExtractPlugin({
+      filename: "application.css",
+    }),
   ],
   resolve: {
-    extensions: [".js", ".coffee"], // Ensure Webpack resolves .coffee files
+    extensions: [".js", ".coffee", ".scss"], // Ensure Webpack resolves .coffee and .scss files
   },
 };

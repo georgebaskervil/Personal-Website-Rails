@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+/* scss normaliser */
+@import "../../../node_modules/normalise.scss/normalise";
+
+/* end scss normaliser */
+
+/* import tailwind */
+@import "tailwind";
+
+/* emd import tailwind */
+
+/* import variables */
+@import "variables";
+
+/* end import variables */
+
+/* start individual style imports */
+@import "avatar";
+@import "contact";
+@import "credits";
+@import "data";
+@import "dmca";
+@import "eightyeightbythirtyone";
+@import "homepage";
+@import "images";
+@import "legal";
+@import "licensing";
+@import "miscellaneous";
+@import "posts";
+@import "privacy";
+@import "waveform";
+
+/* end invidiual imports */
+
+/* import global items */
+@import "globals";
+@import "layout";
+@import "../../../node_modules/lenis/dist/lenis.css";
+
+/* end global items */

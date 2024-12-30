@@ -1,5 +1,4 @@
 #!/usr/bin/env -S falcon host
-# frozen_string_literal: true
 
 load :rack
 

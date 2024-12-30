@@ -1,11 +1,13 @@
 .posts-text {
   @apply text-neutral;
+
   margin-bottom: 16px;
   font-size: 2rem;
 }
 
 .posts-header {
   @apply text-4xl font-bold mb-2 text-neutral;
+
   font-size: 4.97rem;
 }
 
@@ -15,6 +17,7 @@
 
 .posts-description {
   @apply text-neutral mb-4;
+
   font-size: 1.75rem;
 }
 
@@ -25,6 +28,7 @@
 .posts-card {
   @apply p-4 rounded-lg border border-neutral shadow-md;
   @apply transition-all duration-300 ease-in-out; /* Changed for consistent behavior */
+
   background-color: $background-colour;
   opacity: 1;
   z-index: 1;
@@ -50,6 +54,7 @@
 
 .posts-published-date {
   @apply text-neutral;
+
   font-size: 1.5rem;
 }
 
@@ -79,7 +84,9 @@
   background-repeat: repeat-y;
   background-size: 100% auto;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 4px 8px rgb(0 0 0 / 20%),
+    0 6px 20px rgb(0 0 0 / 10%);
   position: relative;
 
   &::before,
@@ -114,5 +121,5 @@
 }
 
 .posts-article {
-  font-family: WaitingfortheSunrise-Regular-subset;
+  font-family: WaitingfortheSunrise-Regular-subset, cursive;
 }

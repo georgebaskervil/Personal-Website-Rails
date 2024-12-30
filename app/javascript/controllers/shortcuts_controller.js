@@ -1,6 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
 import { useHotkeys } from "stimulus-use/hotkeys";
-import { visit } from "@hotwired/turbo";
 
 export default class extends Controller {
   static targets = [];
@@ -32,63 +31,63 @@ export default class extends Controller {
   goHome(event) {
     event.preventDefault();
     if (globalThis.location.pathname !== "/") {
-      visit("/");
+      globalThis.Turbo.visit("/");
     }
   }
 
   goPosts(event) {
     event.preventDefault();
     if (globalThis.location.pathname !== "/posts") {
-      visit("/posts");
+      globalThis.Turbo.visit("/posts");
     }
   }
 
   goImages(event) {
     event.preventDefault();
     if (globalThis.location.pathname !== "/images") {
-      visit("/images");
+      globalThis.Turbo.visit("/images");
     }
   }
 
   goContact(event) {
     event.preventDefault();
     if (globalThis.location.pathname !== "/contact") {
-      visit("/contact");
+      globalThis.Turbo.visit("/contact");
     }
   }
 
   goData(event) {
     event.preventDefault();
     if (globalThis.location.pathname !== "/data") {
-      visit("/data");
+      globalThis.Turbo.visit("/data");
     }
   }
 
   go88x31(event) {
     event.preventDefault();
     if (globalThis.location.pathname !== "/eightyeightbythirtyone") {
-      visit("/eightyeightbythirtyone");
+      globalThis.Turbo.visit("/eightyeightbythirtyone");
     }
   }
 
   goWaveformViewer(event) {
     event.preventDefault();
     if (globalThis.location.pathname !== "/waveform") {
-      visit("/waveform");
+      globalThis.Turbo.visit("/waveform");
     }
   }
 
   goMiscellaneous(event) {
     event.preventDefault();
     if (globalThis.location.pathname !== "/miscellaneous") {
-      visit("/miscellaneous");
+      globalThis.Turbo.visit("/miscellaneous");
     }
   }
 
   goLegal(event) {
     event.preventDefault();
     if (globalThis.location.pathname !== "/legal") {
-      visit("/legal");
+      globalThis.Turbo.visit("/legal");
     }
   }
 }

@@ -20,6 +20,7 @@ export default [
       "**/node_modules/",
       "**/vendor/",
       "**/tmp/",
+      "**.config.js",
     ],
   },
   ...compat.extends(
@@ -45,6 +46,7 @@ export default [
     rules: {
       "unicorn/filename-case": "off",
       "unicorn/no-anonymous-default-export": "off",
+      "unicorn/no-empty-file": "off",
     },
   },
 ];

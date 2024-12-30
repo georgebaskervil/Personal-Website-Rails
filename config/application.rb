@@ -25,12 +25,12 @@ module PersonalWebsiteRailsWebpack
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Add a fonts directory to the rails assets pipeline
-    config.assets.paths << Rails.root.join("app", "assets", "fonts")
+    config.assets.paths << Rails.root.join("app/assets/fonts")
 
     # Add an icons directory to the rails assets pipeline
-    config.assets.paths << Rails.root.join("app", "assets", "icons")
+    config.assets.paths << Rails.root.join("app/assets/icons")
 
     # Add an 88x31 badges directory to the rails assets pipeline
-    config.assets.paths << Rails.root.join("app", "assets", "88x31")
+    config.assets.paths << Rails.root.join("app/assets/88x31")
   end
 end

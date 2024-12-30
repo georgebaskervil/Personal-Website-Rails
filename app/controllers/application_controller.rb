@@ -2,7 +2,7 @@ require "nokogiri"
 require "kramdown"
 require "yaml"
 require "digest"
-require "date"  # Added to handle Date parsing
+require "date" # Added to handle Date parsing
 
 class ApplicationController < ActionController::Base
   before_action :increment_HTTP_req_counter
@@ -13,16 +13,18 @@ class ApplicationController < ActionController::Base
   before_action :set_article, only: [ :show ]
 
   def show
-    if @article.nil?
+    return unless @article.nil?
+
       Rails.logger.warn "Article not found with identifier: #{params[:id]}"
       render plain: "Article not found", status: :not_found
-    end
   end
 
   private
 
   def increment_HTTP_req_counter
-    HttpReqCounter.first_or_create.increment!(:count)
+    counter = HttpReqCounter.first_or_create
+    counter.increment(:count)
+    counter.save!
   end
 
   def load_images
@@ -33,7 +35,7 @@ class ApplicationController < ActionController::Base
 
     @images = Rails.cache.fetch(images_cache_key) do
       glob_pattern = Rails.root.join("app/assets/photos/JPGs/**/*.JPG")
-      Rails.logger.debug "Glob pattern: #{glob_pattern}"
+      Rails.logger.debug { "Glob pattern: #{glob_pattern}" }
 
       photos_dir = Rails.root.join("app/assets/photos/JPGs")
       unless Dir.exist?(photos_dir)
@@ -42,17 +44,17 @@ class ApplicationController < ActionController::Base
       end
 
       files = Dir.glob(glob_pattern)
-      Rails.logger.debug "Files found: #{files.size}"
-      Rails.logger.debug "Files: #{files.join(', ')}"
+      Rails.logger.debug { "Files found: #{files.size}" }
+      Rails.logger.debug { "Files: #{files.join(', ')}" }
 
       mapped_files = files.map { |f| f.sub(%r{.*app/assets/photos/}, "") }
-      Rails.logger.debug "Mapped files count: #{mapped_files.size}"
-      Rails.logger.debug "Mapped files: #{mapped_files.join(', ')}"
+      Rails.logger.debug { "Mapped files count: #{mapped_files.size}" }
+      Rails.logger.debug { "Mapped files: #{mapped_files.join(', ')}" }
 
       mapped_files
     end
 
-    Rails.logger.debug "Total images to display: #{@images.size}"
+    Rails.logger.debug { "Total images to display: #{@images.size}" }
   end
 
   def load_articles
@@ -63,7 +65,7 @@ class ApplicationController < ActionController::Base
 
     @articles = Rails.cache.fetch(articles_cache_key) do
       articles_glob = Rails.root.join("app/assets/articles/**/*.md")
-      Rails.logger.debug "Articles glob pattern: #{articles_glob}"
+      Rails.logger.debug { "Articles glob pattern: #{articles_glob}" }
 
       articles_dir = Rails.root.join("app/assets/articles")
       unless Dir.exist?(articles_dir)
@@ -72,8 +74,8 @@ class ApplicationController < ActionController::Base
       end
 
       article_files = Dir.glob(articles_glob)
-      Rails.logger.debug "Article files found: #{article_files.size}"
-      Rails.logger.debug "Article files: #{article_files.join(', ')}"
+      Rails.logger.debug { "Article files found: #{article_files.size}" }
+      Rails.logger.debug { "Article files: #{article_files.join(', ')}" }
 
       articles = article_files.map do |file|
         content = File.read(file)
@@ -84,17 +86,17 @@ class ApplicationController < ActionController::Base
           body = parts[2]
 
           begin
-            metadata = YAML.safe_load(front_matter, permitted_classes: [ Date ])  # Updated safe_load with permitted_classes
+            metadata = YAML.safe_load(front_matter, permitted_classes: [ Date ]) # Updated safe_load with permitted_classes
 
             {
               title: metadata["title"],
               description: metadata["description"],
-              published_at: metadata["publishedAt"],  # Directly use the Date object
+              published_at: metadata["publishedAt"], # Directly use the Date object
               content_html: Nokogiri::HTML::DocumentFragment.parse(Kramdown::Document.new(body).to_html).tap do |doc|
                 doc.traverse do |node|
                   if node.element?
                     existing_classes = node["class"] || ""
-                    node["class"] = (existing_classes.split(" ") + [ "posts-text" ]).uniq.join(" ")
+                    node["class"] = (existing_classes.split + [ "posts-text" ]).uniq.join(" ")
                   end
                 end
               end.to_html,
@@ -114,7 +116,7 @@ class ApplicationController < ActionController::Base
       articles.sort_by { |article| article[:published_at] }.reverse
     end
 
-    Rails.logger.debug "Total articles to display: #{@articles.size}"
+    Rails.logger.debug { "Total articles to display: #{@articles.size}" }
   end
 
   def set_article
@@ -134,18 +136,16 @@ class ApplicationController < ActionController::Base
 
   # Generates a checksum based on the filenames and their last modified times
   def images_checksum
-    files = Dir[Rails.root.join("app/assets/photos/JPGs/**/*.JPG")]
-    checksum = Digest::MD5.hexdigest(
+    files = Rails.root.glob("app/assets/photos/JPGs/**/*.JPG")
+    Digest::MD5.hexdigest(
       files.sort.map { |f| "#{f}:#{File.mtime(f).to_i}" }.join("|")
     )
-    checksum
   end
 
   def articles_checksum
-    files = Dir[Rails.root.join("app/assets/articles/**/*.md")]
-    checksum = Digest::MD5.hexdigest(
+    files = Rails.root.glob("app/assets/articles/**/*.md")
+    Digest::MD5.hexdigest(
       files.sort.map { |f| "#{f}:#{File.mtime(f).to_i}" }.join("|")
     )
-    checksum
   end
 end

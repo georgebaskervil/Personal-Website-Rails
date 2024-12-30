@@ -1,23 +1,27 @@
 html {
-  font-family: SpaceMono-Regular-subset;
+  font-family: SpaceMono-Regular-subset, monospace;
   background: #1a1b26;
 }
 
 @font-face {
-  font-family: 'SpaceMono-Regular-subset';
-  src: url(SpaceMono-Regular-subset.woff2) format('woff2'),
-       url(SpaceMono-Regular-subset.woff) format('woff'),
-       url(SpaceMono-Regular-subset.eot?#iefix) format('embedded-opentype'),
-       url(SpaceMono-Regular-subset.svg#SpaceMono-Regular-subset) format('svg');
+  font-family: SpaceMono-Regular-subset;
+  src:
+    url("SpaceMono-Regular-subset.woff2") format("woff2"),
+    url("SpaceMono-Regular-subset.woff") format("woff"),
+    url("SpaceMono-Regular-subset.eot?#iefix") format("embedded-opentype"),
+    url("SpaceMono-Regular-subset.svg#SpaceMono-Regular-subset") format("svg");
   font-display: block;
 }
 
 @font-face {
-  font-family: 'WaitingfortheSunrise-Regular-subset';
-  src: url(WaitingfortheSunrise-Regular-subset.woff2) format('woff2'),
-       url(WaitingfortheSunrise-Regular-subset.woff) format('woff'),
-       url(WaitingfortheSunrise-Regular-subset.eot?#iefix) format('embedded-opentype'),
-       url(WaitingfortheSunrise-Regular-subset.svg#WaitingfortheSunrise-Regular-subset) format('svg');
+  font-family: WaitingfortheSunrise-Regular-subset;
+  src:
+    url("WaitingfortheSunrise-Regular-subset.woff2") format("woff2"),
+    url("WaitingfortheSunrise-Regular-subset.woff") format("woff"),
+    url("WaitingfortheSunrise-Regular-subset.eot?#iefix")
+      format("embedded-opentype"),
+    url("WaitingfortheSunrise-Regular-subset.svg#WaitingfortheSunrise-Regular-subset")
+      format("svg");
   font-display: block;
 }
 
@@ -129,7 +133,9 @@ body {
   border-radius: 0.5rem 0.5rem 0 0;
   overflow: hidden;
   z-index: 3;
-  transition: height 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    height 0.3s ease,
+    box-shadow 0.3s ease;
   flex-direction: column;
 }
 

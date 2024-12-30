@@ -15,7 +15,7 @@ export default class extends Controller {
     });
   }
 
-  singleKeyHandler(e) {
+  singleKeyHandler() {
     this.element.querySelector(".drawer").classList.toggle("drawer-expanded");
     this.iconTarget.classList.toggle("rotated");
     this.contentTarget.classList.toggle("visible");

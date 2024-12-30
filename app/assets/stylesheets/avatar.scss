@@ -1,7 +1,9 @@
 .hp-image-container {
   overflow: hidden;
   border-radius: 10px;
+
   @apply transition-all duration-300 ease-in-out; /* Changed for consistent behavior */
+
   opacity: 1;
   z-index: 1;
 
