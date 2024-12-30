@@ -11,7 +11,7 @@
       <div class="image-container">
           <% ext = File.extname(img) %>
           <% base_name = File.basename(img, ext) %>
-          <a href="https://media.githubusercontent.com/media/georgebaskervil/Personal-Website/refs/heads/main/data/images/<%= base_name.sub(/^resized_/, '') + ext %>" target="_blank">
+          <a href="<%= asset_path(base_name.sub(/^resized_/, '') + ext) %>" target="_blank">
             <picture>
               <% if File.exist?(Rails.root.join("app/assets/photos/AVIFs", "#{base_name}.avif")) %>
                 <source srcset="<%= asset_path("AVIFs/#{base_name}.avif") %>" type="image/avif">

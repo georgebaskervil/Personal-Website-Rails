@@ -51,7 +51,7 @@
         <a href="https://github.com/Libreverse/Libreverse/" target="_blank" rel="noreferrer">
           <div class="hp-proj-internals">
             <p class="hp-proj-title">Libreverse</p>
-            <%= image_tag("arrow.svg", loading: "eager", decoding: "sync", fetchpriority: "high", class:"hp-proj-svg") %>
+            <%= image_tag("arrow-up-right.svg", width: "30", height: "30", loading: "eager", decoding: "sync", fetchpriority: "high", class:"hp-proj-svg") %>
           </div>
           <div class="hp-proj-desc">The open-source metaverse.</div>
         </a>
@@ -63,7 +63,7 @@
             <p class="hp-proj-title">
               Personal Website Rails Port
             </p>
-            <%= image_tag("arrow.svg", loading: "eager", decoding: "sync", fetchpriority: "high", class:"hp-proj-svg") %>
+            <%= image_tag("arrow-up-right.svg", width: "30", height: "30", loading: "eager", decoding: "sync", fetchpriority: "high", class:"hp-proj-svg") %>
           </div>
           <div class="hp-proj-desc">
             My personal website ported to Ruby on Rails.
@@ -77,7 +77,7 @@
             <p class="hp-proj-title">
               Personal Website
             </p>
-            <%= image_tag("arrow.svg", loading: "eager", decoding: "sync", fetchpriority: "high", class:"hp-proj-svg") %>
+            <%= image_tag("arrow-up-right.svg", width: "30", height: "30", loading: "eager", decoding: "sync", fetchpriority: "high", class:"hp-proj-svg") %>
           </div>
           <div class="hp-proj-desc">
             My personal website built with Astro, TypeScript, and
@@ -92,7 +92,7 @@
             <p class="hp-proj-title">
               DNS Filterlists
             </p>
-            <%= image_tag("arrow.svg", loading: "eager", decoding: "sync", fetchpriority: "high", class:"hp-proj-svg") %>
+            <%= image_tag("arrow-up-right.svg", width: "30", height: "30", loading: "eager", decoding: "sync", fetchpriority: "high", class:"hp-proj-svg") %>
           </div>
           <div class="hp-proj-desc">
             A collection of DNS filterlists intended for use with
@@ -107,7 +107,7 @@
             <p class="hp-proj-title">
               Libreverse Website
             </p>
-            <%= image_tag("arrow.svg", loading: "eager", decoding: "sync", fetchpriority: "high", class:"hp-proj-svg") %>
+            <%= image_tag("arrow-up-right.svg", width: "30", height: "30", loading: "eager", decoding: "sync", fetchpriority: "high", class:"hp-proj-svg") %>
           </div>
           <div class="hp-proj-desc">
             The website for the libreverse.
@@ -121,7 +121,7 @@
             <p class="hp-proj-title">
               core-js-custom
             </p>
-            <%= image_tag("arrow.svg", loading: "eager", decoding: "sync", fetchpriority: "high", class:"hp-proj-svg") %>
+            <%= image_tag("arrow-up-right.svg", width: "30", height: "30", loading: "eager", decoding: "sync", fetchpriority: "high", class:"hp-proj-svg") %>
           </div>
           <div class="hp-proj-desc">
             A custom version of core-js made for Libreverse.
@@ -135,7 +135,7 @@
             <p class="hp-proj-title">
               twemoji-tweaked
             </p>
-            <%= image_tag("arrow.svg", loading: "eager", decoding: "sync", fetchpriority: "high", class:"hp-proj-svg") %>
+            <%= image_tag("arrow-up-right.svg", width: "30", height: "30", loading: "eager", decoding: "sync", fetchpriority: "high", class:"hp-proj-svg") %>
           </div>
           <div class="hp-proj-desc">
             A custom version of twemoji merging some pull requests and adding some new features.
@@ -149,7 +149,7 @@
             <p class="hp-proj-title">
               And more to come...
             </p>
-            <%= image_tag("arrow.svg", loading: "eager", decoding: "sync", fetchpriority: "high", class:"hp-proj-svg") %>
+            <%= image_tag("arrow-up-right.svg", width: "30", height: "30", loading: "eager", decoding: "sync", fetchpriority: "high", class:"hp-proj-svg") %>
           </div>
           <div class="hp-proj-desc">
             I'm always working on new projects! You can find them on my GitHub.
@@ -211,7 +211,7 @@
         <%= link_to post_path(File.basename(article[:file_path], '.md')), class: "posts-card" do %>
           <h2 class="posts-title"><%= article[:title] %></h2>
           <p class="posts-content"><%= article[:description] %></p>
-          <p class="posts-published-date">Published on <%= article[:published_at].strftime("%B %d, %Y") %></p>
+          <p class="posts-published-date-card-ver">Published on <%= article[:published_at].strftime("%B %d, %Y") %></p>
         <% end %>
       <% end %>
     </section>

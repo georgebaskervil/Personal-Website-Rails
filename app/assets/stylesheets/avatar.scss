@@ -1,9 +1,20 @@
 .hp-image-container {
   overflow: hidden;
   border-radius: 10px;
-  transition: transform 0.3s;
-}
+  @apply transition-all duration-300 ease-in-out; /* Changed for consistent behavior */
+  opacity: 1;
+  z-index: 1;
 
-.hp-image-container:hover {
-  transform: scale(1.05);
+  &:hover {
+    transform: rotate(5deg) scale(1.2);
+    z-index: 2;
+    opacity: 1;
+    box-shadow: $box-shadow; /* Assuming $box-shadow is defined elsewhere */
+  }
+
+  &:not(:hover) {
+    transform: rotate(0deg) scale(1);
+    z-index: 1;
+    opacity: 1;
+  }
 }

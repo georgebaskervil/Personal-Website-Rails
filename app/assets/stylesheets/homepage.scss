@@ -55,7 +55,25 @@
 }
 
 .hp-proj-div {
-  @apply p-4 rounded-lg border border-neutral shadow-md hover:scale-105 transition-transform duration-300;
+  @apply p-4 rounded-lg border border-neutral shadow-md;
+  @apply transition-all duration-300 ease-in-out;
+  @apply w-full;
+  background-color: $background-colour;
+  opacity: 1;
+  z-index: 1;
+
+  &:hover {
+    transform: rotate(5deg) scale(1.2); /* Adjusted scale to match your design */
+    z-index: 2;
+    opacity: 1;
+    box-shadow: $box-shadow; /* Assuming $box-shadow is defined elsewhere */
+  }
+
+  &:not(:hover) {
+    transform: rotate(0deg) scale(1);
+    z-index: 1;
+    opacity: 1;
+  }
 }
 
 .hp-proj-internals {
