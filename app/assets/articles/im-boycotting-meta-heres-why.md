@@ -26,4 +26,4 @@ I think Meta can be compared to a misbehaving child. If we as the parents choose
 
 It's time for us to change our parenting style, and it starts with each one of us.
 
-That's why I'm boycotting Meta.
+I'm boycotting Meta. Are you?
