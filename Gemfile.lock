@@ -149,7 +149,7 @@ GEM
       rubocop (>= 1)
       smart_properties
     erubi (1.13.1)
-    falcon (0.48.3)
+    falcon (0.48.4)
       async
       async-container (~> 0.18)
       async-http (~> 0.75)
