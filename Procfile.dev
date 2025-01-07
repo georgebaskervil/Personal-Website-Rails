@@ -1,2 +1,2 @@
 falcon: bin/rails server
-webpack: yarn frontend-build --watch
+webpack: bun frontend-build --watch

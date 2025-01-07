@@ -1,7 +1,7 @@
 # lib/tasks/webpack.rake
 namespace :assets do
   task run_webpack: :environment do
-    sh "yarn frontend-build"
+    sh "bun frontend-build"
   end
 end
 

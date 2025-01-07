@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "/doomdisclaimer", to: "doomdisclaimer#index"
   get "/posts", to: "posts#index"
   get "/posts/:id", to: "posts#show", as: :post
   get "/images", to: "images#index"

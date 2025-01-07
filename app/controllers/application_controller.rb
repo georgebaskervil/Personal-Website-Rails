@@ -5,6 +5,7 @@ require "digest"
 require "date" # Added to handle Date parsing
 
 class ApplicationController < ActionController::Base
+  before_action :set_cache_headers # Add this line at the top of before_actions
   before_action :increment_HTTP_req_counter
   before_action :load_images
   before_action :load_articles
@@ -20,6 +21,11 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def set_cache_headers
+    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+  end
 
   def increment_HTTP_req_counter
     counter = HttpReqCounter.first_or_create

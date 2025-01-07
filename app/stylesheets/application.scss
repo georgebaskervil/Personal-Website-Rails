@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+/* scss normaliser */
+@import "../../node_modules/normalise.scss/normalise";
+@import "../../node_modules/locomotive-scroll/dist/locomotive-scroll.css";
+
+/* end scss normaliser */
+
+/* import tailwind */
+@import "tailwind";
+
+/* emd import tailwind */
+
+/* import variables */
+@import "variables";
+
+/* end import variables */
+
+/* start individual style imports */
+@import "avatar";
+@import "contact";
+@import "credits";
+@import "data";
+@import "dmca";
+@import "doomdisclaimer";
+@import "eightyeightbythirtyone";
+@import "homepage";
+@import "images";
+@import "legal";
+@import "licensing";
+@import "miscellaneous";
+@import "posts";
+@import "privacy";
+@import "waveform";
+
+/* end invidiual imports */
+
+/* import global items */
+@import "footer";
+@import "globals";
+@import "layout";
+
+/* end global items */

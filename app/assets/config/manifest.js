@@ -7,3 +7,5 @@
 //= link_tree ../photos
 //= link_tree ../emoji
 //= link_tree ../losslessphotos
+//= link_tree ../videos
+//= link_tree ../files

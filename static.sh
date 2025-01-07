@@ -45,22 +45,22 @@ erb-format app/views/**/*.html.erb --write
 echo "====================="
 echo "eslint results"
 echo "====================="
-yarn eslint . --fix
+bun eslint . --fix
 
 echo "====================="
 echo "Stylelint results"
 echo "====================="
-yarn stylelint "**/*.scss" --fix
+bun stylelint "**/*.scss" --fix
 
 echo "====================="
 echo "markdownlint results"
 echo "====================="
-yarn markdownlint-cli2 '**/*.md' '!**/node_modules/**' '!**/licenses/**' --fix --config .markdownlint.json
+bun markdownlint-cli2 '**/*.md' '!**/node_modules/**' '!**/licenses/**' --fix --config .markdownlint.json
 
 echo "====================="
 echo "Prettier results"
 echo "====================="
-yarn prettier --write . | grep -v "unchanged"
+bun prettier --write . | grep -v "unchanged"
 
 echo "====================="
 echo "Brakeman results"

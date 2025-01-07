@@ -80,7 +80,7 @@ class EmojiReplacer
       return emoji
     end
 
-    img_tag = %(<img src="#{svg_path}" alt="#{emoji}" class="emoji" loading="lazy" decoding="async" fetchpriority="low" draggable="false" tabindex="”-1”">)
+    img_tag = %(<img src="#{svg_path}" alt="#{emoji}" class="emoji" loading="eager" decoding="async" fetchpriority="low" draggable="false" tabindex="”-1”">)
     Rails.logger.debug { "EmojiReplacer: Built img tag for emoji '#{emoji}': #{img_tag}" }
     img_tag
   rescue StandardError => e

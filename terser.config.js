@@ -34,7 +34,7 @@ module.exports = {
     unused: true, // Drop unused variables and functions
   },
   output: {
-    comments: /(?:copyright|©)/i,
+    comments: /(?:copyright|licence|©)/i,
     beautify: false,
     semicolons: true,
   },

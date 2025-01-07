@@ -23,14 +23,30 @@ module PersonalWebsiteRailsWebpack
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    
+     # Configure the asset pipeline
+     config.assets.enabled = true
 
-    # Add a fonts directory to the rails assets pipeline
-    config.assets.paths << Rails.root.join("app/assets/fonts")
-
-    # Add an icons directory to the rails assets pipeline
-    config.assets.paths << Rails.root.join("app/assets/icons")
-
-    # Add an 88x31 badges directory to the rails assets pipeline
-    config.assets.paths << Rails.root.join("app/assets/88x31")
+     # Disable GZIP compression for assets
+     config.assets.gzip = false
+ 
+     # Disable fingerprinting (asset digest)
+     config.assets.digest = true
+ 
+     # Specify additional paths where Rails should look for assets
+     config.assets.paths << Rails.root.join('app', 'assets', '88x31')
+     config.assets.paths << Rails.root.join('app', 'assets', 'icons')
+     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+     config.assets.paths << Rails.root.join('app', 'assets', 'images')
+     config.assets.paths << Rails.root.join('app', 'assets', 'builds')
+     config.assets.paths << Rails.root.join('app', 'assets', 'articles')
+     config.assets.paths << Rails.root.join('app', 'assets', 'photos')
+     config.assets.paths << Rails.root.join('app', 'assets', 'emoji')
+     config.assets.paths << Rails.root.join('app', 'assets', 'losslessphotos')
+     config.assets.paths << Rails.root.join('app', 'assets', 'videos')
+     config.assets.paths << Rails.root.join('app', 'assets', 'files')
+ 
+     # Precompile additional assets. 
+     config.assets.precompile += %w( *.png *.JPG *.gif *.svg *.eot *.woff *.woff2 *.ttf *.md *.css *.js *.jsdos *.wasm *.webp *.avif *.jxl *.m3u8 *.ts)
   end
 end

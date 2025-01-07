@@ -1,0 +1,524 @@
+html {
+  font-family: SpaceMono-Regular-subset, monospace;
+  background: #1a1b26;
+}
+
+@font-face {
+  font-family: SpaceMono-Regular-subset;
+  src: url("SpaceMono-Regular-subset.eot");
+  src:
+    url("SpaceMono-Regular-subset.woff2") format("woff2"),
+    url("SpaceMono-Regular-subset.woff") format("woff"),
+    url("SpaceMono-Regular-subset.eot?#iefix") format("embedded-opentype"),
+    url("SpaceMono-Regular-subset.svg#SpaceMono-Regular-subset") format("svg");
+  font-display: block;
+}
+
+@font-face {
+  font-family: WaitingfortheSunrise-Regular-subset;
+  src: url("WaitingfortheSunrise-Regular-subset.eot");
+  src:
+    url("WaitingfortheSunrise-Regular-subset.woff2") format("woff2"),
+    url("WaitingfortheSunrise-Regular-subset.woff") format("woff"),
+    url("WaitingfortheSunrise-Regular-subset.eot?#iefix")
+      format("embedded-opentype"),
+    url("WaitingfortheSunrise-Regular-subset.svg#WaitingfortheSunrise-Regular-subset")
+      format("svg");
+  font-display: block;
+}
+
+@font-face {
+  font-family: PixelatedEleganceRegular-ovyAA-subset;
+  src: url("./PixelatedEleganceRegular-ovyAA-subset.eot");
+  src:
+    url("./PixelatedEleganceRegular-ovyAA-subset.eot?#iefix")
+      format("embedded-opentype"),
+    url("./PixelatedEleganceRegular-ovyAA-subset.svg#PixelatedEleganceRegular-ovyAA-subset")
+      format("svg"),
+    url("./PixelatedEleganceRegular-ovyAA-subset.woff") format("woff"),
+    url("./PixelatedEleganceRegular-ovyAA-subset.woff2") format("woff2");
+  font-display: block;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.turbo-progress-bar {
+  background: $accent;
+}
+
+.custom-breadcrumbs {
+  max-width: 100%;
+  overflow-x: auto;
+  padding-top: 0.5%;
+}
+
+.custom-breadcrumbs > ul {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  min-height: min-content;
+}
+
+.custom-breadcrumbs > ul > li {
+  display: flex;
+  align-items: center;
+}
+
+.custom-breadcrumbs > ul > li > a {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+}
+
+@media (hover: hover) {
+  .custom-breadcrumbs > ul > li > a:hover {
+    text-decoration-line: underline;
+  }
+}
+
+.custom-breadcrumbs > ul > li > a:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.custom-breadcrumbs > ul > li > a:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 2px;
+}
+
+.custom-breadcrumbs > ul > li + *::before {
+  content: "/";
+  margin-left: 0.5rem /* 8px */;
+  margin-right: 0.75rem /* 12px */;
+  display: block;
+  opacity: 0.4;
+  background-color: transparent;
+}
+
+[dir="rtl"] .custom-breadcrumbs > ul > li + *::before {
+  --tw-rotate: -180deg;
+}
+
+.dl-link-box {
+  @apply bottom-0 text-left text-comet text-sm mt-0 mb-3;
+}
+
+.dl-link {
+  @apply hover:underline;
+}
+
+.emoji {
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  margin: 0 0.05em 0 0.1em;
+  vertical-align: -0.1em;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 1em 1em;
+}
+
+.drawer-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100vw;
+  height: 60px;
+  display: flex;
+  z-index: 4;
+  transition: height 0.3s;
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+}
+
+/* Drawer container styles */
+.drawer {
+  display: flex;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  margin: 0 2.5%;
+  height: 60px; /* Fixed height when collapsed */
+  width: 350px;
+  background-color: $background-colour;
+  box-shadow: 0 4px 30px $medium-box-shadow;
+  border-top: 1px solid $neutral;
+  border-left: 1px solid $neutral;
+  border-right: 1px solid $neutral;
+  border-radius: 0.5rem 0.5rem 0 0;
+  overflow: hidden;
+  z-index: 3;
+  transition:
+    height 0.3s ease,
+    box-shadow 0.3s ease;
+  flex-direction: column;
+}
+
+.drawer.drawer-expanded {
+  height: 600px; /* Expanded height */
+  box-shadow: 0 4px 30px $strong-box-shadow;
+}
+
+/* Update drawer-contents to work with Locomotive Scroll */
+.drawer-contents {
+  flex: 1;
+  position: relative;
+  height: 0;
+  transition: height 0.3s ease;
+  overflow: hidden;
+}
+
+.drawer-expanded .drawer-contents {
+  height: calc(600px - 60px);
+  overflow: hidden; // Container remains hidden
+}
+
+/* Add styles for the scroll container */
+.drawer-content-container {
+  font-size: 18px;
+  text-align: left;
+  position: relative; // Required for Locomotive Scroll
+  height: 100%;
+  overflow-y: auto; // Enable native scrolling as fallback
+}
+
+/* Add Locomotive Scroll specific styles */
+[data-scroll-container] {
+  &.drawer-contents {
+    position: relative;
+  }
+}
+
+/* Style the custom scrollbar for the drawer */
+.drawer-contents .c-scrollbar {
+  right: 0;
+  width: 8px; // Slightly smaller for the drawer
+}
+
+.drawer-contents .c-scrollbar_thumb {
+  background-color: $accent; // Use your accent color
+  width: 4px; // Slightly smaller thumb
+  opacity: 0.3;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
+.drawer-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 45px;
+  height: 45px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.drawer-icons {
+  width: 100%;
+  user-select: none;
+  transition: transform 0.3s ease;
+}
+
+.drawer.drawer-expanded .drawer-icons {
+  transform: rotate(180deg); /* Rotate icon when expanded */
+}
+
+.drawer-content-container {
+  font-size: 18px;
+  text-align: left;
+}
+
+.drawer-content {
+  padding: 20px 5%;
+  box-sizing: border-box;
+  font-size: 18px;
+  color: $text;
+  text-align: left;
+  margin-left: 5%;
+  margin-right: 5%;
+
+  @media screen and (width <= 600px) {
+    .drawer-content {
+      font-size: 16px;
+    }
+  }
+}
+
+.drawer-link {
+  font-size: 18px;
+  color: $accent;
+  text-decoration: underline;
+}
+
+@media screen and (width <= 600px) {
+  .drawer-link {
+    font-size: 16px;
+  }
+}
+
+.drawer-title {
+  font-size: 20px;
+  color: $text;
+  margin-left: 5%;
+  display: flex;
+  align-items: center;
+}
+
+.drawer-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px; /* Match drawer collapsed height */
+}
+
+.drawer-ul-spacing {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.drawer-li-spacing {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+/**
+  Loosely based on and containing parts of 98.css
+  Copyright (c) 2020 Jordan Scales <thatjdanisso.cool>
+  https://github.com/jdan/98.css/blob/main/LICENSE
+  Copyright 2020 Jordan Scales
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
+  o deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+  and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+:root {
+  /* Color */
+  --text-color: #222;
+  --surface: #c0c0c0;
+  --button-highlight: #fff;
+  --button-face: #dfdfdf;
+  --button-shadow: #a0a0a0; // Lighter shadow color
+  --window-frame: #707070; // Softer gray instead of harsh black
+  --dialog-blue: #4a76a8; // Lighter blue
+  --dialog-blue-light: #6ca0d1; // Even lighter blue for hover states
+  --dialog-gray: #808080;
+  --dialog-gray-light: #b5b5b5;
+  --link-blue: #00f;
+
+  /* Spacing */
+  --element-spacing: 8px;
+  --grouped-button-spacing: 4px;
+  --grouped-element-spacing: 6px;
+  --radio-width: 12px;
+  --checkbox-width: 13px;
+  --radio-label-spacing: 6px;
+  --range-track-height: 4px;
+  --range-spacing: 10px;
+
+  /* Some detailed computations for radio buttons and checkboxes */
+  --radio-total-width-precalc: var(--radio-width) + var(--radio-label-spacing);
+  --radio-total-width: calc(var(--radio-total-width-precalc));
+  --radio-left: calc(-1 * var(--radio-total-width-precalc));
+  --radio-dot-width: 4px;
+  --radio-dot-top: calc(var(--radio-width) / 2 - var(--radio-dot-width) / 2);
+  --radio-dot-left: calc(
+    -1 * (var(--radio-total-width-precalc)) + var(--radio-width) /
+      2 - var(--radio-dot-width) / 2
+  );
+  --checkbox-total-width-precalc: var(--checkbox-width) +
+    var(--radio-label-spacing);
+  --checkbox-total-width: calc(var(--checkbox-total-width-precalc));
+  --checkbox-left: calc(-1 * var(--checkbox-total-width-precalc));
+  --checkmark-width: 7px;
+  --checkmark-left: 3px;
+
+  /* Borders */
+  --border-width: 1px;
+  --border-raised-outer: inset -1px -1px var(--window-frame),
+    inset 1px 1px var(--button-highlight);
+  --border-raised-inner: inset -2px -2px var(--button-shadow),
+    inset 2px 2px var(--button-face);
+  --border-sunken-outer: inset -1px -1px var(--button-highlight),
+    inset 1px 1px var(--window-frame);
+  --border-sunken-inner: inset -2px -2px var(--button-face),
+    inset 2px 2px var(--button-shadow);
+  --default-button-border-raised-outer: inset -2px -2px var(--window-frame),
+    inset 1px 1px var(--window-frame);
+  --default-button-border-raised-inner: inset 2px 2px var(--button-highlight),
+    inset -3px -3px var(--button-shadow), inset 3px 3px var(--button-face);
+  --default-button-border-sunken-outer: inset 2px 2px var(--window-frame),
+    inset -1px -1px var(--window-frame);
+  --default-button-border-sunken-inner: inset -2px -2px var(--button-highlight),
+    inset 3px 3px var(--button-shadow), inset -3px -3px var(--button-face);
+
+  /* Window borders flip button-face and button-highlight */
+  --border-window-outer: inset -1px -1px var(--window-frame),
+    inset 1px 1px var(--button-face);
+  --border-window-inner: inset -2px -2px var(--button-shadow),
+    inset 2px 2px var(--button-highlight);
+
+  /* Field borders (checkbox, input, etc) flip window-frame and button-shadow */
+  --border-field: inset -1px -1px var(--button-highlight),
+    inset 1px 1px var(--button-shadow), inset -2px -2px var(--button-face),
+    inset 2px 2px var(--window-frame);
+  --border-status-field: inset -1px -1px var(--button-face),
+    inset 1px 1px var(--button-shadow);
+
+  /* Tabs */
+  --border-tab: inset -1px 0 var(--window-frame),
+    inset 1px 1px var(--button-face), inset -2px 0 var(--button-shadow),
+    inset 2px 2px var(--button-highlight);
+}
+
+/* Windows 98 Floating Window Styles */
+.floating-window.window98 {
+  position: fixed;
+  width: 300px;
+  background: var(--surface);
+  border: 2px solid var(--window-frame);
+  box-shadow: 2px 2px 5px rgb(0 0 0 / 50%);
+  z-index: 5;
+  font-family: PixelatedEleganceRegular-ovyAA-subset, Arial, sans-serif;
+
+  &.window-width-override {
+    width: 572px; /* 548px content + 24px for borders and padding */
+  }
+}
+
+/* Optional: Prevent text selection while dragging */
+.floating-window.window98 {
+  user-select: none;
+}
+
+.window98 .title-bar {
+  background: var(--dialog-blue);
+  color: white;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+  user-select: none;
+  font-weight: bold;
+  border-bottom: 2px solid var(--window-frame);
+}
+
+.window98 .title-bar-text {
+  font-size: 14px;
+}
+
+.window98 .window-body {
+  padding: 10px;
+  background: var(--surface);
+  border-top: 1px solid var(--button-face);
+  border-left: 1px solid var(--button-face);
+  border-bottom: 1px solid var(--window-frame);
+  border-right: 1px solid var(--window-frame);
+  color: var(--text-color);
+  font-size: 12px;
+}
+
+/* Optional: Add hover effect for close button */
+.window98 .title-bar-controls button:hover {
+  background-color: var(--button-face);
+}
+
+.video-js {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border-top: 1px solid var(--button-face);
+  border-left: 1px solid var(--button-face);
+  border-bottom: 1px solid var(--window-frame);
+  border-right: 1px solid var(--window-frame);
+}
+
+.doom-canvas {
+  width: 548px;
+  height: 308px;
+  display: block;
+  border-top: 1px solid var(--button-face);
+  border-left: 1px solid var(--button-face);
+  border-bottom: 1px solid var(--window-frame);
+  border-right: 1px solid var(--window-frame);
+}
+
+.c-scrollbar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 11px;
+  height: 100%;
+  transform-origin: center right;
+  transition:
+    transform 0.3s,
+    opacity 0.3s;
+  opacity: 0;
+}
+
+/*! contains bit of locomotive-scroll v4.1.3 | MIT License | https://github.com/locomotivemtl/locomotive-scroll */
+
+.c-scrollbar:hover {
+  transform: scaleX(1.45);
+}
+
+.c-scrollbar:hover,
+.has-scroll-scrolling .c-scrollbar,
+.has-scroll-dragging .c-scrollbar {
+  opacity: 1;
+}
+
+[data-scroll-direction="horizontal"] .c-scrollbar {
+  width: 100%;
+  height: 10px;
+  top: auto;
+  bottom: 0;
+  transform: scaleY(1);
+}
+
+[data-scroll-direction="horizontal"] .c-scrollbar:hover {
+  transform: scaleY(1.3);
+}
+
+.c-scrollbar_thumb {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: black;
+  opacity: 0.5;
+  width: 7px;
+  border-radius: 10px;
+  margin: 2px;
+  cursor: grab;
+}
+
+.has-scroll-dragging .c-scrollbar_thumb {
+  cursor: grabbing;
+}
+
+[data-scroll-direction="horizontal"] .c-scrollbar_thumb {
+  right: auto;
+  bottom: 0;
+}
+
+.main {
+  @apply container py-0 w-full;
+}

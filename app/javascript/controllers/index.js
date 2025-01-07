@@ -4,17 +4,26 @@
 
 import { application } from "./application";
 
+import DistractionmodeController from "./distractionmode_controller";
+application.register("distractionmode", DistractionmodeController);
+
+import DoomCubeController from "./doom_cube_controller";
+application.register("doom-cube", DoomCubeController);
+
 import DrawerController from "./drawer_controller";
 application.register("drawer", DrawerController);
 
 import HeadingHighlightController from "./heading_highlight_controller";
 application.register("heading-highlight", HeadingHighlightController);
 
-import LenisController from "./lenis_controller";
-application.register("lenis", LenisController);
+import LocomotiveScrollController from "./locomotive_scroll_controller";
+application.register("locomotive-scroll", LocomotiveScrollController);
 
 import ShortcutsController from "./shortcuts_controller";
 application.register("shortcuts", ShortcutsController);
+
+import HlsController from "./hls_controller";
+application.register("hls", HlsController);
 
 import WaveformController from "./waveform_controller";
 application.register("waveform", WaveformController);
