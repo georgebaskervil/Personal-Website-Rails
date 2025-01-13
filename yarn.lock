@@ -3095,10 +3095,10 @@ known-css-properties@^0.35.0:
   resolved "https://registry.yarnpkg.com/known-css-properties/-/known-css-properties-0.35.0.tgz#f6f8e40ab4e5700fa32f5b2ef5218a56bc853bd6"
   integrity sha512-a/RAk2BfKk+WFGhhOCAYqSiFLc34k8Mt/6NWRI4joER0EYUzXIcFivjjnoD3+XU1DggLn/tZc3DOAgke7l8a4A==
 
-lenis@^1.1.18:
-  version "1.1.18"
-  resolved "https://registry.yarnpkg.com/lenis/-/lenis-1.1.18.tgz#adc7c6977976db3d9ca9afb092c4cd30ce5bc560"
-  integrity sha512-hBJVN0o7ZWt6DqyLoCkYKLffgCqywX0Gf/ZWhWC8Ths1zN/lZHoAMC3faFjaTxnOEKokeV0q1Mlyu1aUr18xFQ==
+lenis@^1.1.19:
+  version "1.1.19"
+  resolved "https://registry.yarnpkg.com/lenis/-/lenis-1.1.19.tgz#8c6d2d00832360714a8523f2d9aca800aba3b3bc"
+  integrity sha512-EWRYEqMMcnsQgFtr67jEKaVx1mn9Dgw1rM5iT4VxxUV6ln++Cq2nahglBko2aEiD4Lik357wkLBjOjdIwjnmdQ==
 
 levn@^0.4.1:
   version "0.4.1"
