@@ -1,6 +1,8 @@
 import { Controller } from "@hotwired/stimulus";
 import * as THREE from "three";
 import "emulators"; // Ensure emulators is properly imported
+import spaceTexture from "~/images/space.png";
+import doomFiles from "~/libs/doom_shareware.jsdos";
 
 // Connects to data-controller="doom-cube"
 export default class extends Controller {
@@ -8,18 +10,27 @@ export default class extends Controller {
 
   connect() {
     // Only set up event listener initially
-    document.addEventListener('distractionmode:toggle', this.handleDistractionMode.bind(this));
+    document.addEventListener(
+      "distractionmode:toggle",
+      this.handleDistractionMode.bind(this),
+    );
   }
 
   handleDistractionMode(event) {
-    if (event.detail.enabled && !this.initialized) {
-      this.initializeDoomCube();
+    if (event.detail.enabled) {
+      if (this.initialized) {
+        this.resumeEmulator();
+      } else {
+        this.initializeDoomCube();
+      }
+    } else {
+      this.pauseEmulator();
     }
   }
 
   initializeDoomCube() {
     this.initialized = true;
-    
+
     // Move all initialization code here
     this.textureCanvas = document.createElement("canvas");
     this.textureCanvas.width = 320;
@@ -37,7 +48,7 @@ export default class extends Controller {
     const sphereGeometry = new THREE.SphereGeometry(5, 120, 80);
     sphereGeometry.scale(-1, 1, 1);
     const sphereMaterial = new THREE.MeshBasicMaterial({
-      map: new THREE.TextureLoader().load("/assets/space.png"),
+      map: new THREE.TextureLoader().load(spaceTexture),
     });
     const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
     this.scene.add(sphere);
@@ -52,20 +63,23 @@ export default class extends Controller {
     this.camera.position.z = 2;
     this.camera.updateProjectionMatrix();
 
+    this.isAnimating = true;
     this.animate();
     this.runEmulator(texture);
   }
 
   animate() {
-    requestAnimationFrame(() => this.animate());
-    this.cube.rotation.x += 0.01;
-    this.cube.rotation.y += 0.01;
-    this.renderer.render(this.scene, this.camera);
+    if (this.isAnimating) {
+      this.animationFrame = requestAnimationFrame(() => this.animate());
+      this.cube.rotation.x += 0.01;
+      this.cube.rotation.y += 0.01;
+      this.renderer.render(this.scene, this.camera);
+    }
   }
 
   async runEmulator(texture) {
     try {
-      const bundle = await fetch("/assets/doom_shareware.jsdos");
+      const bundle = await fetch(doomFiles);
       const arrayBuffer = await bundle.arrayBuffer();
       const array = new Uint8Array(arrayBuffer);
 
@@ -84,15 +98,50 @@ export default class extends Controller {
         texture.needsUpdate = true;
       });
 
-      globalThis.addEventListener("keydown", (e) => {
-        this.ci.sendKeyEvent(e.keyCode, true); // Use this.ci
-      });
-
-      globalThis.addEventListener("keyup", (e) => {
-        this.ci.sendKeyEvent(e.keyCode, false); // Use this.ci
-      });
+      this.handleKeyEvents(true);
     } catch (error) {
       console.error("Failed to run emulator:", error);
+    }
+  }
+
+  handleKeyEvents(enable) {
+    if (enable) {
+      this.keyDownHandler = (e) => {
+        this.ci.sendKeyEvent(e.keyCode, true);
+      };
+      this.keyUpHandler = (e) => {
+        this.ci.sendKeyEvent(e.keyCode, false);
+      };
+      globalThis.addEventListener("keydown", this.keyDownHandler);
+      globalThis.addEventListener("keyup", this.keyUpHandler);
+    } else {
+      globalThis.removeEventListener("keydown", this.keyDownHandler);
+      globalThis.removeEventListener("keyup", this.keyUpHandler);
+    }
+  }
+
+  pauseEmulator() {
+    if (this.ci && this.ci.emulator) {
+      this.ci.emulator.config.emuSpeed = 0; // Pause the emulator
+    }
+    this.isAnimating = false; // Stop animation loop
+    cancelAnimationFrame(this.animationFrame);
+    this.handleKeyEvents(false); // Remove key event listeners
+  }
+
+  resumeEmulator() {
+    if (this.ci && this.ci.emulator) {
+      this.ci.emulator.config.emuSpeed = 1; // Resume the emulator
+    }
+    this.isAnimating = true; // Restart animation loop
+    this.animate();
+    this.handleKeyEvents(true); // Reattach key event listeners
+  }
+
+  disconnect() {
+    this.pauseEmulator();
+    if (this.ci && this.ci.destroy) {
+      this.ci.destroy(); // Clean up emulator instance
     }
   }
 }

@@ -1,4 +1,4 @@
-{ Controller } = require "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus"
 
 export default class HeadingHighlightController extends Controller
   connect: ->
@@ -10,7 +10,6 @@ export default class HeadingHighlightController extends Controller
     
     for link in links
       href = link.getAttribute('href')
-      
       link.classList.remove('text-accent')
       
       if @isCurrentPath(href, currentPath)
@@ -19,8 +18,6 @@ export default class HeadingHighlightController extends Controller
   isCurrentPath: (href, currentPath) ->
     href = href.replace(/^\/|\/$/g, '')
     currentPath = currentPath.replace(/^\/|\/$/g, '')
-    
     href == currentPath or currentPath.startsWith(href + '/')
-
 
   disconnect: ->

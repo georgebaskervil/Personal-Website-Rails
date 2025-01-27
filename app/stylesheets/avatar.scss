@@ -1,3 +1,5 @@
+@use "variables";
+
 .hp-image-container {
   overflow: hidden;
   border-radius: 10px;
@@ -11,7 +13,7 @@
     transform: rotate(5deg) scale(1.2);
     z-index: 2;
     opacity: 1;
-    box-shadow: $box-shadow; /* Assuming $box-shadow is defined elsewhere */
+    box-shadow: variables.$box-shadow; /* Assuming $box-shadow is defined elsewhere */
   }
 
   &:not(:hover) {

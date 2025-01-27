@@ -192,6 +192,9 @@ Rails/RefuteMethods:
 Style/AndOr:
   Enabled: false
 
+Style/BlockComments:
+  Enabled: false
+
 # Prefer Foo.method over Foo::method
 Style/ColonMethodCall:
   Enabled: true

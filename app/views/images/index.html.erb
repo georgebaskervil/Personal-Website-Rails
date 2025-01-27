@@ -17,24 +17,26 @@
         <a
           href="<%= asset_path(base_name.sub(/^resized_/, '') + ext) %>"
           target="_blank"
+          rel="noopener"
         >
           <picture>
-            <% if File.exist?(Rails.root.join("app/assets/photos/AVIFs", "#{base_name}.avif")) %>
-              <source srcset="<%= asset_path("AVIFs/#{base_name}.avif") %>" type="image/avif">
-            <% end %>
-
-            <% if File.exist?(Rails.root.join("app/assets/photos/WebPs", "#{base_name}.webp")) %>
-              <source srcset="<%= asset_path("WebPs/#{base_name}.webp") %>" type="image/webp">
-            <% end %>
-
-            <% if File.exist?(Rails.root.join("app/assets/photos/JXLs", "#{base_name}.jxl")) %>
-              <source srcset="<%= asset_path("JXLs/#{base_name}.jxl") %>" type="image/jxl">
-            <% end %>
+            <source
+              srcset="<%= vite_asset_path("photos/AVIFs/#{base_name}.avif") %>"
+              type="image/avif"
+            >
+            <source
+              srcset="<%= vite_asset_path("photos/WebPs/#{base_name}.webp") %>"
+              type="image/webp"
+            >
+            <source
+              srcset="<%= vite_asset_path("photos/JXLs/#{base_name}.jxl") %>"
+              type="image/jxl"
+            >
             <%= image_tag(
-              img,
-              loading: index < 20 ? "eager" : "lazy",
-              decoding: index < 20 ? "sync" : "async",
-              fetchpriority: index < 20 ? "high" : "low",
+              vite_asset_path("photos/#{img}"),
+              loading: "lazy",
+              decoding: "async",
+              fetchpriority: "low",
             ) %>
           </picture>
         </a>

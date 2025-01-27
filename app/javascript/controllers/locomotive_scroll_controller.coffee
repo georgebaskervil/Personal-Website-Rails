@@ -39,10 +39,14 @@ export default class extends Controller
         try
           scroll = new LocomotiveScroll
             el: el
+            gestureDirection: vertical
             smooth: true
               smooth: true
             tablet:
-              smooth: true
+              smooth: false
+            smartphone:
+              smooth: false
+            resetNativeScroll: true
           @scrollInstances.push(scroll)
         catch error
           console.error "Failed to initialize Locomotive Scroll for", el, ":", error

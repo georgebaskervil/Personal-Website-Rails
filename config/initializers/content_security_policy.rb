@@ -1,9 +1,3 @@
-# Be sure to restart your server when you modify this file.
-
-# Define an application-wide content security policy.
-# See the Securing Rails Applications Guide for more information:
-# https://guides.rubyonrails.org/security.html#content-security-policy-header
-
 Rails.application.configure do
   config.content_security_policy do |policy|
     policy.default_src :self, :https
@@ -14,9 +8,16 @@ Rails.application.configure do
     policy.style_src  :self, :https, :unsafe_inline
     policy.worker_src :self, :blob
     policy.connect_src :self, :https
+
+    # Allow @vite/client in development
+    if Rails.env.development?
+      policy.script_src(*policy.script_src, :unsafe_eval, "http://#{ViteRuby.config.host_with_port}")
+      policy.connect_src(*policy.connect_src, "ws://#{ViteRuby.config.host_with_port}")
+    end
+
     policy.frame_src  :self, :https
     policy.media_src  :self, :blob
   end
-  # Enforce the policy
+
   config.content_security_policy_report_only = false
 end

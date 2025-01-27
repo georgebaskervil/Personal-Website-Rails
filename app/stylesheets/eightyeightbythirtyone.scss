@@ -1,3 +1,5 @@
+@use "variables";
+
 .eighty-h1 {
   font-size: 2.5rem;
   margin-bottom: 24px;
@@ -28,4 +30,19 @@
 
 .badge-grid img {
   display: block;
+
+  @apply transition-all duration-300 ease-in-out;
+
+  &:hover {
+    transform: rotate(5deg) scale(2); /* Adjusted scale to match your design */
+    z-index: 2;
+    opacity: 1;
+    box-shadow: variables.$box-shadow; /* Assuming $box-shadow is defined elsewhere */
+  }
+
+  &:not(:hover) {
+    transform: rotate(0deg) scale(1);
+    z-index: 1;
+    opacity: 1;
+  }
 }

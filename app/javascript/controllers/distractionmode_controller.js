@@ -6,67 +6,100 @@ export default class extends Controller {
 
   connect() {
     this.areWindowsVisible = false;
-    // Initialize the highest z-index counter
     this.highestZIndex = 1;
-    this.currentlyDragging = null;
+    this.currentlyDragging = undefined;
     this.offsetX = 0;
     this.offsetY = 0;
+    this.lastMouseX = 0;
+    this.lastMouseY = 0;
+    this.hasShownBefore = false;
 
-    // Bind methods
     this.toggleDistractionMode = this.toggleDistractionMode.bind(this);
     this.randomizePosition = this.randomizePosition.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
 
-    // Initialize draggable windows
-    for (const floatingWindow of this.element.querySelectorAll(".window98")) {
-      const dragHandle = floatingWindow.querySelector(".title-bar");
+    // Initialize z-indexes for all windows
+    for (const [index, window] of this.windowTargets.entries()) {
+      window.style.zIndex = index + 1;
+      this.highestZIndex = Math.max(this.highestZIndex, index + 1);
 
-      dragHandle.addEventListener("mousedown", (e) => {
-        this.currentlyDragging = floatingWindow;
-        this.offsetX = e.clientX - floatingWindow.getBoundingClientRect().left;
-        this.offsetY = e.clientY - floatingWindow.getBoundingClientRect().top;
-
-        // Assign a new z-index within 1-7
-        this.highestZIndex = (this.highestZIndex % 7) + 1;
-        floatingWindow.style.zIndex = this.highestZIndex;
-
-        // Attach listeners
-        document.addEventListener("mousemove", this.onMouseMove);
-        document.addEventListener("mouseup", this.onMouseUp);
-
-        // Prevent text selection
-        e.preventDefault();
+      // Add click handler to entire window
+      window.addEventListener("mousedown", () => {
+        this.bringToFront(window);
       });
     }
 
-    // Attach listeners once
-    document.addEventListener("mousemove", this.onMouseMove);
-    document.addEventListener("mouseup", this.onMouseUp);
+    for (const floatingWindow of this.element.querySelectorAll(".window98")) {
+      floatingWindow.style.transition =
+        "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), left 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), top 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-in-out";
+      floatingWindow.style.opacity = "0";
+      const dragHandle = floatingWindow.querySelector(".title-bar");
 
-    // Adjust window positions on resize
+      dragHandle.addEventListener("mousedown", (event) => {
+        document.body.classList.add("dragging");
+        floatingWindow.classList.add("currently-dragging");
+        this.currentlyDragging = floatingWindow;
+        this.offsetX =
+          event.clientX - floatingWindow.getBoundingClientRect().left;
+        this.offsetY =
+          event.clientY - floatingWindow.getBoundingClientRect().top;
+        this.lastMouseX = event.clientX;
+        this.lastMouseY = event.clientY;
+
+        this.bringToFront(floatingWindow);
+
+        document.addEventListener("mousemove", this.onMouseMove);
+        document.addEventListener("mouseup", this.onMouseUp);
+
+        event.preventDefault();
+      });
+    }
+
     window.addEventListener("resize", this.adjustWindowPositions.bind(this));
   }
 
   toggleDistractionMode() {
     this.areWindowsVisible = !this.areWindowsVisible;
+    const firstShow = !this.hasShownBefore;
 
     for (const w of this.windowTargets) {
-      w.style.display = this.areWindowsVisible ? "block" : "none";
       if (this.areWindowsVisible) {
-        this.randomizePosition(w);
+        w.style.display = "block";
+        setTimeout(() => {
+          w.style.opacity = "1";
+          if (firstShow) {
+            this.randomizePosition(w);
+          }
+        }, 50);
+      } else {
+        w.style.opacity = "0";
+        setTimeout(() => {
+          w.style.display = "none";
+        }, 300);
       }
     }
 
-    for (const video of this.videoTargets) {
-      this.areWindowsVisible ? video.play() : video.pause();
+    if (this.areWindowsVisible) {
+      this.hasShownBefore = true;
     }
 
-    // Add this line to dispatch a custom event
-    this.element.dispatchEvent(new CustomEvent('distractionmode:toggle', { 
-      detail: { enabled: this.areWindowsVisible },
-      bubbles: true 
-    }));
+    for (const video of this.videoTargets) {
+      if (this.areWindowsVisible) {
+        video
+          .play()
+          .catch((error) => console.warn("Play request interrupted:", error));
+      } else {
+        video.pause();
+      }
+    }
+
+    this.element.dispatchEvent(
+      new CustomEvent("distractionmode:toggle", {
+        detail: { enabled: this.areWindowsVisible },
+        bubbles: true,
+      }),
+    );
   }
 
   randomizePosition(floatingWindow) {
@@ -91,10 +124,13 @@ export default class extends Controller {
     floatingWindow.style.top = `${randomTop}px`;
   }
 
-  onMouseMove(e) {
+  onMouseMove(event) {
     if (this.currentlyDragging) {
-      let newLeft = e.clientX - this.offsetX;
-      let newTop = e.clientY - this.offsetY;
+      let newLeft = event.clientX - this.offsetX;
+      let newTop = event.clientY - this.offsetY;
+
+      const deltaX = event.clientX - this.lastMouseX;
+      const rotation = deltaX * 0.5;
 
       const windowWidth = this.currentlyDragging.offsetWidth;
       const windowHeight = this.currentlyDragging.offsetHeight;
@@ -112,12 +148,19 @@ export default class extends Controller {
 
       this.currentlyDragging.style.left = `${newLeft}px`;
       this.currentlyDragging.style.top = `${newTop}px`;
+      this.currentlyDragging.style.transform = `rotate(${rotation}deg)`;
+
+      this.lastMouseX = event.clientX;
+      this.lastMouseY = event.clientY;
     }
   }
 
   onMouseUp() {
     if (this.currentlyDragging) {
-      this.currentlyDragging = null;
+      document.body.classList.remove("dragging");
+      this.currentlyDragging.classList.remove("currently-dragging");
+      this.currentlyDragging.style.transform = "rotate(0deg)";
+      this.currentlyDragging = undefined;
     }
     document.removeEventListener("mousemove", this.onMouseMove);
     document.removeEventListener("mouseup", this.onMouseUp);
@@ -144,5 +187,10 @@ export default class extends Controller {
         floatingWindow.style.top = `${maxTop}px`;
       }
     }
+  }
+
+  bringToFront(floatingWindow) {
+    this.highestZIndex++;
+    floatingWindow.style.zIndex = this.highestZIndex;
   }
 }

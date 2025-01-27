@@ -7,8 +7,8 @@ ruby "3.3.6"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.1"
 
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "sprockets-rails"
+# Use vite rails instead of the regular
+gem "vite_rails"
 
 # Use SQLite 3 as the database for Active Record
 gem "sqlite3"
@@ -44,9 +44,6 @@ gem "nokogiri"
 # Use unicode gem for emoji support
 gem "unicode"
 
-# Use solid_cache to cache in sqlite
-gem "solid_cache"
-
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
@@ -55,6 +52,9 @@ gem "bootsnap", require: false
 
 # Use the better_html gem to validate resultant HTML
 gem "better_html"
+
+# Use the solder gem to cache component state on the server side
+gem "solder"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -83,6 +83,9 @@ group :development do
 
   # Use the brakeman gem to check for security vulnerabilities
   gem "brakeman"
+
+  # foreman does not seem to be installed by rails automatically
+  gem "foreman"
 end
 
 group :test do

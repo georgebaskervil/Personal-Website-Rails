@@ -5,13 +5,13 @@ require "digest"
 require "date" # Added to handle Date parsing
 
 class ApplicationController < ActionController::Base
-  before_action :set_cache_headers # Add this line at the top of before_actions
   before_action :increment_HTTP_req_counter
   before_action :load_images
   before_action :load_articles
   before_action :set_all_posts
   before_action :set_latest_posts
   before_action :set_article, only: [ :show ]
+  before_action :set_unique_session_id
 
   def show
     return unless @article.nil?
@@ -21,11 +21,6 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
-  def set_cache_headers
-    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
-    response.headers["Pragma"] = "no-cache"
-  end
 
   def increment_HTTP_req_counter
     counter = HttpReqCounter.first_or_create
@@ -40,48 +35,48 @@ class ApplicationController < ActionController::Base
     images_cache_key = "images_list-#{images_checksum}"
 
     @images = Rails.cache.fetch(images_cache_key) do
-      glob_pattern = Rails.root.join("app/assets/photos/JPGs/**/*.JPG")
-      Rails.logger.debug { "Glob pattern: #{glob_pattern}" }
+      glob_pattern = Rails.root.join("app/photos/JPGs/**/*.JPG")
+      # Rails.logger.debug { "Glob pattern: #{glob_pattern}" }
 
-      photos_dir = Rails.root.join("app/assets/photos/JPGs")
+      photos_dir = Rails.root.join("app/photos/JPGs")
       unless Dir.exist?(photos_dir)
-        Rails.logger.warn "Directory app/assets/photos/JPGs does not exist."
+        Rails.logger.warn "Directory app/photos/JPGs does not exist."
         return []
       end
 
       files = Dir.glob(glob_pattern)
-      Rails.logger.debug { "Files found: #{files.size}" }
-      Rails.logger.debug { "Files: #{files.join(', ')}" }
+      # Rails.logger.debug { "Files found: #{files.size}" }
+      # Rails.logger.debug { "Files: #{files.join(', ')}" }
 
-      mapped_files = files.map { |f| f.sub(%r{.*app/assets/photos/}, "") }
-      Rails.logger.debug { "Mapped files count: #{mapped_files.size}" }
-      Rails.logger.debug { "Mapped files: #{mapped_files.join(', ')}" }
+      mapped_files = files.map { |f| f.sub(%r{.*app//photos/}, "") }
+      # Rails.logger.debug { "Mapped files count: #{mapped_files.size}" }
+      # Rails.logger.debug { "Mapped files: #{mapped_files.join(', ')}" }
 
       mapped_files
     end
 
-    Rails.logger.debug { "Total images to display: #{@images.size}" }
+    # Rails.logger.debug { "Total images to display: #{@images.size}" }
   end
 
   def load_articles
-    Rails.logger.debug "Fetching articles_list from cache or computing it"
+    # Rails.logger.debug "Fetching articles_list from cache or computing it"
 
     # Generate a unique cache key based on article files' modification times
     articles_cache_key = "articles_list-#{articles_checksum}"
 
     @articles = Rails.cache.fetch(articles_cache_key) do
-      articles_glob = Rails.root.join("app/assets/articles/**/*.md")
-      Rails.logger.debug { "Articles glob pattern: #{articles_glob}" }
+      articles_glob = Rails.root.join("app//articles/**/*.md")
+      # Rails.logger.debug { "Articles glob pattern: #{articles_glob}" }
 
-      articles_dir = Rails.root.join("app/assets/articles")
+      articles_dir = Rails.root.join("app//articles")
       unless Dir.exist?(articles_dir)
-        Rails.logger.warn "Directory app/assets/articles does not exist."
+        Rails.logger.warn "Directory app//articles does not exist."
         return []
       end
 
       article_files = Dir.glob(articles_glob)
-      Rails.logger.debug { "Article files found: #{article_files.size}" }
-      Rails.logger.debug { "Article files: #{article_files.join(', ')}" }
+      # Rails.logger.debug { "Article files found: #{article_files.size}" }
+      # Rails.logger.debug { "Article files: #{article_files.join(', ')}" }
 
       articles = article_files.map do |file|
         content = File.read(file)
@@ -122,7 +117,7 @@ class ApplicationController < ActionController::Base
       articles.sort_by { |article| article[:published_at] }.reverse
     end
 
-    Rails.logger.debug { "Total articles to display: #{@articles.size}" }
+    # Rails.logger.debug { "Total articles to display: #{@articles.size}" }
   end
 
   def set_article
@@ -142,16 +137,20 @@ class ApplicationController < ActionController::Base
 
   # Generates a checksum based on the filenames and their last modified times
   def images_checksum
-    files = Rails.root.glob("app/assets/photos/JPGs/**/*.JPG")
+    files = Rails.root.glob("app/photos/JPGs/**/*.JPG")
     Digest::MD5.hexdigest(
       files.sort.map { |f| "#{f}:#{File.mtime(f).to_i}" }.join("|")
     )
   end
 
   def articles_checksum
-    files = Rails.root.glob("app/assets/articles/**/*.md")
+    files = Rails.root.glob("app/articles/**/*.md")
     Digest::MD5.hexdigest(
       files.sort.map { |f| "#{f}:#{File.mtime(f).to_i}" }.join("|")
     )
+  end
+
+  def set_unique_session_id
+    session[:unique_session_id] ||= SecureRandom.uuid
   end
 end

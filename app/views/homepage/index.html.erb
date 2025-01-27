@@ -2,7 +2,7 @@
   <div class="hp-rows">
     <div class="hp-columns">
       <h1 class="hp-h1">
-        Hi, I’m George
+        Hi, I'm George
       </h1>
       <h2 class="hp-h2">
         I'm a student. I've been interested in the web for a long time, making
@@ -20,37 +20,42 @@
         days ago. I'm also a digital privacy advocate and a dark mode
         enthusiast.
       </h2>
-      <div class="custom-breadcrumbs hp-li-div">
+      <% social_links = [
+        {
+          name: "X",
+          url:
+            "https://x.com/georgebaskervil",
+        },
+        {
+          name: "Signal",
+          url:
+            "https://signal.me/#eu/Ui1-KTmlgnCbNj491iq3HSOJtrkY1aVHm4n0v97dvkGDbCqWsExOu66Fzg7-7iC9",
+        },
+        { name: "GitHub", url: "https://github.com/georgebaskervil" },
+      ] %>
+      <div class="hp-custom-breadcrumbs hp-li-div">
         <ul>
-          <li>
-            <a
-              href="https://x.com/georgebaskervil"
-              rel="noreferrer"
-              target="_blank"
-              class="text-accent"
-            >
-              X
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://github.com/georgebaskervil"
-              rel="noreferrer"
-              target="_blank"
-              class="text-accent"
-            >
-              GitHub
-            </a>
-          </li>
+          <% social_links.each do |link| %>
+            <li>
+              <a
+                href="<%= link[:url] %>"
+                target="_blank"
+                rel="noopener"
+                class="text-accent"
+              >
+                <%= link[:name] %>
+              </a>
+            </li>
+          <% end %>
         </ul>
       </div>
     </div>
     <picture class="hp-image-container hp-picture">
-      <source srcset="<%= asset_path('icon.avif') %>" type="image/avif">
-      <source srcset="<%= asset_path('icon.webp') %>" type="image/webp">
-      <source srcset="<%= asset_path('icon.jxl') %>" type="image/jxl">
+      <source srcset="<%= vite_asset_path('images/icon.avif') %>" type="image/avif">
+      <source srcset="<%= vite_asset_path('images/icon.webp') %>" type="image/webp">
+      <source srcset="<%= vite_asset_path('images/icon.jxl') %>" type="image/jxl">
       <%= image_tag(
-        "icon.jpg",
+        vite_asset_path("images/icon.jpg"),
         alt: "A picture of me",
         loading: "eager",
         width: "654",
@@ -74,199 +79,69 @@
     </a>
   </header>
   <section class="hp-section">
-    <div class="hp-proj-div">
-      <a
-        href="https://github.com/Libreverse/Libreverse/"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <div class="hp-proj-internals">
-          <p class="hp-proj-title">Libreverse</p>
-          <%= image_tag(
-            "arrow-up-right.svg",
-            width: "30",
-            height: "30",
-            loading: "eager",
-            decoding: "sync",
-            fetchpriority: "high",
-            class: "hp-proj-svg",
-          ) %>
-        </div>
-        <div class="hp-proj-desc">The open-source metaverse.</div>
-      </a>
-    </div>
-    <div class="hp-proj-div">
-      <a
-        href="https://github.com/georgebaskervil/Personal-Website-Rails"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <div class="hp-proj-internals">
-          <p class="hp-proj-title">
-            Personal Website Rails Port
-          </p>
-          <%= image_tag(
-            "arrow-up-right.svg",
-            width: "30",
-            height: "30",
-            loading: "eager",
-            decoding: "sync",
-            fetchpriority: "high",
-            class: "hp-proj-svg",
-          ) %>
-        </div>
-        <div class="hp-proj-desc">
-          My personal website ported to Ruby on Rails.
-        </div>
-      </a>
-    </div>
-    <div class="hp-proj-div">
-      <a
-        href="https://github.com/georgebaskervil/Personal-Website"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <div class="hp-proj-internals">
-          <p class="hp-proj-title">
-            Personal Website
-          </p>
-          <%= image_tag(
-            "arrow-up-right.svg",
-            width: "30",
-            height: "30",
-            loading: "eager",
-            decoding: "sync",
-            fetchpriority: "high",
-            class: "hp-proj-svg",
-          ) %>
-        </div>
-        <div class="hp-proj-desc">
-          My personal website built with Astro, TypeScript, and Tailwind CSS.
-        </div>
-      </a>
-    </div>
-    <div class="hp-proj-div">
-      <a
-        href="https://github.com/georgebaskervil/dnsfilterlists"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <div class="hp-proj-internals">
-          <p class="hp-proj-title">
-            DNS Filterlists
-          </p>
-          <%= image_tag(
-            "arrow-up-right.svg",
-            width: "30",
-            height: "30",
-            loading: "eager",
-            decoding: "sync",
-            fetchpriority: "high",
-            class: "hp-proj-svg",
-          ) %>
-        </div>
-        <div class="hp-proj-desc">
-          A collection of DNS filterlists intended for use with AdGuard Home.
-        </div>
-      </a>
-    </div>
-    <div class="hp-proj-div">
-      <a
-        href="https://github.com/Libreverse/Libreverse-website"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <div class="hp-proj-internals">
-          <p class="hp-proj-title">
-            Libreverse Website
-          </p>
-          <%= image_tag(
-            "arrow-up-right.svg",
-            width: "30",
-            height: "30",
-            loading: "eager",
-            decoding: "sync",
-            fetchpriority: "high",
-            class: "hp-proj-svg",
-          ) %>
-        </div>
-        <div class="hp-proj-desc">
-          The website for the libreverse.
-        </div>
-      </a>
-    </div>
-    <div class="hp-proj-div">
-      <a
-        href="https://github.com/Libreverse/core-js-custom"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <div class="hp-proj-internals">
-          <p class="hp-proj-title">
-            core-js-custom
-          </p>
-          <%= image_tag(
-            "arrow-up-right.svg",
-            width: "30",
-            height: "30",
-            loading: "eager",
-            decoding: "sync",
-            fetchpriority: "high",
-            class: "hp-proj-svg",
-          ) %>
-        </div>
-        <div class="hp-proj-desc">
-          A custom version of core-js made for Libreverse.
-        </div>
-      </a>
-    </div>
-    <div class="hp-proj-div">
-      <a
-        href="https://github.com/georgebaskervil/twemoji-tweaked"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <div class="hp-proj-internals">
-          <p class="hp-proj-title">
-            twemoji-tweaked
-          </p>
-          <%= image_tag(
-            "arrow-up-right.svg",
-            width: "30",
-            height: "30",
-            loading: "eager",
-            decoding: "sync",
-            fetchpriority: "high",
-            class: "hp-proj-svg",
-          ) %>
-        </div>
-        <div class="hp-proj-desc">
-          A custom version of twemoji merging some pull requests and adding
-          some new features.
-        </div>
-      </a>
-    </div>
-    <div class="hp-proj-div">
-      <a href="https://github.com/georgebaskervil" target="_blank" rel="noreferrer">
-        <div class="hp-proj-internals">
-          <p class="hp-proj-title">
-            And more to come...
-          </p>
-          <%= image_tag(
-            "arrow-up-right.svg",
-            width: "30",
-            height: "30",
-            loading: "eager",
-            decoding: "sync",
-            fetchpriority: "high",
-            class: "hp-proj-svg",
-          ) %>
-        </div>
-        <div class="hp-proj-desc">
-          I'm always working on new projects! You can find them on my GitHub.
-        </div>
-      </a>
-    </div>
+    <% projects = [
+      {
+        title: "Libreverse",
+        link: "https://github.com/Libreverse/Libreverse/",
+        description: "The open-source metaverse.",
+      },
+      {
+        title: "Personal Website Rails Port",
+        link: "https://github.com/georgebaskervil/Personal-Website-Rails",
+        description: "My personal website ported to Ruby on Rails.",
+      },
+      {
+        title: "Personal Website",
+        link: "https://github.com/georgebaskervil/Personal-Website",
+        description:
+          "My personal website built with Astro, TypeScript, and Tailwind CSS.",
+      },
+      {
+        title: "DNS Filterlists",
+        link: "https://github.com/georgebaskervil/dnsfilterlists",
+        description: "A collection of DNS filterlists intended for AdGuard Home.",
+      },
+      {
+        title: "Libreverse Website",
+        link: "https://github.com/Libreverse/Libreverse-website",
+        description: "The website for the libreverse.",
+      },
+      {
+        title: "core-js-custom",
+        link: "https://github.com/Libreverse/core-js-custom",
+        description: "A custom version of core-js made for Libreverse.",
+      },
+      {
+        title: "twemoji-tweaked",
+        link: "https://github.com/georgebaskervil/twemoji-tweaked",
+        description: "A custom version of twemoji with extra features.",
+      },
+      {
+        title: "And more to come...",
+        link: "https://github.com/georgebaskervil",
+        description:
+          "I'm always working on new projects! Check them out on my GitHub.",
+      },
+    ] %>
+    <% projects.each do |proj| %>
+      <div class="hp-proj-div">
+        <a href="<%= proj[:link] %>" target="_blank" rel="noreferrer">
+          <div class="hp-proj-internals">
+            <p class="hp-proj-title"><%= proj[:title] %></p>
+            <%= image_tag(
+              vite_asset_path("icons/arrow-up-right.svg"),
+              width: "30",
+              height: "30",
+              loading: "eager",
+              decoding: "sync",
+              fetchpriority: "high",
+              class: "hp-proj-svg",
+            ) %>
+          </div>
+          <div class="hp-proj-desc"><%= proj[:description] %></div>
+        </a>
+      </div>
+    <% end %>
   </section>
 </article>
 
@@ -283,22 +158,28 @@
         <% ext = File.extname(img) %>
         <% base_name = File.basename(img, ext) %>
         <a
-          href="<%= asset_path(base_name.sub(/^resized_/, '') + ext) %>"
+          href="<%= vite_asset_path("photos/#{base_name.sub(/^resized_/, '')}#{ext}") %>"
           target="_blank"
         >
           <picture>
-            <% if File.exist?(Rails.root.join("app/assets/photos/AVIFs", "#{base_name}.avif")) %>
-              <source srcset="<%= asset_path("AVIFs/#{base_name}.avif") %>" type="image/avif">
-            <% end %>
-
-            <% if File.exist?(Rails.root.join("app/assets/photos/WebPs", "#{base_name}.webp")) %>
-              <source srcset="<%= asset_path("WebPs/#{base_name}.webp") %>" type="image/webp">
-            <% end %>
-
-            <% if File.exist?(Rails.root.join("app/assets/photos/JXLs", "#{base_name}.jxl")) %>
-              <source srcset="<%= asset_path("JXLs/#{base_name}.jxl") %>" type="image/jxl">
-            <% end %>
-            <%= image_tag(img, loading: "lazy", decoding: "async", fetchpriority: "low") %>
+            <source
+              srcset="<%= vite_asset_path("photos/AVIFs/#{base_name}.avif") %>"
+              type="image/avif"
+            >
+            <source
+              srcset="<%= vite_asset_path("photos/WebPs/#{base_name}.webp") %>"
+              type="image/webp"
+            >
+            <source
+              srcset="<%= vite_asset_path("photos/JXLs/#{base_name}.jxl") %>"
+              type="image/jxl"
+            >
+            <%= image_tag(
+              vite_asset_path("photos/#{img}"),
+              loading: "lazy",
+              decoding: "async",
+              fetchpriority: "low",
+            ) %>
           </picture>
         </a>
       </div>
@@ -309,7 +190,7 @@
 <article>
   <header class="hp-header">
     <h3 class="hp-h3">The latest blog posts I have written:</h3>
-    <a href="/images" class="hp-small-link">
+    <a href="/posts" class="hp-small-link">
       See all posts
     </a>
   </header>

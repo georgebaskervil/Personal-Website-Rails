@@ -1,43 +1,52 @@
+@use "variables";
+
+* {
+  cursor:
+    url("~/icons/cursor.svg") 8 8,
+    auto !important;
+  text-rendering: optimizelegibility;
+}
+
 html {
+  height: 100%;
+  width: 100%;
   font-family: SpaceMono-Regular-subset, monospace;
   background: #1a1b26;
 }
 
 @font-face {
   font-family: SpaceMono-Regular-subset;
-  src: url("SpaceMono-Regular-subset.eot");
   src:
-    url("SpaceMono-Regular-subset.woff2") format("woff2"),
-    url("SpaceMono-Regular-subset.woff") format("woff"),
-    url("SpaceMono-Regular-subset.eot?#iefix") format("embedded-opentype"),
-    url("SpaceMono-Regular-subset.svg#SpaceMono-Regular-subset") format("svg");
-  font-display: block;
+    url("~/fonts/SpaceMono-Regular-subset.woff2") format("woff2"),
+    url("~/fonts/SpaceMono-Regular-subset.woff") format("woff"),
+    url("~/fonts/SpaceMono-Regular-subset.eot") format("embedded-opentype"),
+    url("~/fonts/SpaceMono-Regular-subset.svg#SpaceMono-Regular-subset")
+      format("svg");
+  font-display: swap;
 }
 
 @font-face {
   font-family: WaitingfortheSunrise-Regular-subset;
-  src: url("WaitingfortheSunrise-Regular-subset.eot");
   src:
-    url("WaitingfortheSunrise-Regular-subset.woff2") format("woff2"),
-    url("WaitingfortheSunrise-Regular-subset.woff") format("woff"),
-    url("WaitingfortheSunrise-Regular-subset.eot?#iefix")
+    url("~/fonts/WaitingfortheSunrise-Regular-subset.woff2") format("woff2"),
+    url("~/fonts/WaitingfortheSunrise-Regular-subset.woff") format("woff"),
+    url("~/fonts/WaitingfortheSunrise-Regular-subset.eot")
       format("embedded-opentype"),
-    url("WaitingfortheSunrise-Regular-subset.svg#WaitingfortheSunrise-Regular-subset")
+    url("~/fonts/WaitingfortheSunrise-Regular-subset.svg#WaitingfortheSunrise-Regular-subset")
       format("svg");
-  font-display: block;
+  font-display: swap;
 }
 
 @font-face {
   font-family: PixelatedEleganceRegular-ovyAA-subset;
-  src: url("./PixelatedEleganceRegular-ovyAA-subset.eot");
   src:
-    url("./PixelatedEleganceRegular-ovyAA-subset.eot?#iefix")
+    url("~/fonts/PixelatedEleganceRegular-ovyAA-subset.woff2") format("woff2"),
+    url("~/fonts/PixelatedEleganceRegular-ovyAA-subset.woff") format("woff"),
+    url("~/fonts/PixelatedEleganceRegular-ovyAA-subset.eot")
       format("embedded-opentype"),
-    url("./PixelatedEleganceRegular-ovyAA-subset.svg#PixelatedEleganceRegular-ovyAA-subset")
-      format("svg"),
-    url("./PixelatedEleganceRegular-ovyAA-subset.woff") format("woff"),
-    url("./PixelatedEleganceRegular-ovyAA-subset.woff2") format("woff2");
-  font-display: block;
+    url("~/fonts/PixelatedEleganceRegular-ovyAA-subset.svg#PixelatedEleganceRegular-ovyAA-subset")
+      format("svg");
+  font-display: swap;
 }
 
 body {
@@ -45,60 +54,7 @@ body {
 }
 
 .turbo-progress-bar {
-  background: $accent;
-}
-
-.custom-breadcrumbs {
-  max-width: 100%;
-  overflow-x: auto;
-  padding-top: 0.5%;
-}
-
-.custom-breadcrumbs > ul {
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-  min-height: min-content;
-}
-
-.custom-breadcrumbs > ul > li {
-  display: flex;
-  align-items: center;
-}
-
-.custom-breadcrumbs > ul > li > a {
-  display: flex;
-  cursor: pointer;
-  align-items: center;
-}
-
-@media (hover: hover) {
-  .custom-breadcrumbs > ul > li > a:hover {
-    text-decoration-line: underline;
-  }
-}
-
-.custom-breadcrumbs > ul > li > a:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
-.custom-breadcrumbs > ul > li > a:focus-visible {
-  outline: 2px solid currentcolor;
-  outline-offset: 2px;
-}
-
-.custom-breadcrumbs > ul > li + *::before {
-  content: "/";
-  margin-left: 0.5rem /* 8px */;
-  margin-right: 0.75rem /* 12px */;
-  display: block;
-  opacity: 0.4;
-  background-color: transparent;
-}
-
-[dir="rtl"] .custom-breadcrumbs > ul > li + *::before {
-  --tw-rotate: -180deg;
+  background: variables.$accent;
 }
 
 .dl-link-box {
@@ -145,11 +101,11 @@ body {
   margin: 0 2.5%;
   height: 60px; /* Fixed height when collapsed */
   width: 350px;
-  background-color: $background-colour;
-  box-shadow: 0 4px 30px $medium-box-shadow;
-  border-top: 1px solid $neutral;
-  border-left: 1px solid $neutral;
-  border-right: 1px solid $neutral;
+  background-color: variables.$background-colour;
+  box-shadow: 0 4px 30px variables.$medium-box-shadow;
+  border-top: 1px solid variables.$neutral;
+  border-left: 1px solid variables.$neutral;
+  border-right: 1px solid variables.$neutral;
   border-radius: 0.5rem 0.5rem 0 0;
   overflow: hidden;
   z-index: 3;
@@ -161,7 +117,7 @@ body {
 
 .drawer.drawer-expanded {
   height: 600px; /* Expanded height */
-  box-shadow: 0 4px 30px $strong-box-shadow;
+  box-shadow: 0 4px 30px variables.$strong-box-shadow;
 }
 
 /* Update drawer-contents to work with Locomotive Scroll */
@@ -201,7 +157,7 @@ body {
 }
 
 .drawer-contents .c-scrollbar_thumb {
-  background-color: $accent; // Use your accent color
+  background-color: variables.$accent; // Use your accent color
   width: 4px; // Slightly smaller thumb
   opacity: 0.3;
 
@@ -218,7 +174,6 @@ body {
   height: 45px;
   background: none;
   border: none;
-  cursor: pointer;
   align-items: center;
   margin-right: 10px;
 }
@@ -242,7 +197,7 @@ body {
   padding: 20px 5%;
   box-sizing: border-box;
   font-size: 18px;
-  color: $text;
+  color: variables.$text;
   text-align: left;
   margin-left: 5%;
   margin-right: 5%;
@@ -256,7 +211,7 @@ body {
 
 .drawer-link {
   font-size: 18px;
-  color: $accent;
+  color: variables.$accent;
   text-decoration: underline;
 }
 
@@ -268,7 +223,7 @@ body {
 
 .drawer-title {
   font-size: 20px;
-  color: $text;
+  color: variables.$text;
   margin-left: 5%;
   display: flex;
   align-items: center;
@@ -309,116 +264,34 @@ body {
   WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-:root {
-  /* Color */
-  --text-color: #222;
-  --surface: #c0c0c0;
-  --button-highlight: #fff;
-  --button-face: #dfdfdf;
-  --button-shadow: #a0a0a0; // Lighter shadow color
-  --window-frame: #707070; // Softer gray instead of harsh black
-  --dialog-blue: #4a76a8; // Lighter blue
-  --dialog-blue-light: #6ca0d1; // Even lighter blue for hover states
-  --dialog-gray: #808080;
-  --dialog-gray-light: #b5b5b5;
-  --link-blue: #00f;
-
-  /* Spacing */
-  --element-spacing: 8px;
-  --grouped-button-spacing: 4px;
-  --grouped-element-spacing: 6px;
-  --radio-width: 12px;
-  --checkbox-width: 13px;
-  --radio-label-spacing: 6px;
-  --range-track-height: 4px;
-  --range-spacing: 10px;
-
-  /* Some detailed computations for radio buttons and checkboxes */
-  --radio-total-width-precalc: var(--radio-width) + var(--radio-label-spacing);
-  --radio-total-width: calc(var(--radio-total-width-precalc));
-  --radio-left: calc(-1 * var(--radio-total-width-precalc));
-  --radio-dot-width: 4px;
-  --radio-dot-top: calc(var(--radio-width) / 2 - var(--radio-dot-width) / 2);
-  --radio-dot-left: calc(
-    -1 * (var(--radio-total-width-precalc)) + var(--radio-width) /
-      2 - var(--radio-dot-width) / 2
-  );
-  --checkbox-total-width-precalc: var(--checkbox-width) +
-    var(--radio-label-spacing);
-  --checkbox-total-width: calc(var(--checkbox-total-width-precalc));
-  --checkbox-left: calc(-1 * var(--checkbox-total-width-precalc));
-  --checkmark-width: 7px;
-  --checkmark-left: 3px;
-
-  /* Borders */
-  --border-width: 1px;
-  --border-raised-outer: inset -1px -1px var(--window-frame),
-    inset 1px 1px var(--button-highlight);
-  --border-raised-inner: inset -2px -2px var(--button-shadow),
-    inset 2px 2px var(--button-face);
-  --border-sunken-outer: inset -1px -1px var(--button-highlight),
-    inset 1px 1px var(--window-frame);
-  --border-sunken-inner: inset -2px -2px var(--button-face),
-    inset 2px 2px var(--button-shadow);
-  --default-button-border-raised-outer: inset -2px -2px var(--window-frame),
-    inset 1px 1px var(--window-frame);
-  --default-button-border-raised-inner: inset 2px 2px var(--button-highlight),
-    inset -3px -3px var(--button-shadow), inset 3px 3px var(--button-face);
-  --default-button-border-sunken-outer: inset 2px 2px var(--window-frame),
-    inset -1px -1px var(--window-frame);
-  --default-button-border-sunken-inner: inset -2px -2px var(--button-highlight),
-    inset 3px 3px var(--button-shadow), inset -3px -3px var(--button-face);
-
-  /* Window borders flip button-face and button-highlight */
-  --border-window-outer: inset -1px -1px var(--window-frame),
-    inset 1px 1px var(--button-face);
-  --border-window-inner: inset -2px -2px var(--button-shadow),
-    inset 2px 2px var(--button-highlight);
-
-  /* Field borders (checkbox, input, etc) flip window-frame and button-shadow */
-  --border-field: inset -1px -1px var(--button-highlight),
-    inset 1px 1px var(--button-shadow), inset -2px -2px var(--button-face),
-    inset 2px 2px var(--window-frame);
-  --border-status-field: inset -1px -1px var(--button-face),
-    inset 1px 1px var(--button-shadow);
-
-  /* Tabs */
-  --border-tab: inset -1px 0 var(--window-frame),
-    inset 1px 1px var(--button-face), inset -2px 0 var(--button-shadow),
-    inset 2px 2px var(--button-highlight);
-}
-
-/* Windows 98 Floating Window Styles */
 .floating-window.window98 {
   position: fixed;
   width: 300px;
-  background: var(--surface);
-  border: 2px solid var(--window-frame);
+  background: variables.$surface;
+  border: 2px solid variables.$window-frame;
   box-shadow: 2px 2px 5px rgb(0 0 0 / 50%);
   z-index: 5;
   font-family: PixelatedEleganceRegular-ovyAA-subset, Arial, sans-serif;
 
   &.window-width-override {
-    width: 572px; /* 548px content + 24px for borders and padding */
+    width: 572px;
   }
 }
 
-/* Optional: Prevent text selection while dragging */
 .floating-window.window98 {
   user-select: none;
 }
 
 .window98 .title-bar {
-  background: var(--dialog-blue);
+  background: variables.$dialog-blue;
   color: white;
   padding: 5px 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: move;
   user-select: none;
   font-weight: bold;
-  border-bottom: 2px solid var(--window-frame);
+  border-bottom: 2px solid variables.$window-frame;
 }
 
 .window98 .title-bar-text {
@@ -427,38 +300,37 @@ body {
 
 .window98 .window-body {
   padding: 10px;
-  background: var(--surface);
-  border-top: 1px solid var(--button-face);
-  border-left: 1px solid var(--button-face);
-  border-bottom: 1px solid var(--window-frame);
-  border-right: 1px solid var(--window-frame);
-  color: var(--text-color);
+  background: variables.$surface;
+  border-top: 1px solid variables.$button-face;
+  border-left: 1px solid variables.$button-face;
+  border-bottom: 1px solid variables.$window-frame;
+  border-right: 1px solid variables.$window-frame;
+  color: variables.$text-color;
   font-size: 12px;
 }
 
-/* Optional: Add hover effect for close button */
 .window98 .title-bar-controls button:hover {
-  background-color: var(--button-face);
+  background-color: variables.$button-face;
 }
 
-.video-js {
+.distracting-video {
   width: 100%;
   height: 100%;
+  border-top: 1px solid variables.$button-face;
+  border-left: 1px solid variables.$button-face;
+  border-bottom: 1px solid variables.$window-frame;
+  border-right: 1px solid variables.$window-frame;
   pointer-events: none;
-  border-top: 1px solid var(--button-face);
-  border-left: 1px solid var(--button-face);
-  border-bottom: 1px solid var(--window-frame);
-  border-right: 1px solid var(--window-frame);
 }
 
 .doom-canvas {
   width: 548px;
   height: 308px;
   display: block;
-  border-top: 1px solid var(--button-face);
-  border-left: 1px solid var(--button-face);
-  border-bottom: 1px solid var(--window-frame);
-  border-right: 1px solid var(--window-frame);
+  border-top: 1px solid variables.$button-face;
+  border-left: 1px solid variables.$button-face;
+  border-bottom: 1px solid variables.$window-frame;
+  border-right: 1px solid variables.$window-frame;
 }
 
 .c-scrollbar {
@@ -507,11 +379,6 @@ body {
   width: 7px;
   border-radius: 10px;
   margin: 2px;
-  cursor: grab;
-}
-
-.has-scroll-dragging .c-scrollbar_thumb {
-  cursor: grabbing;
 }
 
 [data-scroll-direction="horizontal"] .c-scrollbar_thumb {
@@ -521,4 +388,112 @@ body {
 
 .main {
   @apply container py-0 w-full;
+}
+
+.dragging * {
+  pointer-events: none;
+}
+
+.dragging .window98.currently-dragging {
+  pointer-events: auto;
+}
+
+/* Custom Cursor Styles */
+
+/* Outer Circle */
+.custom-cursor-circle {
+  /* Define CSS variables for translation */
+  --translateX: 0px;
+  --translateY: 0px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 2px solid #e5e4da;
+  border-radius: 50%;
+  pointer-events: none; /* Ensure cursor elements don't block interactions */
+
+  /* Use CSS variables for transforms */
+  transform: translate(var(--translateX), var(--translateY))
+    translate(-50%, -50%) scale(1);
+
+  /* Updated transition durations */
+  transition:
+    transform 0.1s ease,
+    opacity 0.3s ease;
+  z-index: 2147483644;
+
+  /* Initially visible */
+  opacity: 1;
+}
+
+/* Inner Dot */
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: #e5e4da;
+  border-radius: 50%;
+  pointer-events: none; /* Ensure cursor elements don't block interactions */
+  transform: translate(-50%, -50%); /* Center the dot */
+  transition: opacity 0.3s ease; /* Only opacity transition if needed */
+  z-index: 2147483645;
+}
+
+/* Shrink Effect on Click (applied only to the circle) */
+.custom-cursor-circle.shrink {
+  /* Maintain translation and only scale */
+  transform: translate(var(--translateX), var(--translateY))
+    translate(-50%, -50%) scale(0.7);
+
+  /* Ensure the transform transition is smooth */
+  transition: transform 0.2s ease;
+}
+
+.oneko {
+  width: 32px;
+  height: 32px;
+  position: fixed;
+  pointer-events: none;
+  image-rendering: pixelated;
+  z-index: 2147483646;
+  background-image: url("~/images/oneko.gif");
+  background-repeat: no-repeat;
+}
+
+.hidden {
+  display: none;
+}
+
+/* filepath: /Users/george/code/Personal-Website-Rails/app/stylesheets/globals.scss */
+
+.hp-custom-breadcrumbs li {
+  position: relative;
+}
+
+.popover-content {
+  position: fixed;
+  display: none;
+  z-index: 3;
+  background: #1a1b26;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgb(255 255 255 / 10%);
+  box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
+  transform: rotate(5deg);
+  transition: opacity 0.2s ease;
+}
+
+.popover-content.active {
+  display: block;
+}
+
+.meme-video {
+  pointer-events: none;
+
+  @apply rounded-lg;
 }

@@ -1,2 +1,2 @@
-falcon: bin/rails server
-webpack: bun frontend-build --watch
+vite: bin/vite dev
+falcon: bin/rails s -p 5000

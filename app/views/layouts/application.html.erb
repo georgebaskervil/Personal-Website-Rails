@@ -6,16 +6,17 @@
     <link rel="preconnect" href="geor.me">
     <link rel="dns-prefetch" href="analytics.geor.me">
     <link rel="preconnect" href="analytics.geor.me">
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= vite_stylesheet_tag "~/stylesheets/application.scss" %>
     <link
       rel="preload"
-      href="<%= asset_url('SpaceMono-Regular-subset.woff2') %>"
+      href="<%= vite_asset_path("~/fonts/SpaceMono-Regular-subset.woff2") %>"
       as="font"
       type="font/woff2"
       crossorigin="anonymous"
     >
-    <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
+    <%= vite_javascript_tag "~/javascript/application.js" %>
     <!--<script
+      async
       defer
       src="https://analytics.geor.me/script.js"
       data-website-id="b3efe222-2a56-4c2d-a2ce-211f7b6966cc"
@@ -26,8 +27,8 @@
     description =
       "The personal website of George Baskerville, a software developer and student from the UK."
     keywords = "George Baskerville, George, Baskerville, geor.me"
-    preview_image = asset_url("site-screenshot.png")
-    preview_image_url = asset_url("site-screenshot.png")
+    preview_image = vite_asset_path("~/images/site-screenshot.png")
+    preview_image_url = preview_image
     preview_image_type = "image/png"
     preview_image_width = "1435"
     preview_image_height = "780"
@@ -37,14 +38,24 @@
     url = "https://geor.me"
     domain = "geor.me"
     homepage = "https://geor.me/"
-    shortcut_icon = asset_url("favicon.jpg")
-    apple_touch_icon = asset_url("favicon.jpg")
+    shortcut_icon = vite_asset_path("~/images/favicon.jpg")
+    apple_touch_icon = shortcut_icon
     locale = "en_GB"
-    twitter_site = "@georgebaskervil"
-    twitter_creator = "@georgebaskervil"
     windows7_tooltip = "Open George Baskerville's Personal Website"
     windows7_starturl = "/"
-    mastodon_link = "https://mastodon.social/@yourusername" %>
+    social_links = [
+      {
+          name: "X",
+          url:
+            "https://x.com/georgebaskervil",
+        },
+        {
+          name: "Signal",
+          url:
+            "https://signal.me/#eu/Ui1-KTmlgnCbNj491iq3HSOJtrkY1aVHm4n0v97dvkGDbCqWsExOu66Fzg7-7iC9",
+        },
+        { name: "GitHub", url: "https://github.com/georgebaskervil" },
+      ] %>
     <!--Basic HTML metadata-->
     <meta charset="utf-8">
     <meta
@@ -65,29 +76,26 @@
     <link rel="apple-touch-icon" href="<%= apple_touch_icon %>" type="image/x-icon">
     <!--Schema.org metadata-->
     <script type="application/ld+json">
-    {
+    <%= raw({
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "<%= name %>",
-      "url": "<%= url %>",
-      "description": "<%= description %>",
-      "image": "<%= preview_image_url %>",
-      "inLanguage": "<%= locale %>",
+      "name": name,
+      "url": url,
+      "description": description,
+      "image": preview_image_url,
+      "inLanguage": locale,
       "author": {
-      "@type": "Person",
-      "name": "George Baskerville",
-      "url": "<%= url %>",
-      "sameAs": [
-        "<%= mastodon_link %>",
-        "https://x.com/<%= twitter_creator.delete('@') %>"
-      ]
+        "@type": "Person",
+        "name": "George Baskerville",
+        "url": url,
+        "sameAs": social_links.map { |link| link[:url] }
       },
       "publisher": {
-      "@type": "Person",
-      "name": "George Baskerville",
-      "url": "<%= url %>"
+        "@type": "Person",
+        "name": "George Baskerville",
+        "url": url
       }
-    }
+    }.to_json) %>
     </script>
     <!--Open Graph metadata-->
     <meta property="og:site_name" content="<%= name %>">
@@ -103,16 +111,6 @@
     <meta property="og:image:alt" content="<%= preview_image_alt %>">
     <meta property="og:description" content="<%= description %>">
     <meta property="og:locale" content="<%= locale %>">
-    <!--X/Twitter metadata-->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:domain" content="<%= domain %>">
-    <meta name="twitter:site" content="<%= twitter_site %>">
-    <meta name="twitter:creator" content="<%= twitter_creator %>">
-    <meta name="twitter:title" content="<%= name %>">
-    <meta name="twitter:description" content="<%= description %>">
-    <meta name="twitter:image" content="<%= preview_image %>">
-    <meta name="twitter:image:alt" content="<%= preview_image_alt %>">
-    <meta name="twitter:url" content="<%= url %>">
     <!--Old windows pin-to-taskbar metadata-->
     <meta name="msapplication-tooltip" content="<%= windows7_tooltip %>">
     <meta name="msapplication-starturl" content="<%= windows7_starturl %>">
@@ -120,29 +118,43 @@
     <meta name="apple-mobile-web-app-capable" content="no">
     <meta name="apple-mobile-web-app-title" content="<%= name %>">
     <meta name="apple-mobile-web-app-status-bar-style" content="<%= theme_color %>">
-    <!--Mastodoon and similar fedi metadata-->
-    <link rel="me" href="<%= mastodon_link %>">
     <!--Some decently important security stuff, just matters that it's present,
     so we don't need to bother search engines by putting it at the top-->
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <!--Vite HMR in development. Does not result in anything in prod-->
+    <%= vite_client_tag %>
   </head>
   <body>
     <%= render 'layouts/shortcutswrapper' do %>
       <%= render 'layouts/distractionmodewrapper' do %>
         <%= render 'layouts/locomotivescrollwrapper' do %>
+          <%= render "layouts/underconstruction" %>
           <%= render "layouts/noscript" %>
           <div class="layout-main">
             <header class="layout-header">
-              <a href="/" class="layout-home-link">George Baskerville</a>
+              <a href="/" class="layout-home-link" rel="noopener">George Baskerville</a>
+              <% nav_items = [
+                { title: "Home", path: "/" },
+                { title: "Posts", path: "/posts" },
+                { title: "Images", path: "/images" },
+                { title: "Eclecticon Apps", path: "/eclecticonapps" },
+                { title: "Miscellaneous", path: "/miscellaneous" },
+                { title: "Legal", path: "/legal" },
+              ] %>
+
               <nav class="layout-nav" data-controller="heading-highlight">
                 <ul>
-                  <li><a data-heading-highlight-target="link" class="" href="/">Home</a></li>
-                  <li><a data-heading-highlight-target="link" class="" href="/posts">Posts</a></li>
-                  <li><a data-heading-highlight-target="link" class="" href="/images">Images</a></li>
-                  <li><a data-heading-highlight-target="link" class="" href="/contact">Contact</a></li>
-                  <li><a data-heading-highlight-target="link" class="" href="/miscellaneous">Miscellaneous</a></li>
-                  <li><a data-heading-highlight-target="link" class="" href="/legal">Legal</a></li>
+                  <% nav_items.each do |item| %>
+                    <li>
+                      <a
+                        class="<%= 'text-accent' if request.path == item[:path] %>"
+                        href="<%= item[:path] %>"
+                      >
+                        <%= item[:title] %>
+                      </a>
+                    </li>
+                  <% end %>
                   <li>
                     <button
                       class="distraction-button"
@@ -166,8 +178,10 @@
             </div>
           </div>
         <% end %>
+        <%= render "layouts/cursor" %>
         <%= render "layouts/floatingwindows" %>
         <%= render "layouts/drawer" %>
+        <%= render "layouts/oneko" %>
       <% end %>
     <% end %>
   </body>

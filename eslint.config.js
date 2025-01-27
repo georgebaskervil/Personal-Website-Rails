@@ -16,11 +16,13 @@ const compat = new FlatCompat({
 export default [
   {
     ignores: [
-      "app/assets/builds**",
+      "app//builds**",
       "**/node_modules/",
       "**/vendor/",
       "**/tmp/",
       "**.config.js",
+      "public/**",
+      "app//libs/**",
     ],
   },
   ...compat.extends(

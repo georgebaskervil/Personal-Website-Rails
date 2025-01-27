@@ -3,6 +3,7 @@
   class="floating-window window98"
   data-distractionmode-target="window"
   style="display: none;"
+  role="complementary"
 >
   <div class="title-bar">
     <span class="title-bar-text">0_o → Soap cutting video</span>
@@ -12,22 +13,19 @@
       id="vid1"
       width="600"
       height="300"
-      controls="true"
+      class="distracting-video"
       playsinline="true"
       preload="auto"
       fetchpriority="low"
       loading="lazy"
       loop="true"
       data-controller="hls"
+      data-stream-url="/streaming/soapcarving_optimised_video"
       x-webkit-airplay="deny"
       disablepictureinpicture="true"
       disableremoteplayback="true"
       data-distractionmode-target="video"
     >
-      <source
-        src="<%= asset_url('soapcarving-optimised.m3u8') %>"
-        type="application/x-mpegURL"
-      >
     </video>
   </div>
 </aside>
@@ -38,6 +36,7 @@
   data-controller="doom-cube"
   data-distractionmode-target="window"
   style="display: none;"
+  role="complementary"
 >
   <div class="title-bar">
     <span class="title-bar-text">The cube of DOOM™</span>
@@ -51,7 +50,7 @@
       style="display: block;"
     ></canvas>
     <p>See the
-      <a href="/doomdisclaimer">doom disclaimer</a>
+      <a href="/doomdisclaimer" rel="noopener">doom disclaimer</a>
     </p>
   </div>
 </aside>
@@ -61,6 +60,7 @@
   class="floating-window window98"
   data-distractionmode-target="window"
   style="display: none;"
+  role="complementary"
 >
   <div class="title-bar">
     <span class="title-bar-text">Skibidi Subway Surfers gameplay</span>
@@ -70,22 +70,19 @@
       id="vid2"
       width="600"
       height="300"
-      controls="true"
+      class="distracting-video"
       playsinline="true"
       preload="auto"
       fetchpriority="low"
       loading="lazy"
       loop="true"
       data-controller="hls"
+      data-stream-url="/streaming/subwaysurfers_optimised_video"
       x-webkit-airplay="deny"
       disablepictureinpicture="true"
       disableremoteplayback="true"
       data-distractionmode-target="video"
     >
-      <source
-        src="<%= asset_url('subwaysurfers-optimised.m3u8') %>"
-        type="application/x-mpegURL"
-      >
     </video>
   </div>
 </aside>
@@ -95,6 +92,7 @@
   class="floating-window window98"
   data-distractionmode-target="window"
   style="display: none;"
+  role="complementary"
 >
   <div class="title-bar">
     <span class="title-bar-text">UwU GTA Ramp</span>
@@ -104,22 +102,19 @@
       id="vid3"
       width="600"
       height="300"
-      controls="true"
+      class="distracting-video"
       playsinline="true"
       preload="auto"
       fetchpriority="low"
       loading="lazy"
       loop="true"
       data-controller="hls"
+      data-stream-url="/streaming/gta_optimised_video"
       x-webkit-airplay="deny"
       disablepictureinpicture="true"
       disableremoteplayback="true"
       data-distractionmode-target="video"
     >
-      <source
-        src="<%= asset_url('gta-optimised.m3u8') %>"
-        type="application/x-mpegURL"
-      >
     </video>
   </div>
 </aside>
@@ -129,6 +124,7 @@
   class="floating-window window98"
   data-distractionmode-target="window"
   style="display: none;"
+  role="complementary"
 >
   <div class="title-bar">
     <span class="title-bar-text">Minecraft Parkour :3</span>
@@ -138,22 +134,19 @@
       id="vid4"
       width="600"
       height="300"
-      controls="true"
+      class="distracting-video"
       playsinline="true"
       preload="auto"
       fetchpriority="low"
       loading="lazy"
       loop="true"
       data-controller="hls"
+      data-stream-url="/streaming/mc_optimised_video"
       x-webkit-airplay="deny"
       disablepictureinpicture="true"
       disableremoteplayback="true"
       data-distractionmode-target="video"
     >
-      <source
-        src="<%= asset_url('mc-optimised.m3u8') %>"
-        type="application/x-mpegURL"
-      >
     </video>
   </div>
 </aside>

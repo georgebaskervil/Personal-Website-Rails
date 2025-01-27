@@ -1,4 +1,4 @@
-{ Controller } = require "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus"
 
 export default class WaveformController extends Controller
   connect: ->
