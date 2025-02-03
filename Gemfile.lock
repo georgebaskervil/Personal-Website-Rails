@@ -259,7 +259,7 @@ GEM
       stringio
     public_suffix (6.0.1)
     racc (1.8.1)
-    rack (3.1.8)
+    rack (3.1.9)
     rack-attack (6.7.0)
       rack (>= 1.0, < 4)
     rack-brotli (2.0.0)
@@ -323,7 +323,7 @@ GEM
       unicode-display_width (>= 2.4.0, < 4.0)
     rubocop-ast (1.38.0)
       parser (>= 3.3.1.0)
-    rubocop-rails (2.29.0)
+    rubocop-rails (2.29.1)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.52.0, < 2.0)
