@@ -136,7 +136,7 @@ GEM
     debug (1.10.0)
       irb (~> 1.10)
       reline (>= 0.3.8)
-    dockerfile-rails (1.7.3)
+    dockerfile-rails (1.7.5)
       rails (>= 3.0.0)
     drb (2.2.1)
     dry-cli (1.2.0)
@@ -259,7 +259,7 @@ GEM
       stringio
     public_suffix (6.0.1)
     racc (1.8.1)
-    rack (3.1.8)
+    rack (3.1.9)
     rack-attack (6.7.0)
       rack (>= 1.0, < 4)
     rack-brotli (2.0.0)
