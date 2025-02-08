@@ -4,6 +4,8 @@
 
 .layout-header {
   @apply flex w-full gap-3 md:gap-2 flex-row justify-between pb-5 md:pb-0;
+
+  user-select: none;
 }
 
 .layout-home-link {

@@ -21,11 +21,7 @@
         enthusiast.
       </h2>
       <% social_links = [
-        {
-          name: "X",
-          url:
-            "https://x.com/georgebaskervil",
-        },
+        { name: "X", url: "https://x.com/georgebaskervil" },
         {
           name: "Signal",
           url:
@@ -37,12 +33,7 @@
         <ul>
           <% social_links.each do |link| %>
             <li>
-              <a
-                href="<%= link[:url] %>"
-                target="_blank"
-                rel="noopener"
-                class="text-accent"
-              >
+              <a href="<%= link[:url] %>" target="_blank" rel="noopener" class="text-accent">
                 <%= link[:name] %>
               </a>
             </li>

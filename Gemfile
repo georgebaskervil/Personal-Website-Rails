@@ -1,11 +1,9 @@
-# frozen_string_literal: true
-
 source "https://rubygems.org"
 
-ruby "3.3.6"
+ruby "3.4.1"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0.1"
+gem "rails", "8.0.1"
 
 # Use vite rails instead of the regular
 gem "vite_rails"
@@ -29,7 +27,7 @@ gem "rack-brotli"
 gem "kramdown"
 
 # HTML compressor to minify HTML when sent to the client
-gem "htmlcompressor", "~> 0.4.0"
+gem "htmlcompressor"
 
 # Rack-attack to rate-limit HTTP endpoints
 gem "rack-attack"
@@ -44,11 +42,11 @@ gem "nokogiri"
 # Use unicode gem for emoji support
 gem "unicode"
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+# Install tzinfo-data everywhere to avoid platforms specific bugs
+gem "tzinfo-data"
 
 # Reduces boot times through caching; required in config/boot.rb
-gem "bootsnap", require: false
+gem "bootsnap"
 
 # Use the better_html gem to validate resultant HTML
 gem "better_html"
@@ -58,7 +56,7 @@ gem "solder"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri windows ]
+  gem "debug"
 end
 
 group :development do
@@ -73,10 +71,10 @@ group :development do
   gem "erb_lint"
 
   # Use the erb formatter to format ERB files
-  gem "erb-formatter", "~> 0.7.3"
+  gem "erb-formatter"
 
   # fly.io's dockerfile generator to generate a docker compose file for the site.
-  gem "dockerfile-rails", ">= 1.6"
+  gem "dockerfile-rails"
 
   # Use fasterer for speed improvement hints
   gem "fasterer"

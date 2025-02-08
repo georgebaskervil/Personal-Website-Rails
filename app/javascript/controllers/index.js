@@ -19,6 +19,9 @@ application.register("coloursquare", ColoursquareController);
 import CursorController from "./cursor_controller";
 application.register("cursor", CursorController);
 
+import DeepseekChatController from "./deepseek_chat_controller";
+application.register("deepseek-chat", DeepseekChatController);
+
 import DiffractorController from "./diffractor_controller";
 application.register("diffractor", DiffractorController);
 
@@ -87,6 +90,9 @@ application.register("momentum", MomentumController);
 
 import Movie2xytController from "./movie2xyt_controller";
 application.register("movie2xyt", Movie2xytController);
+
+import NeudecController from "./neudec_controller";
+application.register("neudec", NeudecController);
 
 import NormalstatsController from "./normalstats_controller";
 application.register("normalstats", NormalstatsController);

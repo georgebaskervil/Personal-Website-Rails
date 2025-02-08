@@ -14,6 +14,10 @@ html {
   background: #1a1b26;
 }
 
+img {
+  user-select: none;
+}
+
 @font-face {
   font-family: SpaceMono-Regular-subset;
   src:
@@ -74,6 +78,7 @@ body {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 1em 1em;
+  user-select: auto;
 }
 
 .drawer-container {
@@ -120,7 +125,7 @@ body {
   box-shadow: 0 4px 30px variables.$strong-box-shadow;
 }
 
-/* Update drawer-contents to work with Locomotive Scroll */
+/* Merge all .drawer-contents declarations */
 .drawer-contents {
   flex: 1;
   position: relative;
@@ -134,63 +139,13 @@ body {
   overflow: hidden; // Container remains hidden
 }
 
-/* Add styles for the scroll container */
+/* Merge .drawer-content-container declarations */
 .drawer-content-container {
   font-size: 18px;
   text-align: left;
   position: relative; // Required for Locomotive Scroll
   height: 100%;
   overflow-y: auto; // Enable native scrolling as fallback
-}
-
-/* Add Locomotive Scroll specific styles */
-[data-scroll-container] {
-  &.drawer-contents {
-    position: relative;
-  }
-}
-
-/* Style the custom scrollbar for the drawer */
-.drawer-contents .c-scrollbar {
-  right: 0;
-  width: 8px; // Slightly smaller for the drawer
-}
-
-.drawer-contents .c-scrollbar_thumb {
-  background-color: variables.$accent; // Use your accent color
-  width: 4px; // Slightly smaller thumb
-  opacity: 0.3;
-
-  &:hover {
-    opacity: 0.5;
-  }
-}
-
-.drawer-toggle {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 45px;
-  height: 45px;
-  background: none;
-  border: none;
-  align-items: center;
-  margin-right: 10px;
-}
-
-.drawer-icons {
-  width: 100%;
-  user-select: none;
-  transition: transform 0.3s ease;
-}
-
-.drawer.drawer-expanded .drawer-icons {
-  transform: rotate(180deg); /* Rotate icon when expanded */
-}
-
-.drawer-content-container {
-  font-size: 18px;
-  text-align: left;
 }
 
 .drawer-content {
@@ -203,9 +158,7 @@ body {
   margin-right: 5%;
 
   @media screen and (width <= 600px) {
-    .drawer-content {
-      font-size: 16px;
-    }
+    font-size: 16px;
   }
 }
 
@@ -247,6 +200,33 @@ body {
   margin-bottom: 5px;
 }
 
+.drawer-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 45px;
+  height: 45px;
+  background: none;
+  border: none;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.drawer-icons {
+  width: 100%;
+  user-select: none;
+  transition: transform 0.3s ease;
+}
+
+.drawer.drawer-expanded .drawer-icons {
+  transform: rotate(180deg); /* Rotate icon when expanded */
+}
+
+.drawer-content-container {
+  font-size: 18px;
+  text-align: left;
+}
+
 /**
   Loosely based on and containing parts of 98.css
   Copyright (c) 2020 Jordan Scales <thatjdanisso.cool>
@@ -254,7 +234,7 @@ body {
   Copyright 2020 Jordan Scales
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
-  o deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+  to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
   and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
   The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
@@ -272,14 +252,11 @@ body {
   box-shadow: 2px 2px 5px rgb(0 0 0 / 50%);
   z-index: 5;
   font-family: PixelatedEleganceRegular-ovyAA-subset, Arial, sans-serif;
+  user-select: none;
 
   &.window-width-override {
     width: 572px;
   }
-}
-
-.floating-window.window98 {
-  user-select: none;
 }
 
 .window98 .title-bar {
@@ -333,59 +310,6 @@ body {
   border-right: 1px solid variables.$window-frame;
 }
 
-.c-scrollbar {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 11px;
-  height: 100%;
-  transform-origin: center right;
-  transition:
-    transform 0.3s,
-    opacity 0.3s;
-  opacity: 0;
-}
-
-/*! contains bit of locomotive-scroll v4.1.3 | MIT License | https://github.com/locomotivemtl/locomotive-scroll */
-
-.c-scrollbar:hover {
-  transform: scaleX(1.45);
-}
-
-.c-scrollbar:hover,
-.has-scroll-scrolling .c-scrollbar,
-.has-scroll-dragging .c-scrollbar {
-  opacity: 1;
-}
-
-[data-scroll-direction="horizontal"] .c-scrollbar {
-  width: 100%;
-  height: 10px;
-  top: auto;
-  bottom: 0;
-  transform: scaleY(1);
-}
-
-[data-scroll-direction="horizontal"] .c-scrollbar:hover {
-  transform: scaleY(1.3);
-}
-
-.c-scrollbar_thumb {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: black;
-  opacity: 0.5;
-  width: 7px;
-  border-radius: 10px;
-  margin: 2px;
-}
-
-[data-scroll-direction="horizontal"] .c-scrollbar_thumb {
-  right: auto;
-  bottom: 0;
-}
-
 .main {
   @apply container py-0 w-full;
 }
@@ -402,9 +326,9 @@ body {
 
 /* Outer Circle */
 .custom-cursor-circle {
-  /* Define CSS variables for translation */
-  --translateX: 0px;
-  --translateY: 0px;
+  /* Define CSS variables for translation using kebab-case */
+  --translate-x: 0px;
+  --translate-y: 0px;
 
   position: fixed;
   top: 0;
@@ -416,7 +340,7 @@ body {
   pointer-events: none; /* Ensure cursor elements don't block interactions */
 
   /* Use CSS variables for transforms */
-  transform: translate(var(--translateX), var(--translateY))
+  transform: translate(var(--translate-x), var(--translate-y))
     translate(-50%, -50%) scale(1);
 
   /* Updated transition durations */
@@ -429,25 +353,10 @@ body {
   opacity: 1;
 }
 
-/* Inner Dot */
-.custom-cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  background-color: #e5e4da;
-  border-radius: 50%;
-  pointer-events: none; /* Ensure cursor elements don't block interactions */
-  transform: translate(-50%, -50%); /* Center the dot */
-  transition: opacity 0.3s ease; /* Only opacity transition if needed */
-  z-index: 2147483645;
-}
-
 /* Shrink Effect on Click (applied only to the circle) */
 .custom-cursor-circle.shrink {
   /* Maintain translation and only scale */
-  transform: translate(var(--translateX), var(--translateY))
+  transform: translate(var(--translate-x), var(--translate-y))
     translate(-50%, -50%) scale(0.7);
 
   /* Ensure the transform transition is smooth */
@@ -465,11 +374,9 @@ body {
   background-repeat: no-repeat;
 }
 
-.hidden {
+.oneko-hidden {
   display: none;
 }
-
-/* filepath: /Users/george/code/Personal-Website-Rails/app/stylesheets/globals.scss */
 
 .hp-custom-breadcrumbs li {
   position: relative;
@@ -496,4 +403,8 @@ body {
   pointer-events: none;
 
   @apply rounded-lg;
+}
+
+.distraction-button {
+  @apply hover:underline;
 }

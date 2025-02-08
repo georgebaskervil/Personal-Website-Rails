@@ -9,6 +9,7 @@
       "~/images/**/*",
       "~/javascript/**/*",
       "~/libs/**/*",
+      "~/llms/**/*",
       "~/losslessphotos/**/*",
       "~/photos/**/*",
       "~/stylesheets/**/*",

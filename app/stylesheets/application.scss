@@ -8,7 +8,6 @@
 
 // import variables
 @use "variables";
-
 // end import variables
 
 // start individual style imports
@@ -18,7 +17,6 @@
 @use "data";
 @use "dmca";
 @use "doomdisclaimer";
-@use "eightyeightbythirtyone";
 @use "homepage";
 @use "images";
 @use "legal";
@@ -29,6 +27,7 @@
 @use "privacy";
 @use "waveform";
 @use "eclecticonapps";
+@use "deepseekchat";
 //end invidiual imports
 
 // eclecticon apps imports
@@ -73,5 +72,4 @@
 @use "footer";
 @use "globals";
 @use "layout";
-
 // end global items

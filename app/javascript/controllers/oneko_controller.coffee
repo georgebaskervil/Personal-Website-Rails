@@ -8,7 +8,6 @@ export default class extends Controller
     @nekoEl = @element
     @onDistractionToggle = @onDistractionToggle.bind(@)
     document.addEventListener "distractionmode:toggle", @onDistractionToggle
-    @nekoEl.classList.add "oneko", "hidden"
 
   disconnect: =>
     document.removeEventListener "distractionmode:toggle", @onDistractionToggle
@@ -25,13 +24,13 @@ export default class extends Controller
     isReducedMotion = globalThis.matchMedia("(prefers-reduced-motion: reduce)")?.matches
     return if isReducedMotion
     @running = true
-    @nekoEl.classList.remove "hidden"
+    @nekoEl.classList.remove "oneko-hidden"
     @initNeko()
     @loop()
 
   stopNeko: =>
     @running = false
-    @nekoEl.classList.add "hidden"
+    @nekoEl.classList.add "oneko-hidden"
     cancelAnimationFrame @requestId if @requestId
     @requestId = undefined
 
@@ -65,16 +64,10 @@ export default class extends Controller
       W: [[-4, -2], [-4, -3]]
       NW: [[-1, 0], [-1, -1]]
     @nekoEl.id = "oneko"
-    @nekoEl.ariaHidden = true
+    @nekoEl.ariaoneko-hidden = true
     Object.assign @nekoEl.style,
-      width: "32px"
-      height: "32px"
-      position: "fixed"
-      pointerEvents: "none"
-      imageRendering: "pixelated"
       left: "#{@nekoPosX - 16}px"
       top: "#{@nekoPosY - 16}px"
-      zIndex: 2147483647
     document.addEventListener "mousemove", (event) =>
       @mousePosX = event.clientX
       @mousePosY = event.clientY

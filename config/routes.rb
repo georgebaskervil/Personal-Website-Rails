@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "/neudec", to: "neudec#index"
   get "/eclecticonapps", to: "eclecticonapps#index"
   get "/waveformer", to: "waveformer#index"
   get "/trigonometrica", to: "trigonometrica#index"
@@ -52,7 +53,6 @@ Rails.application.routes.draw do
   get "/credits", to: "credits#index"
   get "/data", to: "data#index"
   get "/dmca", to: "dmca#index"
-  get "/eightyeightbythirtyone", to: "eightyeightbythirtyone#index"
   root "homepage#index"
   mount Solder::Engine, at: "/solder"
 

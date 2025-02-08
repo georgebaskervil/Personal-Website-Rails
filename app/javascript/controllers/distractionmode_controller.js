@@ -4,85 +4,60 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["window", "video"];
 
-  connect() {
+  // Keep track of windows, z-index, dragging state.
+  initialize() {
+    this.floatingWindows = [...this.element.querySelectorAll(".window98")];
     this.areWindowsVisible = false;
     this.highestZIndex = 1;
-    this.currentlyDragging = undefined;
     this.offsetX = 0;
     this.offsetY = 0;
     this.lastMouseX = 0;
     this.lastMouseY = 0;
     this.hasShownBefore = false;
-
-    this.toggleDistractionMode = this.toggleDistractionMode.bind(this);
-    this.randomizePosition = this.randomizePosition.bind(this);
-    this.onMouseMove = this.onMouseMove.bind(this);
-    this.onMouseUp = this.onMouseUp.bind(this);
-
-    // Initialize z-indexes for all windows
-    for (const [index, window] of this.windowTargets.entries()) {
-      window.style.zIndex = index + 1;
-      this.highestZIndex = Math.max(this.highestZIndex, index + 1);
-
-      // Add click handler to entire window
-      window.addEventListener("mousedown", () => {
-        this.bringToFront(window);
-      });
-    }
-
-    for (const floatingWindow of this.element.querySelectorAll(".window98")) {
-      floatingWindow.style.transition =
-        "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), left 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), top 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-in-out";
-      floatingWindow.style.opacity = "0";
-      const dragHandle = floatingWindow.querySelector(".title-bar");
-
-      dragHandle.addEventListener("mousedown", (event) => {
-        document.body.classList.add("dragging");
-        floatingWindow.classList.add("currently-dragging");
-        this.currentlyDragging = floatingWindow;
-        this.offsetX =
-          event.clientX - floatingWindow.getBoundingClientRect().left;
-        this.offsetY =
-          event.clientY - floatingWindow.getBoundingClientRect().top;
-        this.lastMouseX = event.clientX;
-        this.lastMouseY = event.clientY;
-
-        this.bringToFront(floatingWindow);
-
-        document.addEventListener("mousemove", this.onMouseMove);
-        document.addEventListener("mouseup", this.onMouseUp);
-
-        event.preventDefault();
-      });
-    }
-
-    window.addEventListener("resize", this.adjustWindowPositions.bind(this));
+    this.animationFrameId = undefined;
+    this.pendingMove = undefined;
   }
 
-  toggleDistractionMode() {
-    this.areWindowsVisible = !this.areWindowsVisible;
+  connect() {
+    // Set initial z-index and wire up click handlers.
+    for (const [index, w] of this.windowTargets.entries()) {
+      w.style.zIndex = index + 1;
+      this.highestZIndex = Math.max(this.highestZIndex, index + 1);
+      w.addEventListener("mousedown", () => this.bringToFront(w));
+    }
+
+    // Configure floating windows for transitions and dragging.
+    for (const fw of this.floatingWindows) {
+      fw.style.transition =
+        "transform 0.3s cubic-bezier(0.34,1.56,0.64,1), left 0.3s cubic-bezier(0.34,1.56,0.64,1), top 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease-in-out";
+      fw.style.opacity = "0";
+      const dragHandle = fw.querySelector(".title-bar");
+      dragHandle.addEventListener("mousedown", this.onDragStart);
+    }
+
+    // Watch window size changes to keep windows in view.
+    window.addEventListener("resize", this.adjustWindowPositions);
+  }
+
+  // Toggle showing/hiding all windows and playing/pausing videos.
+  toggleDistractionMode = () => {
     const firstShow = !this.hasShownBefore;
+    this.areWindowsVisible = !this.areWindowsVisible;
 
     for (const w of this.windowTargets) {
       if (this.areWindowsVisible) {
         w.style.display = "block";
         setTimeout(() => {
           w.style.opacity = "1";
-          if (firstShow) {
-            this.randomizePosition(w);
-          }
+          if (firstShow) this.randomizePosition(w);
         }, 50);
       } else {
         w.style.opacity = "0";
-        setTimeout(() => {
-          w.style.display = "none";
-        }, 300);
+        setTimeout(() => (w.style.display = "none"), 300);
       }
     }
 
-    if (this.areWindowsVisible) {
-      this.hasShownBefore = true;
-    }
+    if (this.areWindowsVisible) this.hasShownBefore = true;
 
     for (const video of this.videoTargets) {
       if (this.areWindowsVisible) {
@@ -100,97 +75,115 @@ export default class extends Controller {
         bubbles: true,
       }),
     );
-  }
+  };
 
-  randomizePosition(floatingWindow) {
-    const windowWidth = floatingWindow.offsetWidth;
-    const windowHeight = floatingWindow.offsetHeight;
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
+  // Randomize a window’s position on screen.
+  randomizePosition = (floatingWindow) => {
+    const { offsetWidth, offsetHeight } = floatingWindow;
+    const maxLeft = window.innerWidth - offsetWidth - 20;
+    const maxTop = window.innerHeight - offsetHeight - 20;
+    floatingWindow.style.left = `${this.randomRange(10, maxLeft)}px`;
+    floatingWindow.style.top = `${this.randomRange(10, maxTop)}px`;
+  };
 
-    const maxLeft = viewportWidth - windowWidth - 20;
-    const maxTop = viewportHeight - windowHeight - 20;
+  // Handle mouse down on a title bar.
+  onDragStart = (event) => {
+    const fw = event.currentTarget.closest(".window98");
+    document.body.classList.add("dragging");
+    fw.classList.add("currently-dragging");
+    this.currentlyDragging = fw;
+    const rect = fw.getBoundingClientRect();
+    this.offsetX = event.clientX - rect.left;
+    this.offsetY = event.clientY - rect.top;
+    this.lastMouseX = event.clientX;
+    this.lastMouseY = event.clientY;
+    this.bringToFront(fw);
+    document.addEventListener("mousemove", this.onMouseMove);
+    document.addEventListener("mouseup", this.onMouseUp);
+    event.preventDefault();
+  };
 
-    const randomLeft = Math.max(
-      10,
-      Math.floor(Math.random() * (maxLeft - 10)) + 10,
-    );
-    const randomTop = Math.max(
-      10,
-      Math.floor(Math.random() * (maxTop - 10)) + 10,
-    );
-
-    floatingWindow.style.left = `${randomLeft}px`;
-    floatingWindow.style.top = `${randomTop}px`;
-  }
-
-  onMouseMove(event) {
+  // Track mouse movement but delay position update with requestAnimationFrame.
+  onMouseMove = (event) => {
     if (this.currentlyDragging) {
-      let newLeft = event.clientX - this.offsetX;
-      let newTop = event.clientY - this.offsetY;
+      this.pendingMove = { clientX: event.clientX, clientY: event.clientY };
+      if (!this.animationFrameId) {
+        this.animationFrameId = requestAnimationFrame(this.updatePosition);
+      }
+    }
+  };
 
-      const deltaX = event.clientX - this.lastMouseX;
-      const rotation = deltaX * 0.5;
-
-      const windowWidth = this.currentlyDragging.offsetWidth;
-      const windowHeight = this.currentlyDragging.offsetHeight;
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
-
-      newLeft = Math.max(
+  // Apply position and rotation updates during each animation frame.
+  updatePosition = () => {
+    if (this.pendingMove && this.currentlyDragging) {
+      const { clientX, clientY } = this.pendingMove;
+      const newLeft = this.clamp(
+        clientX - this.offsetX,
         10,
-        Math.min(newLeft, viewportWidth - windowWidth - 10),
+        window.innerWidth - this.currentlyDragging.offsetWidth - 10,
       );
-      newTop = Math.max(
+      const newTop = this.clamp(
+        clientY - this.offsetY,
         10,
-        Math.min(newTop, viewportHeight - windowHeight - 10),
+        window.innerHeight - this.currentlyDragging.offsetHeight - 10,
       );
+
+      const deltaX = clientX - this.lastMouseX;
+      const rotationDeg = deltaX * 0.5;
+      const cos = Math.cos((rotationDeg * Math.PI) / 180);
+      const sin = Math.sin((rotationDeg * Math.PI) / 180);
 
       this.currentlyDragging.style.left = `${newLeft}px`;
       this.currentlyDragging.style.top = `${newTop}px`;
-      this.currentlyDragging.style.transform = `rotate(${rotation}deg)`;
+      this.currentlyDragging.style.transform = `matrix3d(${cos}, ${sin}, 0, 0, ${-sin}, ${cos}, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)`;
 
-      this.lastMouseX = event.clientX;
-      this.lastMouseY = event.clientY;
+      this.lastMouseX = clientX;
+      this.lastMouseY = clientY;
+      this.pendingMove = undefined;
+      this.animationFrameId = undefined;
     }
-  }
+  };
 
-  onMouseUp() {
+  // End dragging.
+  onMouseUp = () => {
     if (this.currentlyDragging) {
       document.body.classList.remove("dragging");
       this.currentlyDragging.classList.remove("currently-dragging");
       this.currentlyDragging.style.transform = "rotate(0deg)";
       this.currentlyDragging = undefined;
+      if (this.animationFrameId) {
+        cancelAnimationFrame(this.animationFrameId);
+        this.animationFrameId = undefined;
+      }
+      this.pendingMove = undefined;
     }
     document.removeEventListener("mousemove", this.onMouseMove);
     document.removeEventListener("mouseup", this.onMouseUp);
-  }
+  };
 
-  adjustWindowPositions() {
-    for (const floatingWindow of this.element.querySelectorAll(".window98")) {
-      const windowWidth = floatingWindow.offsetWidth;
-      const windowHeight = floatingWindow.offsetHeight;
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
-
-      let currentLeft = Number.parseInt(floatingWindow.style.left, 10);
-      let currentTop = Number.parseInt(floatingWindow.style.top, 10);
-
-      const maxLeft = viewportWidth - windowWidth - 10;
-      const maxTop = viewportHeight - windowHeight - 10;
-
-      if (currentLeft > maxLeft) {
-        floatingWindow.style.left = `${maxLeft}px`;
-      }
-
-      if (currentTop > maxTop) {
-        floatingWindow.style.top = `${maxTop}px`;
-      }
+  // Ensure windows stay within the viewport when resized.
+  adjustWindowPositions = () => {
+    for (const fw of this.floatingWindows) {
+      const { offsetWidth, offsetHeight } = fw;
+      const maxLeft = window.innerWidth - offsetWidth - 10;
+      const maxTop = window.innerHeight - offsetHeight - 10;
+      let currentLeft = Number.parseInt(fw.style.left, 10) || 10;
+      let currentTop = Number.parseInt(fw.style.top, 10) || 10;
+      if (currentLeft > maxLeft) fw.style.left = `${maxLeft}px`;
+      if (currentTop > maxTop) fw.style.top = `${maxTop}px`;
     }
-  }
+  };
 
-  bringToFront(floatingWindow) {
+  bringToFront = (fw) => {
     this.highestZIndex++;
-    floatingWindow.style.zIndex = this.highestZIndex;
+    fw.style.zIndex = this.highestZIndex;
+  };
+
+  // Helper to clamp a value within [min, max].
+  clamp = (value, min, max) => Math.max(min, Math.min(value, max));
+
+  // Helper to pick a random number between min and max.
+  randomRange(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
   }
 }

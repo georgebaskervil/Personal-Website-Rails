@@ -1,4 +1,5 @@
 @use "variables";
+@use "sass:color";
 
 .cipher-container {
   margin: 2rem auto;
@@ -6,17 +7,17 @@
   font-family: SpaceMono-Regular-subset, monospace;
 }
 
-.cipher-input,
-.cipher-output {
+.cipher-input {
   width: 100%;
   min-height: 150px;
   margin-bottom: 1rem;
   padding: 0.75rem;
-  background: lighten(#1a1b26, 5%);
+  background: color.adjust(#1a1b26, $lightness: 5%);
   color: variables.$text;
   font-family: SpaceMono-Regular-subset, monospace;
   border: 1px solid variables.$neutral;
   transition: all 0.3s ease;
+
   @apply rounded-lg;
 
   &:hover {
@@ -29,12 +30,13 @@
   min-height: 150px;
   margin-bottom: 1rem;
   padding: 0.75rem;
-  background: darken(#1a1b26, 5%);
+  background: color.adjust(#1a1b26, $lightness: -5%);
   color: variables.$text;
-  font-family: SpaceMono-Regular-subset, monospace;
   border: 1px solid variables.$neutral;
   transition: all 0.3s ease;
+
   @apply rounded-lg;
+
   white-space: pre-wrap;
   overflow-wrap: break-word;
   user-select: text;
@@ -64,6 +66,7 @@
   transition: all 0.3s ease;
   cursor: pointer;
   background-color: #1a1b26;
+
   @apply rounded-lg;
 
   &.mapped {
@@ -81,7 +84,7 @@
   display: flex;
   gap: 1rem;
   margin-bottom: 1rem;
-  
+
   button {
     color: variables.$text;
     background: transparent;
@@ -103,6 +106,7 @@
   padding: 0.5rem 1rem;
   transition: all 0.3s ease;
   cursor: pointer;
+
   @apply rounded-lg;
 
   &:hover {
@@ -112,5 +116,5 @@
 }
 
 .cipher-h1 {
-    @apply text-4xl font-bold mb-4 text-text;
+  @apply text-4xl font-bold mb-4 text-text;
 }

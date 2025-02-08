@@ -46,8 +46,8 @@ export default class extends Controller
     x = event.clientX
     y = event.clientY
 
-    @circle?.style.setProperty("--translateX", "#{x}px")
-    @circle?.style.setProperty("--translateY", "#{y}px")
+    @circle?.style.setProperty("--translate-x", "#{x}px")
+    @circle?.style.setProperty("--translate-y", "#{y}px")
 
     @targetX = x
     @targetY = y

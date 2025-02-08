@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr">
+<html lang="en-GB" dir="ltr">
   <head>
     <!--Preconnects, DNS prefetches and application code-->
     <link rel="dns-prefetch" href="geor.me">
@@ -44,23 +44,19 @@
     windows7_tooltip = "Open George Baskerville's Personal Website"
     windows7_starturl = "/"
     social_links = [
+      { name: "X", url: "https://x.com/georgebaskervil" },
       {
-          name: "X",
-          url:
-            "https://x.com/georgebaskervil",
-        },
-        {
-          name: "Signal",
-          url:
-            "https://signal.me/#eu/Ui1-KTmlgnCbNj491iq3HSOJtrkY1aVHm4n0v97dvkGDbCqWsExOu66Fzg7-7iC9",
-        },
-        { name: "GitHub", url: "https://github.com/georgebaskervil" },
-      ] %>
+        name: "Signal",
+        url:
+          "https://signal.me/#eu/Ui1-KTmlgnCbNj491iq3HSOJtrkY1aVHm4n0v97dvkGDbCqWsExOu66Fzg7-7iC9",
+      },
+      { name: "GitHub", url: "https://github.com/georgebaskervil" },
+    ] %>
     <!--Basic HTML metadata-->
     <meta charset="utf-8">
     <meta
       name="viewport"
-      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
     >
     <meta name="description" content="<%= description %>">
     <meta name="keywords" content="<%= keywords %>">
@@ -180,8 +176,8 @@
         <% end %>
         <%= render "layouts/cursor" %>
         <%= render "layouts/floatingwindows" %>
-        <%= render "layouts/drawer" %>
         <%= render "layouts/oneko" %>
+        <%= render "layouts/drawer" %>
       <% end %>
     <% end %>
   </body>

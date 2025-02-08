@@ -13,9 +13,16 @@ export default defineConfig({
   resolve: {
     extensions: [".js", ".coffee", ".scss"],
   },
-  assetsInclude: ["**/*.jsdos"],
+  assetsInclude: ["**/*.jsdos", "**/*.gguf"],
   build: {
     sourcemap: false,
+    rollupOptions: {
+      output: {
+        entryFileNames: "[name]-[hash].js",
+        chunkFileNames: "[name]-[hash].js",
+        assetFileNames: "[name]-[hash].[ext]",
+      },
+    },
   },
   server: {
     hmr: { overlay: false },
@@ -80,7 +87,7 @@ export default defineConfig({
           keep_fargs: false,
           loops: true,
           negate_iife: true,
-          passes: 3,
+          passes: 1,
           properties: true,
           reduce_vars: true,
           sequences: true,
