@@ -11,7 +11,7 @@
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.12",
     "@rails/request.js": "^0.0.11",
-    "@sentry/browser": "^8.54.0",
+    "@sentry/browser": "^9.0.0",
     "@wllama/wllama": "^2.1.4",
     "coffeescript": "^2.7.0",
     "core-js": "^3.40.0",
