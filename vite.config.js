@@ -8,6 +8,8 @@ import postcssFlexbugsFixes from "postcss-flexbugs-fixes";
 import cssnano from "cssnano";
 import tailwindcss from "tailwindcss";
 import coffee from "vite-plugin-coffee";
+import vitePluginCompression from "vite-plugin-compression";
+import { constants } from "node:zlib";
 
 export default defineConfig({
   resolve: {
@@ -16,6 +18,7 @@ export default defineConfig({
   assetsInclude: ["**/*.jsdos", "**/*.gguf"],
   build: {
     sourcemap: false,
+    cache: true,
     rollupOptions: {
       output: {
         entryFileNames: "[name]-[hash].js",
@@ -87,7 +90,7 @@ export default defineConfig({
           keep_fargs: false,
           loops: true,
           negate_iife: true,
-          passes: 1,
+          passes: 3,
           properties: true,
           reduce_vars: true,
           sequences: true,
@@ -106,6 +109,31 @@ export default defineConfig({
         safari10: true,
         module: true,
       },
+    }),
+    vitePluginCompression({
+      algorithm: "brotliCompress",
+      compressionOptions: {
+        params: {
+          [constants.BROTLI_PARAM_QUALITY]: 11,
+          [constants.BROTLI_PARAM_LGWIN]: 22,
+          [constants.BROTLI_PARAM_LGBLOCK]: 0,
+          [constants.BROTLI_PARAM_MODE]: constants.BROTLI_MODE_TEXT,
+        },
+      },
+      filter: /\.(js|css|svg|json|html)$/i,
+      threshold: 0,
+      ext: ".br",
+      deleteOriginFile: false,
+    }),
+    vitePluginCompression({
+      algorithm: "gzip",
+      compressionOptions: {
+        level: 6,
+      },
+      filter: /\.(js|css|svg|json|html)$/i,
+      threshold: 0,
+      ext: ".gz",
+      deleteOriginFile: false,
     }),
   ],
 });

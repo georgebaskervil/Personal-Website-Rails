@@ -6,6 +6,7 @@ export default class extends Controller
 
   connect: ->
     @alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    @reverseGrid = null  # Cache for the reverse cipher grid
     @setupGrid()
     @currentMode = "decrypt"
     @updateModeDisplay()
@@ -42,6 +43,8 @@ export default class extends Controller
     !Object.values(@cipherGrid).includes(mapping)
 
   updateGrid: ->
+    # Invalidate the cached reverse grid each time the cipher grid is modified.
+    @reverseGrid = null
     @cipherGridTarget.querySelectorAll('.cipher-cell').forEach (cell) =>
       letter = cell.dataset.letter
       mapping = @cipherGrid[letter]
@@ -74,15 +77,17 @@ export default class extends Controller
     result
 
   decrypt: (text) ->
-    reverseGrid = {}
-    for [plain, cipher] in Object.entries(@cipherGrid)
-      if cipher isnt '*'
-        reverseGrid[cipher] = plain
+    # Cache the reverse lookup mapping for efficiency.
+    if not @reverseGrid?
+      @reverseGrid = {}
+      for [plain, cipher] in Object.entries(@cipherGrid)
+        if cipher isnt '*'
+          @reverseGrid[cipher] = plain
 
     result = ''
     for char in text
-      if reverseGrid[char]
-        result += reverseGrid[char]
+      if @reverseGrid[char]
+        result += @reverseGrid[char]
       else
         result += char
     result

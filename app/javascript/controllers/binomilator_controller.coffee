@@ -12,6 +12,7 @@ export default class extends Controller
       default: 0.2
 
   connect: ->
+    @factCache = {}  # initialize cache for factorial results
     @n = parseInt(@nTarget.value)
     @p = parseFloat(@pTarget.value)
     @x = parseInt(@xTarget.value)
@@ -165,7 +166,10 @@ export default class extends Controller
   factorial: (val) ->
     return 0 if val < 0
     return 1 if val is 0
+    # return cached result if available
+    return @factCache[val] if @factCache[val]?
     result = 1
     for i in [1..val]
       result *= i
+    @factCache[val] = result
     result

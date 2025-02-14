@@ -8,8 +8,7 @@ export default class extends Controller
 
   updateFromEdit: (event) ->
     @clampInput(event.target)
-    @syncSliders()
-    @updateColor()
+    @syncSlidersAndColor()
 
   updateFromSlider: ->
     @syncEdits()
@@ -25,18 +24,20 @@ export default class extends Controller
     @sliderGTarget.value = @editGTarget.value
     @sliderBTarget.value = @editBTarget.value
 
+  syncSlidersAndColor: ->
+    @syncSliders()
+    @updateColor()
+
   clampInput: (el) ->
     val = parseInt(el.value, 10)
-    if isNaN(val) then val = 0
-    if val < 0 then val = 0
-    if val > 255 then val = 255
-    el.value = val
+    val = isNaN(val) ? 0 : val
+    el.value = Math.min(255, Math.max(0, val))
 
   updateColor: ->
-    r = parseInt(@editRTarget.value)
-    g = parseInt(@editGTarget.value)
-    b = parseInt(@editBTarget.value)
+    r = parseInt(@editRTarget.value) || 0
+    g = parseInt(@editGTarget.value) || 0
+    b = parseInt(@editBTarget.value) || 0
     color = "rgb(#{r}, #{g}, #{b})"
-    invColor = "rgb(#{255-r}, #{255-g}, #{255-b})"
+    invColor = "rgb(#{255 - r}, #{255 - g}, #{255 - b})"
     @squareBoxTarget.style.backgroundColor = color
     @inverseBoxTarget.style.backgroundColor = invColor
