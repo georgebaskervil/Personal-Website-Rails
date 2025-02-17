@@ -1,0 +1,207 @@
+<article class="hp-article">
+  <div class="hp-rows">
+    <div class="hp-columns">
+      <h1 class="hp-h1">
+        Hi, I'm George
+      </h1>
+      <h2 class="hp-h2">
+        Mad (computer) scientist. That's it. That's the bio. (I did make my
+        first site
+        <% duration = Time.now - Time.new(2019, 5, 7)
+        years = (duration / (86_400 * 365)).to_i
+        remaining_days = duration % (86_400 * 365)
+        months = (remaining_days / (86_400 * 30)).to_i
+        days = ((remaining_days % (86_400 * 30)) / 86_400).to_i %>
+        <%= years %>
+        years,
+        <%= months %>
+        months, and
+        <%= days %>
+        ago though!)
+      </h2>
+      <% social_links = [
+        { name: "X", url: "https://x.com/georgebaskervil" },
+        {
+          name: "Signal",
+          url:
+            "https://signal.me/#eu/Ui1-KTmlgnCbNj491iq3HSOJtrkY1aVHm4n0v97dvkGDbCqWsExOu66Fzg7-7iC9",
+        },
+        { name: "GitHub", url: "https://github.com/georgebaskervil" },
+      ] %>
+      <div class="hp-custom-breadcrumbs hp-li-div">
+        <ul>
+          <% social_links.each do |link| %>
+            <li>
+              <a href="<%= link[:url] %>" target="_blank" rel="noopener" class="text-accent">
+                <%= link[:name] %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <picture class="hp-image-container hp-picture">
+      <source
+        srcset="<%= vite_asset_path('images/me.avif') %>"
+        type="image/avif"
+      >
+      <source
+        srcset="<%= vite_asset_path('images/me.webp') %>"
+        type="image/webp"
+      >
+      <source
+        srcset="<%= vite_asset_path('images/me.jxl') %>"
+        type="image/jxl"
+      >
+      <%= image_tag(
+        vite_asset_path("images/me.jpg"),
+        alt: "A picture of me",
+        loading: "eager",
+        width: "654",
+        height: "654",
+        decoding: "sync",
+        fetchpriority: "high",
+      ) %>
+    </picture>
+  </div>
+</article>
+<article class="hp-article-2">
+  <header class="hp-header-2">
+    <h3 class="hp-h3">My best FOSS projects:</h3>
+    <a
+      href="https://github.com/georgebaskervil?tab=repositories"
+      class="hp-small-link"
+      target="_self"
+      rel="noreferrer"
+    >
+      See all projects
+    </a>
+  </header>
+  <section class="hp-section">
+    <% projects = [
+      {
+        title: "Libreverse",
+        link: "https://github.com/Libreverse/Libreverse/",
+        description: "The open-source metaverse.",
+      },
+      {
+        title: "Personal Website Rails Port",
+        link: "https://github.com/georgebaskervil/Personal-Website-Rails",
+        description: "My personal website ported to Ruby on Rails.",
+      },
+      {
+        title: "Personal Website",
+        link: "https://github.com/georgebaskervil/Personal-Website",
+        description:
+          "My personal website built with Astro, TypeScript, and Tailwind CSS.",
+      },
+      {
+        title: "DNS Filterlists",
+        link: "https://github.com/georgebaskervil/dnsfilterlists",
+        description: "A collection of DNS filterlists intended for AdGuard Home.",
+      },
+      {
+        title: "Libreverse Website",
+        link: "https://github.com/Libreverse/Libreverse-website",
+        description: "The website for the libreverse.",
+      },
+      {
+        title: "core-js-custom",
+        link: "https://github.com/Libreverse/core-js-custom",
+        description: "A custom version of core-js made for Libreverse.",
+      },
+      {
+        title: "twemoji-tweaked",
+        link: "https://github.com/georgebaskervil/twemoji-tweaked",
+        description: "A custom version of twemoji with extra features.",
+      },
+      {
+        title: "And more to come...",
+        link: "https://github.com/georgebaskervil",
+        description:
+          "I'm always working on new projects! Check them out on my GitHub.",
+      },
+    ] %>
+    <% projects.each do |proj| %>
+      <div class="hp-proj-div">
+        <a href="<%= proj[:link] %>" target="_blank" rel="noreferrer">
+          <div class="hp-proj-internals">
+            <p class="hp-proj-title"><%= proj[:title] %></p>
+            <%= image_tag(
+              vite_asset_path("icons/arrow-up-right.svg"),
+              width: "30",
+              height: "30",
+              loading: "eager",
+              decoding: "sync",
+              fetchpriority: "high",
+              class: "hp-proj-svg",
+              alt: "An arrow pointing up and right",
+            ) %>
+          </div>
+          <div class="hp-proj-desc"><%= proj[:description] %></div>
+        </a>
+      </div>
+    <% end %>
+  </section>
+</article>
+
+<article class="hp-spacing">
+  <header class="hp-header">
+    <h3 class="hp-h3">Some of the best photos I have taken:</h3>
+    <a href="/images" class="hp-small-link">
+      See all photos
+    </a>
+  </header>
+  <section class="hp-image-grid-container">
+    <% @images.first(8).each_with_index do |img, index| %>
+      <div class="image-container">
+        <% ext = File.extname(img) %>
+        <% base_name = File.basename(img, ext) %>
+        <a
+          href="<%= vite_asset_path("losslessphotos/#{base_name.sub(/^resized_/, '') + ext}") %>"
+          target="_blank"
+        >
+          <picture>
+            <source
+              srcset="<%= vite_asset_path("photos/AVIFs/#{base_name}.avif") %>"
+              type="image/avif"
+            >
+            <source
+              srcset="<%= vite_asset_path("photos/WebPs/#{base_name}.webp") %>"
+              type="image/webp"
+            >
+            <source
+              srcset="<%= vite_asset_path("photos/JXLs/#{base_name}.jxl") %>"
+              type="image/jxl"
+            >
+            <%= image_tag(
+              vite_asset_path("photos/#{img}"),
+              loading: "lazy",
+              decoding: "async",
+              fetchpriority: "low",
+            ) %>
+          </picture>
+        </a>
+      </div>
+    <% end %>
+  </section>
+</article>
+
+<article>
+  <header class="hp-header">
+    <h3 class="hp-h3">The latest blog posts I have written:</h3>
+    <a href="/posts" class="hp-small-link">
+      See all posts
+    </a>
+  </header>
+  <section class="posts-section">
+    <% @latest_posts.each do |article| %>
+      <%= link_to post_path(File.basename(article[:file_path], '.md')), class: "posts-card" do %>
+        <h2 class="posts-title"><%= article[:title] %></h2>
+        <p class="posts-content"><%= article[:description] %></p>
+        <p class="posts-published-date-card-ver">Published on
+          <%= article[:published_at].strftime("%B %d, %Y") %></p>
+      <% end %>
+    <% end %>
+  </section>
+</article>
