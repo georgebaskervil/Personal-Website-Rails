@@ -1,0 +1,29 @@
+{
+  "all": {
+    "sourceCodeDir": "app",
+    "additionalEntrypoints": [
+      "~/articles/**/*",
+      "~/emoji/**/*",
+      "~/fonts/**/*",
+      "~/icons/**/*",
+      "~/images/**/*",
+      "~/javascript/**/*",
+      "~/libs/**/*",
+      "~/llms/**/*",
+      "~/losslessphotos/**/*",
+      "~/photos/**/*",
+      "~/stylesheets/**/*",
+      "~/videos/**/*"
+    ]
+  },
+  "development": {
+    "autoBuild": false,
+    "publicOutputDir": "vite-dev",
+    "port": 3036
+  },
+  "test": {
+    "autoBuild": false,
+    "publicOutputDir": "vite-test",
+    "port": 3037
+  }
+}

@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /netflixdobetter
+Disallow: /404

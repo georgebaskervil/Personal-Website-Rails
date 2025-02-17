@@ -1,0 +1,158 @@
+@use "variables";
+
+.hp-article {
+  @apply md:flex-row-reverse md:justify-end md:gap-12 mb-5;
+}
+
+.hp-rows {
+  @apply flex flex-row justify-between sm:grid-cols-3 items-center;
+}
+
+.hp-columns {
+  @apply col-span-2 flex flex-col gap-6 md:gap-8 my-auto;
+}
+
+.hp-h1 {
+  @apply lg:text-4xl md:text-3xl font-bold text-2xl text-text;
+}
+
+.hp-h2 {
+  @apply w-[90%] leading-6 text-sm sm:text-base text-text;
+}
+
+.hp-li-div {
+  @apply text-text;
+}
+
+.hp-custom-breadcrumbs {
+  max-width: 100%;
+  overflow-x: auto;
+  padding-top: 0.5%;
+
+  @apply scrollbar-hide;
+}
+
+.hp-custom-breadcrumbs > ul {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  min-height: min-content;
+}
+
+.hp-custom-breadcrumbs > ul > li {
+  display: flex;
+  align-items: center;
+}
+
+.hp-custom-breadcrumbs > ul > li > a {
+  display: flex;
+  align-items: center;
+}
+
+@media (hover: hover) {
+  .hp-custom-breadcrumbs > ul > li > a:hover {
+    text-decoration-line: underline;
+  }
+}
+
+.hp-custom-breadcrumbs > ul > li > a:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.hp-custom-breadcrumbs > ul > li > a:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 2px;
+}
+
+.hp-custom-breadcrumbs > ul > li + *::before {
+  content: "/";
+  margin-left: 0.5rem /* 8px */;
+  margin-right: 0.75rem /* 12px */;
+  display: block;
+  opacity: 0.4;
+  background-color: transparent;
+}
+
+@media (width <= 700px) {
+  .hp-custom-breadcrumbs {
+    max-width: 200px;
+  }
+}
+
+.hp-picture {
+  @apply rounded-lg border-neutral;
+}
+
+.hp-article-2 {
+  @apply flex flex-col gap-3 mb-5;
+}
+
+.hp-spacing {
+  @apply mb-5;
+}
+
+.hp-header {
+  @apply flex w-full flex-row justify-between gap-2 mb-4;
+}
+
+.hp-header-2 {
+  @apply flex w-full flex-row justify-between gap-2 mb-2;
+}
+
+.hp-h3 {
+  @apply text-lg text-text;
+}
+
+.hp-small-link {
+  @apply text-sm text-accent no-underline hover:underline;
+
+  text-align: right;
+}
+
+.hp-section {
+  @apply grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
+}
+
+.hp-proj-div {
+  @apply p-4 rounded-lg border border-neutral shadow-md;
+  @apply transition-all duration-300 ease-in-out;
+  @apply w-full;
+
+  background-color: variables.$background-colour;
+  opacity: 1;
+  z-index: 1;
+
+  &:hover {
+    transform: rotate(5deg) scale(1.2); /* Adjusted scale to match your design */
+    z-index: 2;
+    opacity: 1;
+    box-shadow: variables.$box-shadow; /* Assuming $box-shadow is defined elsewhere */
+  }
+
+  &:not(:hover) {
+    transform: rotate(0deg) scale(1);
+    z-index: 1;
+    opacity: 1;
+  }
+}
+
+.hp-proj-internals {
+  @apply flex justify-between gap-3 flex-row items-start;
+}
+
+.hp-proj-title {
+  @apply font-semibold text-lg text-text;
+}
+
+.hp-proj-desc {
+  @apply text-text mt-1;
+}
+
+.hp-proj-svg {
+  @apply min-w-[28px] min-h-[28px];
+}
+
+.hp-image-grid-container {
+  @apply grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4;
+}
