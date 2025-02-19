@@ -2,37 +2,36 @@ import { Controller } from "@hotwired/stimulus"
 import { Wllama, LoggerWithoutDebug } from "@wllama/wllama/esm/index.js"
 import multiThreadWllama from "@wllama/wllama/esm/multi-thread/wllama.wasm?url"
 import singleThreadWllama from "@wllama/wllama/esm/single-thread/wllama.wasm?url"
-# import part1 from "~/llms/browserdeepseek-00001-of-00004.gguf"
-# import part2 from "~/llms/browserdeepseek-00002-of-00004.gguf"
-# import part3 from "~/llms/browserdeepseek-00003-of-00004.gguf"
-# import part4 from "~/llms/browserdeepseek-00004-of-00004.gguf"
 
 export default class extends Controller
-  @targets = ["userInput", "chatDisplay"]
+  @targets = ["userInput", "chatDisplay", "sendButton", "loadingIndicator"]
 
   connect: ->
-    # Toggle this flag to enable or disable Wllama initialization
-    @wllamaFeatureEnabled = true
-
+    @modelLoaded = false
     @messages = [
       { role: "system", content: "You are a helpful assistant." }
     ]
     document.addEventListener "distractionmode:toggle", @handleDistractionMode.bind(@)
+    # Optionally show the loading indicator immediately
+    if @hasLoadingIndicatorTarget
+      @loadingIndicatorTarget.textContent = "Loading model, please wait..."
+      @loadingIndicatorTarget.style.display = "block"
+    # Disable the send button until load completes
+    if @hasSendButtonTarget
+      @sendButtonTarget.disabled = true
 
   disconnect: ->
     document.removeEventListener "distractionmode:toggle", @handleDistractionMode.bind(@)
 
   handleDistractionMode: ->
-    unless @wllamaFeatureEnabled
-      console.log "Wllama feature is disabled."
-      return
     @initWllama()
 
   initWllama: ->
-    fullPart1Url = new URL(part1, window.location.origin).href
-    fullPart2Url = new URL(part2, window.location.origin).href
-    fullPart3Url = new URL(part3, window.location.origin).href
-    fullPart4Url = new URL(part4, window.location.origin).href
+    # Point to the files hosted at r2.geor.me
+    fullPart1Url = "https://r2.geor.me/browserdeepseek-00001-of-00004.gguf"
+    fullPart2Url = "https://r2.geor.me/browserdeepseek-00002-of-00004.gguf"
+    fullPart3Url = "https://r2.geor.me/browserdeepseek-00003-of-00004.gguf"
+    fullPart4Url = "https://r2.geor.me/browserdeepseek-00004-of-00004.gguf"
 
     @instance = new Wllama(
       {
@@ -48,10 +47,19 @@ export default class extends Controller
       {
         n_ctx: 1024,
       }
-    )
+    ).then =>
+      @modelLoaded = true
+      if @hasLoadingIndicatorTarget
+        @loadingIndicatorTarget.style.display = "none"
+      if @hasSendButtonTarget
+        @sendButtonTarget.disabled = false
 
   sendMessage: (ev) ->
     ev.preventDefault()
+    unless @modelLoaded
+      alert "Model is still loading. Please wait a moment."
+      return
+
     userContent = @userInputTarget.value.trim()
     return unless userContent.length > 0
 
@@ -68,7 +76,7 @@ export default class extends Controller
       @messages.push({ role: "assistant", content: reply })
       @renderChat(reply)
 
-  transformChatMLToHTML = (chatml) ->
+  transformChatMLToHTML: (chatml) ->
     # Example: turn <think> tags into .thinking-message divs, etc.
     chatml
       .replace(/<think>/g, '<div class="thinking-message">')
@@ -79,5 +87,5 @@ export default class extends Controller
       .replace(/<\/user>/g, '</div>')
 
   renderChat: (assistantReply) ->
-    htmlContent = transformChatMLToHTML(assistantReply)
+    htmlContent = @transformChatMLToHTML(assistantReply)
     @chatDisplayTarget.insertAdjacentHTML("beforeend", htmlContent)

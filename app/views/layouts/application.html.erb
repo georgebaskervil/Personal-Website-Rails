@@ -4,8 +4,8 @@
     <!--Preconnects, DNS prefetches and application code-->
     <link rel="dns-prefetch" href="geor.me">
     <link rel="preconnect" href="geor.me">
-    <link rel="dns-prefetch" href="analytics.geor.me">
-    <link rel="preconnect" href="analytics.geor.me">
+    <link rel="dns-prefetch" href="umami.geor.me">
+    <link rel="preconnect" href="umami.geor.me">
     <%= vite_stylesheet_tag "~/stylesheets/application.scss" %>
     <link
       rel="preload"
@@ -19,8 +19,9 @@
       <script
         async
         defer
-        src="https://umami.geor.me/script.js"
+        src="/umami/script.js"
         data-website-id="aedd1629-915b-4671-b815-1edb044b6d2a"
+        data-host-url="https://umami.geor.me"
       ></script>
     <% end %>
     <!--SEO config Options. Will allow these to be configured from elsewhere at
@@ -67,7 +68,6 @@
     <meta name="theme-color" content="<%= theme_color %>">
     <meta name="robots" content="all">
     <meta name="referrer" content="no-referrer-when-downgrade">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><!--Supposedly improves compatibility in older browsers-->
     <title><%= name %></title>
     <link rel="canonical" href="<%= url %>">
     <link rel="home" href="<%= homepage %>">

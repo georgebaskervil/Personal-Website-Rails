@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
   def set_custom_headers
     response.set_header("Cross-Origin-Embedder-Policy", "require-corp")
     response.set_header("Cross-Origin-Opener-Policy", "same-origin")
+    response.set_header("X-UA-Compatible", "IE=edge,chrome=1")
   end
 
   def increment_HTTP_req_counter

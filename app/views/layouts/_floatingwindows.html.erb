@@ -165,9 +165,15 @@
     <div class="deepseek-chat">
       <div class="deepseek-chat-app" data-controller="deepseek-chat">
         <div data-deepseek-chat-target="chatDisplay"></div>
+        <!-- Loading indicator -->
+        <div
+          data-deepseek-chat-target="loadingIndicator"
+          style="display: none; color: #fff; text-align: center; margin-bottom: 0.5rem;"
+        ></div>
         <form>
           <textarea data-deepseek-chat-target="userInput" class="deepseek-chat-input"></textarea>
           <button
+            data-deepseek-chat-target="sendButton"
             data-action="click->deepseek-chat#sendMessage"
             class="deepseek-chat-sendbutton"
           >Send</button>

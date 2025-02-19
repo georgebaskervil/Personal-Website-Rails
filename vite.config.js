@@ -112,6 +112,8 @@ export default defineConfig({
     }),
     vitePluginCompression({
       algorithm: "brotliCompress",
+      filter: /\.(js|css)$/i, // Specify which resources are not compressed
+      disable: false, // Whether to disable compression
       compressionOptions: {
         params: {
           [constants.BROTLI_PARAM_QUALITY]: 11,
@@ -120,16 +122,18 @@ export default defineConfig({
           [constants.BROTLI_PARAM_MODE]: constants.BROTLI_MODE_TEXT,
         },
       },
-      threshold: 0,
-      ext: ".br",
+      threshold: 1500, // It will be compressed if the volume is larger than threshold (in bytes)
+      ext: ".br", // Suffix of the generated compressed package
       deleteOriginFile: false,
     }),
     vitePluginCompression({
       algorithm: "gzip",
+      filter: /\.(js|css)$/i,
+      disable: false,
       compressionOptions: {
         level: 6,
       },
-      threshold: 0,
+      threshold: 1500,
       ext: ".gz",
       deleteOriginFile: false,
     }),

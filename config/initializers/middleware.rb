@@ -2,9 +2,17 @@
 # to run before the deflater and brotli because middlewares are,
 # unintuitively, run as a stack from the bottom up.
 Rails.application.config.middleware.use Rack::Deflater,
-                                        sync: false
-Rails.application.config.middleware.use Rack::Brotli, quality: 11,
-                                                      deflater: { lgwin: 22, lgblock: 0, mode: :text }, sync: false
+                                        sync: false,
+                                        include: %w[text/html]
+Rails.application.config.middleware.use Rack::Brotli,
+                                        quality: 11,
+                                        deflater: {
+                                          lgwin: 22,
+                                          lgblock: 0,
+                                          mode: :text
+                                        },
+                                        sync: false,
+                                        include: %w[text/html]
 
 # this option set is from the default readme of htmlcompressor
 Rails.application.config.middleware.use HtmlCompressor::Rack,
