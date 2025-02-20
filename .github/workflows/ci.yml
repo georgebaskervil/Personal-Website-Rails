@@ -13,6 +13,12 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
+      - name: Bypass Cloudflare for Github Action
+        uses: ./.github/actions/bypass-cloudflare
+        with:
+          cf_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+          cf_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
       - name: Log in to Quay
         uses: docker/login-action@v2
         with:
