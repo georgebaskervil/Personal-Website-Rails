@@ -35,7 +35,7 @@
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^10.1.4",
     "prettier": "^3.5.1",
-    "prettier-plugin-sh": "^0.14.0",
+    "prettier-plugin-sh": "^0.15.0",
     "sass-embedded": "^1.85.0",
     "stimulus-use": "^0.52.3",
     "stylelint": "^16.14.1",
