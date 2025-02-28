@@ -51,9 +51,6 @@ gem "bootsnap"
 # Use the better_html gem to validate resultant HTML
 gem "better_html"
 
-# Use the solder gem to cache component state on the server side
-gem "solder"
-
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug"

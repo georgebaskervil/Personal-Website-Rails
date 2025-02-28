@@ -55,7 +55,6 @@ Rails.application.routes.draw do
   get "/data", to: "data#index"
   get "/dmca", to: "dmca#index"
   root "homepage#index"
-  mount Solder::Engine, at: "/solder"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
