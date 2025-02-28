@@ -7,7 +7,7 @@ Rails.application.configure do
     policy.script_src :self, :https, :unsafe_inline, :unsafe_eval, :blob
     policy.style_src  :self, :https, :unsafe_inline
     policy.worker_src :self, :blob
-    policy.connect_src :self, :https
+    policy.connect_src :self, :https, :data
 
     # Allow @vite/client in development
     if Rails.env.development?
