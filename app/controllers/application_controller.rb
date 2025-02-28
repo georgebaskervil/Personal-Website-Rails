@@ -12,7 +12,6 @@ class ApplicationController < ActionController::Base
   before_action :set_all_posts
   before_action :set_latest_posts
   before_action :set_article, only: [ :show ]
-  before_action :set_unique_session_id
 
   def show
     return unless @article.nil?
@@ -155,9 +154,5 @@ class ApplicationController < ActionController::Base
     Digest::MD5.hexdigest(
       files.sort.map { |f| "#{f}:#{File.mtime(f).to_i}" }.join("|")
     )
-  end
-
-  def set_unique_session_id
-    session[:unique_session_id] ||= SecureRandom.uuid
   end
 end

@@ -318,6 +318,11 @@ body {
 
 /* Custom Cursor Styles */
 
+.custom-cursor-circle.initializing {
+  opacity: 0 !important;
+  transition: opacity 0.3s ease;
+}
+
 /* Outer Circle */
 .custom-cursor-circle {
   /* Define CSS variables for translation using kebab-case */
