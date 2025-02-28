@@ -4,13 +4,82 @@ export default class extends Controller
   @targets = ["input", "output", "mode", "modeDisplay", "cipherGrid"]
   @values = { currentMode: String }
 
+  STORAGE_KEY = 'cipher-state'
+
   connect: ->
     @alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     @reverseGrid = null  # Cache for the reverse cipher grid
     @setupGrid()
     @currentMode = "decrypt"
+    @loadStateFromStorage() # Load saved state if available
     @updateModeDisplay()
     @addCellListeners()
+    
+    # Add input change listener
+    @inputChanged = @inputChanged.bind(this)
+    @inputTarget.addEventListener('input', @inputChanged)
+    
+    # Add event handlers for saving state
+    @saveHandler = @saveStateToStorage.bind(this)
+    
+    # Turbo-specific events
+    document.addEventListener('turbo:before-visit', @saveHandler)
+    document.addEventListener('turbo:before-cache', @saveHandler)
+    
+    # Standard browser events
+    window.addEventListener('beforeunload', @saveHandler)
+    window.addEventListener('pagehide', @saveHandler)
+    document.addEventListener('visibilitychange', @handleVisibilityChange.bind(this))
+
+  disconnect: ->
+    # Clean up all event listeners
+    document.removeEventListener('turbo:before-visit', @saveHandler)
+    document.removeEventListener('turbo:before-cache', @saveHandler)
+    window.removeEventListener('beforeunload', @saveHandler)
+    window.removeEventListener('pagehide', @saveHandler)
+    document.removeEventListener('visibilitychange', @handleVisibilityChange.bind(this))
+    @inputTarget.removeEventListener('input', @inputChanged)
+    
+  handleVisibilityChange: ->
+    if document.visibilityState == 'hidden'
+      @saveStateToStorage()
+      
+  saveStateToStorage: ->
+    state = {
+      cipherGrid: @cipherGrid,
+      currentMode: @currentMode,
+      input: @inputTarget.value
+    }
+    try
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+    catch e
+      console.error("Failed to save cipher state to localStorage", e)
+
+  loadStateFromStorage: ->
+    try
+      savedState = localStorage.getItem(STORAGE_KEY)
+      if savedState
+        state = JSON.parse(savedState)
+        @setStateValues(state)
+    catch e
+      console.error("Failed to load cipher state from localStorage", e)
+
+  setStateValues: (state) ->
+    if state.cipherGrid?
+      @cipherGrid = state.cipherGrid
+      @updateGrid()
+    
+    if state.currentMode?
+      @currentMode = state.currentMode
+      @updateModeDisplay()
+    
+    if state.input?
+      @inputTarget.value = state.input
+      @processText()
+      
+  inputChanged: ->
+    @processText()
+    @saveStateToStorage()
 
   setupGrid: ->
     @cipherGrid = {}
@@ -36,6 +105,7 @@ export default class extends Controller
         @cipherGrid[letter] = newMapping.toUpperCase()
         @processText()
         @updateGrid()
+        @saveStateToStorage()
 
   isValidMapping: (letter, mapping) ->
     return true if mapping == '*'
@@ -55,6 +125,7 @@ export default class extends Controller
     @currentMode = if @currentMode == "encrypt" then "decrypt" else "encrypt"
     @updateModeDisplay()
     @processText()
+    @saveStateToStorage()
 
   updateModeDisplay: ->
     @modeDisplayTarget.textContent = @currentMode
@@ -100,7 +171,9 @@ export default class extends Controller
         @cipherGrid[letter] = available.splice(idx, 1)[0]
     @updateGrid()
     @processText()
+    @saveStateToStorage()
 
   clear: ->
     @setupGrid()
     @processText()
+    @saveStateToStorage()

@@ -11,21 +11,106 @@ export default class extends Controller
       type: Number
       default: 0.2
 
+  STORAGE_KEY = 'binomilator-state'
+
   connect: ->
     @factCache = {}  # initialize cache for factorial results
-    @n = parseInt(@nTarget.value)
-    @p = parseFloat(@pTarget.value)
-    @x = parseInt(@xTarget.value)
-    @showPoisson = false
-    @showNormal = false
     @plotTarget.classList.add 'loading'
+    @loadStateFromStorage()
+    @initializeOutputs() # Call after loading state
     @updateAll()
     @plotInitialized = true
+    
+    # More comprehensive event handling
+    @saveHandler = this.saveStateToStorage.bind(this)
+    
+    # Turbo-specific events
+    document.addEventListener('turbo:before-visit', @saveHandler)
+    document.addEventListener('turbo:before-cache', @saveHandler)
+    
+    # Standard browser events
+    window.addEventListener('beforeunload', @saveHandler)
+    window.addEventListener('pagehide', @saveHandler)
+    document.addEventListener('visibilitychange', @handleVisibilityChange.bind(this))
+  
+  disconnect: ->
+    # Clean up all event listeners
+    document.removeEventListener('turbo:before-visit', @saveHandler)
+    document.removeEventListener('turbo:before-cache', @saveHandler)
+    window.removeEventListener('beforeunload', @saveHandler)
+    window.removeEventListener('pagehide', @saveHandler)
+    document.removeEventListener('visibilitychange', @handleVisibilityChange.bind(this))
+    
+  handleVisibilityChange: ->
+    if document.visibilityState == 'hidden'
+      @saveStateToStorage()
+
+  loadStateFromStorage: ->
+    try
+      savedState = localStorage.getItem(STORAGE_KEY)
+      if savedState
+        state = JSON.parse(savedState)
+        @setStateValues(state)
+      else
+        # Initialize default values
+        @n = parseInt(@nTarget.value)
+        @p = parseFloat(@pTarget.value)
+        @x = parseInt(@xTarget.value)
+        @showPoisson = false
+        @showNormal = false
+    catch e
+      console.error("Failed to load state from localStorage", e)
+      # Initialize default values
+      @n = parseInt(@nTarget.value)
+      @p = parseFloat(@pTarget.value)
+      @x = parseInt(@xTarget.value)
+      @showPoisson = false
+      @showNormal = false
+
+  setStateValues: (state) ->
+    if state.n?
+      @nTarget.value = state.n
+      @n = parseInt(state.n)
+    else
+      @n = parseInt(@nTarget.value)
+
+    if state.p?
+      @pTarget.value = state.p
+      @p = parseFloat(state.p)
+    else
+      @p = parseFloat(@pTarget.value)
+
+    if state.x?
+      @xTarget.value = state.x
+      @x = parseInt(state.x)
+    else
+      @x = parseInt(@xTarget.value)
+
+    @showPoisson = state.showPoisson ? false
+    @showNormal = state.showNormal ? false
+    
+    # Remove this call to avoid the error
+    # @initializeOutputs()
+
+  saveStateToStorage: ->
+    state = {
+      n: @n,
+      p: @p,
+      x: @x,
+      showPoisson: @showPoisson,
+      showNormal: @showNormal
+    }
+    try
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+    catch e
+      console.error("Failed to save state to localStorage", e)
 
   initializeOutputs: ->
     outputs = @element.querySelectorAll 'output'
-    outputs[0].textContent = @nTarget.value
-    outputs[1].textContent = @pTarget.value
+    # Add defensive checks to make sure elements exist
+    if outputs && outputs.length > 0
+      outputs[0].textContent = @nTarget.value if outputs[0]
+      outputs[1].textContent = @pTarget.value if outputs.length > 1 && outputs[1]
 
   inputChanged: (event) ->
     output = @element.querySelector "output[for='#{event?.target?.id}']"

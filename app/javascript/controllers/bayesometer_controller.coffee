@@ -6,15 +6,67 @@ export default class extends Controller
     "ph", "pth", "ptnh", "plot", "results", "error", "validResults",
     "pht", "pnotht", "phnott", "pnothnott", "pt", "pnott"
   ]
+  
+  STORAGE_KEY = 'bayesometer-state'
 
   connect: ->
     @plotInitialized = false
     @plotTarget.classList.add 'loading'
+    @loadStateFromStorage()
     @updateAll()
     @plotInitialized = true
-
+    
+    # More comprehensive event handling
+    @saveHandler = this.saveStateToStorage.bind(this)
+    
+    # Turbo-specific events
+    document.addEventListener('turbo:before-visit', @saveHandler)
+    document.addEventListener('turbo:before-cache', @saveHandler)
+    
+    # Standard browser events
+    window.addEventListener('beforeunload', @saveHandler)
+    window.addEventListener('pagehide', @saveHandler)
+    document.addEventListener('visibilitychange', @handleVisibilityChange.bind(this))
+  
+  disconnect: ->
+    # Clean up all event listeners
+    document.removeEventListener('turbo:before-visit', @saveHandler)
+    document.removeEventListener('turbo:before-cache', @saveHandler)
+    window.removeEventListener('beforeunload', @saveHandler)
+    window.removeEventListener('pagehide', @saveHandler)
+    document.removeEventListener('visibilitychange', @handleVisibilityChange.bind(this))
+    
+  handleVisibilityChange: ->
+    if document.visibilityState == 'hidden'
+      @saveStateToStorage()
+      
   inputChanged: ->
     @updateAll()
+    
+  saveStateToStorage: ->
+    state = {
+      ph: @phTarget.value,
+      pth: @pthTarget.value,
+      ptnh: @ptnhTarget.value
+    }
+    try
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+    catch e
+      console.error("Failed to save state to localStorage", e)
+      
+  loadStateFromStorage: ->
+    try
+      savedState = localStorage.getItem(STORAGE_KEY)
+      if savedState
+        state = JSON.parse(savedState)
+        @setInputValues(state)
+    catch e
+      console.error("Failed to load state from localStorage", e)
+      
+  setInputValues: (state) ->
+    @phTarget.value = state.ph if state.ph?
+    @pthTarget.value = state.pth if state.pth?
+    @ptnhTarget.value = state.ptnh if state.ptnh?
 
   updateAll: ->
     ph = parseFloat @phTarget.value
