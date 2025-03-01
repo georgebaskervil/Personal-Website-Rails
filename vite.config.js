@@ -10,6 +10,7 @@ import tailwindcss from "tailwindcss";
 import coffee from "vite-plugin-coffee";
 import vitePluginCompression from "vite-plugin-compression";
 import { constants } from "node:zlib";
+import vue from "@vitejs/plugin-vue";
 
 export default defineConfig({
   resolve: {
@@ -59,6 +60,7 @@ export default defineConfig({
   plugins: [
     rubyPlugin(),
     fullReload(["config/routes.rb", "app/views/**/*"]),
+    vue(),
     coffee({
       jsx: false,
     }),

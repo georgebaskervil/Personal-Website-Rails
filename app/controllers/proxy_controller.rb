@@ -1,5 +1,5 @@
 class ProxyController < ApplicationController
-  skip_forgery_protection only: [:umami_script]
+  skip_forgery_protection only: [ :umami_script ]
 
   require "net/http"
   require "uri"

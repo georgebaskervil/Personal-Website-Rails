@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "/taskstack", to: "taskstack#index"
   get "/umami/script.js", to: "proxy#umami_script"
   get "/neudec", to: "neudec#index"
   get "/eclecticonapps", to: "eclecticonapps#index"

@@ -51,6 +51,9 @@ gem "bootsnap"
 # Use the better_html gem to validate resultant HTML
 gem "better_html"
 
+# Use turbo-mount to allow me to use components written in conventional js frameworks here
+gem "turbo-mount"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug"

@@ -4,6 +4,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import js from "@eslint/js";
 import { FlatCompat } from "@eslint/eslintrc";
+import vuePlugin from "eslint-plugin-vue";
+import vueParser from "vue-eslint-parser";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,13 +30,14 @@ export default [
   ...compat.extends(
     "eslint:recommended",
     "plugin:unicorn/recommended",
+    "plugin:vue/vue3-recommended", // Add Vue 3 recommended rules
     "prettier",
   ),
   {
     plugins: {
       unicorn,
+      vue: vuePlugin,
     },
-
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -42,9 +45,9 @@ export default [
 
       ecmaVersion: "latest",
       sourceType: "module",
+      parser: vueParser, // Set Vue's parser
     },
 
-    // Add rules section
     rules: {
       "unicorn/filename-case": "off",
       "unicorn/no-anonymous-default-export": "off",

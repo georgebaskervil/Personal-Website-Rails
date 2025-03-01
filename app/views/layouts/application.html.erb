@@ -6,6 +6,7 @@
     <link rel="preconnect" href="geor.me">
     <link rel="dns-prefetch" href="umami.geor.me">
     <link rel="preconnect" href="umami.geor.me">
+    <%= yield :specifcstylesheets %>
     <%= vite_stylesheet_tag "~/stylesheets/application.scss" %>
     <link
       rel="preload"
@@ -136,6 +137,7 @@
               <% nav_items = [
                 { title: "Posts", path: "/posts" },
                 { title: "Images", path: "/images" },
+                { title: "TaskStack", path: "/taskstack" },
                 { title: "Eclecticon Apps", path: "/eclecticonapps" },
                 { title: "Miscellaneous", path: "/miscellaneous" },
                 { title: "Legal", path: "/legal" },

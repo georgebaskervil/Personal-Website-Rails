@@ -19,10 +19,11 @@ export default class extends Controller
     @handleMouseUp = @handleMouseUp.bind(@)
     @saveCursorState = @saveCursorState.bind(@)
     @loadCursorState = @loadCursorState.bind(@)
+    @finishInitialization = @finishInitialization.bind(@)
     
     # Track initialization state
     @isInitializing = true
-    @circle?.classList.add("initializing")
+    @hasUserMovedMouse = false
 
     # Add event listeners
     globalThis.addEventListener("mousemove", @handleMouseMove)
@@ -31,20 +32,28 @@ export default class extends Controller
     document.addEventListener("turbo:before-visit", @saveCursorState)
     document.addEventListener("turbo:load", @loadCursorState)
 
-    # Set default values (will be overridden if state exists in localStorage)
+    # Set default values (a reasonable but arbitrary position)
     @isShrinking = false
     @circleX = window.innerWidth / 2
     @circleY = window.innerHeight / 2
     @targetX = @circleX
     @targetY = @circleY
     
-    # Load saved state (this will override defaults if available)
+    # Apply no-transition class during initialization
+    @circle?.classList.add("no-transition")
+    
+    # Load saved state (position and shrink state)
     @loadCursorState()
     
     # Start animation loop
     requestAnimationFrame(@animateCursor)
 
   disconnect: ->
+    # Clear the timeout if it exists
+    if @initTimeout
+      clearTimeout(@initTimeout)
+      @initTimeout = null
+      
     # Save state before disconnecting
     @saveCursorState()
     
@@ -54,10 +63,30 @@ export default class extends Controller
     globalThis.removeEventListener("mouseup", @handleMouseUp)
     document.removeEventListener("turbo:before-visit", @saveCursorState)
     document.removeEventListener("turbo:load", @loadCursorState)
+    
+  # Finish initialization immediately using current position data
+  finishInitialization: ->
+    if @isInitializing
+      # Set position with no transition
+      @circle?.style.setProperty("--translate-x", "#{@circleX}px")
+      @circle?.style.setProperty("--translate-y", "#{@circleY}px")
+      
+      # Force browser to apply position before making visible
+      window.getComputedStyle(@circle).opacity
+      
+      # Make visible with no transition
+      @isInitializing = false
+      @circle?.classList.remove("initializing")
+      
+      # Remove no-transition class immediately
+      @circle?.classList.remove("no-transition")
 
   # Handles mouse movement by updating CSS variables for the circle's position.
   # @param {MouseEvent} event - The mousemove event object.
   handleMouseMove: (event) ->
+    # Update the flag - user has moved mouse
+    @hasUserMovedMouse = true
+    
     prefersReducedMotion = globalThis.matchMedia("(prefers-reduced-motion: reduce)").matches
     if prefersReducedMotion
       @circle?.style.display = "none"
@@ -65,44 +94,46 @@ export default class extends Controller
     else
       @circle?.style.display = "block"
 
-    # If this is first movement after initialization, make cursor visible
-    if @isInitializing
-      @isInitializing = false
-      @circle?.classList.remove("initializing")
-
+    # Get current mouse position
     x = event.clientX
     y = event.clientY
-
-    # Using consistent variable names (with hyphens)
-    @circle?.style.setProperty("--translate-x", "#{x}px")
-    @circle?.style.setProperty("--translate-y", "#{y}px")
-
-    @targetX = x
-    @targetY = y
+    
+    # If initializing, immediately finish initialization at current position
+    if @isInitializing
+      @targetX = x
+      @targetY = y
+      @circleX = x
+      @circleY = y
+      
+      # Ensure no transition for initial positioning
+      @circle?.classList.add("no-transition")
+      @finishInitialization()
+    else
+      # Normal behavior after initialization
+      @targetX = x
+      @targetY = y
 
   # Animates the circle to follow the target position with easing.
   animateCursor: ->
-    deltaX = @targetX - @circleX
-    deltaY = @targetY - @circleY
-    distance = Math.hypot(deltaX, deltaY)
-    threshold = 0.1
+    # Only animate if we're not initializing and have a mouse position
+    if !@isInitializing
+      # Only animate when cursor is visible (after initialization)
+      deltaX = @targetX - @circleX
+      deltaY = @targetY - @circleY
+      distance = Math.hypot(deltaX, deltaY)
+      threshold = 0.1
 
-    if distance > threshold
-      easingAmount = 0.2
-      @circleX = lerp(@circleX, @targetX, easingAmount)
-      @circleY = lerp(@circleY, @targetY, easingAmount)
-    else
-      @circleX = @targetX
-      @circleY = @targetY
-      
-      # When cursor reaches target position and was initializing, make it visible
-      if @isInitializing and distance <= threshold
-        @isInitializing = false
-        @circle?.classList.remove("initializing")
-
-    # Using consistent variable names (with hyphens)
-    @circle?.style.setProperty("--translate-x", "#{@circleX}px")
-    @circle?.style.setProperty("--translate-y", "#{@circleY}px")
+      if distance > threshold
+        easingAmount = 0.2
+        @circleX = lerp(@circleX, @targetX, easingAmount)
+        @circleY = lerp(@circleY, @targetY, easingAmount)
+      else
+        @circleX = @targetX
+        @circleY = @targetY
+        
+      # Update position
+      @circle?.style.setProperty("--translate-x", "#{@circleX}px")
+      @circle?.style.setProperty("--translate-y", "#{@circleY}px")
 
     requestAnimationFrame(@animateCursor)
 
@@ -126,26 +157,44 @@ export default class extends Controller
       targetX: @targetX
       targetY: @targetY
       isShrinking: @isShrinking
+      timestamp: Date.now()
     }
     localStorage.setItem('cursorState', JSON.stringify(cursorState))
     
   # Loads cursor state from localStorage
   loadCursorState: ->
     savedState = localStorage.getItem('cursorState')
+    
     if savedState
       state = JSON.parse(savedState)
-      @circleX = state.circleX
-      @circleY = state.circleY
-      @targetX = state.targetX
-      @targetY = state.targetY
-      @isShrinking = state.isShrinking
       
-      # Apply the state to the circle with consistent variable names
-      @circle?.style.setProperty("--translate-x", "#{@circleX}px")
-      @circle?.style.setProperty("--translate-y", "#{@circleY}px")
+      # Get the timestamp of the saved state
+      timestamp = state.timestamp || 0
+      currentTime = Date.now()
+      timeDifference = currentTime - timestamp
       
-      # Apply shrinking state if needed
-      if @isShrinking
-        @circle?.classList.add("shrink")
+      # If the saved state is recent (less than 2 seconds old), use it
+      # This likely means we're navigating between pages on the site
+      if timeDifference < 2000
+        # Use the saved position
+        @circleX = state.circleX
+        @circleY = state.circleY
+        @targetX = state.targetX
+        @targetY = state.targetY
+        @isShrinking = state.isShrinking
+        
+        # Apply position immediately
+        @circle?.style.setProperty("--translate-x", "#{@circleX}px")
+        @circle?.style.setProperty("--translate-y", "#{@circleY}px")
+        
+        # Make cursor visible immediately for smooth page transitions
+        @finishInitialization()
       else
-        @circle?.classList.remove("shrink")
+        # State is old, just load the shrink state and wait for mouse move
+        @isShrinking = state.isShrinking
+    
+    # Apply shrinking state if needed
+    if @isShrinking
+      @circle?.classList.add("shrink")
+    else
+      @circle?.classList.remove("shrink")

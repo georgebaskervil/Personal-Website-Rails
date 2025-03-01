@@ -8,9 +8,8 @@ if (!import.meta.env.DEV) {
 }
 
 // Hijack the XMLHttpRequest primitive to replace the wdosbox.js and wdosbox.wasm URLs
-// Ik it's a hack, but I can't find a way to control what other libraries are doing
+// Its a hack, but I can't find a way to control what other libraries are doing
 // without going in and modifying them directly
-
 import wdosboxJsUrl from "emulators/dist/wdosbox.js?url";
 import wdosboxWasmUrl from "emulators/dist/wdosbox.wasm?url";
 
