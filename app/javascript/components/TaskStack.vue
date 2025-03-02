@@ -9,25 +9,25 @@
             v-model="newTaskLabel"
             type="text"
             placeholder="Enter task name..."
-            class="add-task-input"
+            class="taskstack-input add-task-input"
             @keyup.enter="submitNewTask"
             @keyup.esc="cancelNewTask"
           />
           <div class="add-task-actions">
             <button
               :disabled="!newTaskLabel.trim()"
-              class="add-task-button"
+              class="taskstack-button add-task-button"
               @click="submitNewTask"
             >
               Add
             </button>
-            <button class="cancel-task-button" @click="cancelNewTask">
+            <button class="taskstack-button cancel-task-button" @click="cancelNewTask">
               Cancel
             </button>
           </div>
         </div>
       </template>
-      <button v-else class="add-task-button" @click="showAddTaskForm">
+      <button v-else class="taskstack-button add-task-button" @click="showAddTaskForm">
         <span class="add-icon">+</span> New Task
       </button>
     </div>
