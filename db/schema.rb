@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_22_153315) do
+ActiveRecord::Schema[8.0].define(version: 2024_09_20_211930) do
   create_table "http_req_counters", force: :cascade do |t|
     t.integer "count"
     t.datetime "created_at", null: false
