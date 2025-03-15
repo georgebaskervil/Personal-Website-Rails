@@ -29,9 +29,9 @@
     <!--SEO config Options. Will allow these to be configured from elsewhere at
     some point-->
     <% name = "George Baskerville's Personal Website"
-    page_name = "George Baskerville's Personal Website - Home"
+    page_name = "George Baskerville's Personal Website"
     description =
-      "The personal website of George Baskerville, a software developer and student from the UK."
+      "I'm George, a mad (computer) scientist. Here's my website."
     keywords = "George Baskerville, George, Baskerville, geor.me"
     preview_image = vite_asset_path("~/images/site-screenshot.png")
     preview_image_url = preview_image
@@ -47,6 +47,8 @@
     shortcut_icon = vite_asset_path("~/images/favicon.jpg")
     apple_touch_icon = shortcut_icon
     locale = "en_GB"
+    twitter_site = "@georgebaskervil"
+    twitter_creator = "@georgebaskervil"
     windows7_tooltip = "Open George Baskerville's Personal Website"
     windows7_starturl = "/"
     social_links = [
@@ -112,6 +114,16 @@
     <meta property="og:image:alt" content="<%= preview_image_alt %>">
     <meta property="og:description" content="<%= description %>">
     <meta property="og:locale" content="<%= locale %>">
+    <!--𝕏 metadata-->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:domain" content="<%= domain %>">
+    <meta name="twitter:site" content="<%= twitter_site %>">
+    <meta name="twitter:creator" content="<%= twitter_creator %>">
+    <meta name="twitter:title" content="<%= name %>">
+    <meta name="twitter:description" content="<%= description %>">
+    <meta name="twitter:image" content="<%= preview_image %>">
+    <meta name="twitter:image:alt" content="<%= preview_image_alt %>">
+    <meta name="twitter:url" content="<%= url %>">
     <!--Old windows pin-to-taskbar metadata-->
     <meta name="msapplication-tooltip" content="<%= windows7_tooltip %>">
     <meta name="msapplication-starturl" content="<%= windows7_starturl %>">
