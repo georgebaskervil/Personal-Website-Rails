@@ -7,6 +7,7 @@ gem "rails", "8.0.1"
 
 # Use vite rails instead of the regular
 gem "vite_rails"
+gem "vite_plugin_legacy"
 
 # Use SQLite 3 as the database for Active Record
 gem "sqlite3"

@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import rubyPlugin from "vite-plugin-ruby";
 import fullReload from "vite-plugin-full-reload";
 import stimulusHMR from "vite-plugin-stimulus-hmr";
-import legacy from "vite-plugin-legacy-swc";
+import legacy from "@vitejs/plugin-legacy";
 import postcssPresetEnv from "postcss-preset-env";
 import postcssFlexbugsFixes from "postcss-flexbugs-fixes";
 import cssnano from "cssnano";
@@ -18,7 +18,7 @@ export default defineConfig({
   },
   assetsInclude: ["**/*.jsdos", "**/*.gguf"],
   build: {
-    sourcemap: false,
+    sourcemap: true,
     cache: true,
     rollupOptions: {
       output: {
@@ -66,51 +66,10 @@ export default defineConfig({
     }),
     stimulusHMR(),
     legacy({
-      terserOptions: {
-        ecma: 5,
-        warnings: true,
-        mangle: {
-          properties: false,
-          safari10: true,
-          toplevel: false,
-        },
-        compress: {
-          defaults: true,
-          arrows: false,
-          booleans_as_integers: false,
-          booleans: true,
-          collapse_vars: true,
-          comparisons: true,
-          conditionals: true,
-          dead_code: true,
-          drop_console: true,
-          directives: true,
-          evaluate: true,
-          hoist_funs: true,
-          if_return: true,
-          join_vars: true,
-          keep_fargs: false,
-          loops: true,
-          negate_iife: true,
-          passes: 3,
-          properties: true,
-          reduce_vars: true,
-          sequences: true,
-          side_effects: true,
-          toplevel: false,
-          typeofs: false,
-          unused: true,
-        },
-        output: {
-          comments: /(?:copyright|licence|©)/i,
-          beautify: false,
-          semicolons: true,
-        },
-        keep_classnames: false,
-        keep_fnames: false,
-        safari10: true,
-        module: true,
-      },
+      targets: ['defaults', 'not IE 11'],
+      additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+      renderLegacyChunks: true,
+      modernPolyfills: true
     }),
     vitePluginCompression({
       algorithm: "brotliCompress",
