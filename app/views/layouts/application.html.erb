@@ -16,7 +16,7 @@
       crossorigin="anonymous"
     >
     <%= vite_javascript_tag "~/javascript/application.js" %>
-    <%= vite_legacy_javascript_tag 'application' %>
+    <%= vite_legacy_javascript_tag "~/javascript/application.js" %>
     <% if Rails.env.production? %>
       <script
         async
