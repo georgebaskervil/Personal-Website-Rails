@@ -44,5 +44,6 @@ export default {
       default: false,
     },
   },
+  emits: ["remove"],
 };
 </script>

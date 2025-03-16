@@ -18,6 +18,7 @@
 <script>
 export default {
   name: "TaskCreator",
+  emits: ["task-created"],
   data() {
     return {
       taskLabel: "",

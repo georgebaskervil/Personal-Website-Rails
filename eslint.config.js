@@ -15,6 +15,9 @@ const compat = new FlatCompat({
   allConfig: js.configs.all,
 });
 
+// Get Vue and Prettier configs from existing .eslintrc-compatible configs
+const compatConfigs = compat.extends("plugin:vue/vue3-recommended", "prettier");
+
 export default [
   {
     ignores: [
@@ -27,27 +30,25 @@ export default [
       "app//libs/**",
     ],
   },
-  ...compat.extends(
-    "eslint:recommended",
-    "plugin:unicorn/recommended",
-    "plugin:vue/vue3-recommended", // Add Vue 3 recommended rules
-    "prettier",
-  ),
+  // Include standard configs
+  js.configs.recommended,
+  unicorn.configs.recommended,
+  // Include compatibility configs
+  ...compatConfigs,
   {
+    // Define plugins only once
     plugins: {
-      unicorn,
       vue: vuePlugin,
     },
     languageOptions: {
       globals: {
         ...globals.browser,
       },
-
       ecmaVersion: "latest",
       sourceType: "module",
       parser: vueParser, // Set Vue's parser
     },
-
+    // Our custom rules
     rules: {
       "unicorn/filename-case": "off",
       "unicorn/no-anonymous-default-export": "off",

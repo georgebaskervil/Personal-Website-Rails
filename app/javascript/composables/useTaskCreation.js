@@ -9,7 +9,7 @@ import { ref } from "vue";
 export function useTaskCreation({ onCreate }) {
   const isAddingTask = ref(false);
   const newTaskLabel = ref("");
-  const newTaskInput = ref(null);
+  const newTaskInput = ref(undefined);
 
   /**
    * Show the task creation form and focus the input

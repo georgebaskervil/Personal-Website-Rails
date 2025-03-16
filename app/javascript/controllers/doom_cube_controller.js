@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
 import * as THREE from "three";
+/* global emulators */
 import "emulators";
 import spaceTexture from "~/images/space.png";
 import doomFiles from "~/libs/doom_shareware.jsdos";

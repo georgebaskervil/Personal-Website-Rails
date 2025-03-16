@@ -1,4 +1,4 @@
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onBeforeUnmount } from "vue";
 
 /**
  * Improved drag and drop with Trello-like visual effects
@@ -8,13 +8,13 @@ import { ref, onMounted, onBeforeUnmount } from "vue";
  */
 export function useDragDrop({ onReorder }) {
   // Track container element
-  const containerReference = ref(null);
+  const containerReference = ref(undefined);
 
   // Currently dragging state
   const dragging = ref(false);
-  const draggedElement = ref(null);
+  const draggedElement = ref(undefined);
   const draggedIndex = ref(-1);
-  const placeholderElement = ref(null);
+  const placeholderElement = ref(undefined);
 
   // State for drag position with better tracking
   const dragStartPosition = ref({ x: 0, y: 0 });
@@ -67,10 +67,12 @@ export function useDragDrop({ onReorder }) {
     draggedElement.value = element;
     draggedIndex.value = index;
 
-    // Store start position in page coordinates
+    // Store start position in page coordinates and container position for reference
     dragStartPosition.value = {
-      x: rect.left,
-      y: rect.top,
+      x: event.clientX,
+      y: event.clientY,
+      containerTop: containerRect.top,
+      containerLeft: containerRect.left,
     };
 
     // Calculate mouse pointer offset from element top-left corner
@@ -291,7 +293,7 @@ export function useDragDrop({ onReorder }) {
       // Remove the placeholder
       if (placeholderElement.value && placeholderElement.value.parentNode) {
         placeholderElement.value.remove();
-        placeholderElement.value = null;
+        placeholderElement.value = undefined;
       }
 
       // Now perform the actual reordering with another slight delay
@@ -304,7 +306,7 @@ export function useDragDrop({ onReorder }) {
 
       // Reset dragging state variables
       dragging.value = false;
-      draggedElement.value = null;
+      draggedElement.value = undefined;
       draggedIndex.value = -1;
 
       // Reset position trackers
@@ -332,7 +334,7 @@ export function useDragDrop({ onReorder }) {
     // If there's a placeholder, remove it
     if (placeholderElement.value && placeholderElement.value.parentNode) {
       placeholderElement.value.remove();
-      placeholderElement.value = null;
+      placeholderElement.value = undefined;
     }
 
     // If there's a dragged element, reset its styles
@@ -349,7 +351,7 @@ export function useDragDrop({ onReorder }) {
 
     // Reset dragging state
     dragging.value = false;
-    draggedElement.value = null;
+    draggedElement.value = undefined;
     draggedIndex.value = -1;
 
     // Reset position trackers

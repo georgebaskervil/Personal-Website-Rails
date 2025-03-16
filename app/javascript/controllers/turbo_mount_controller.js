@@ -16,7 +16,7 @@ export default class extends Controller {
   disconnect() {
     if (this.app) {
       this.app.unmount();
-      this.app = null;
+      this.app = undefined;
     }
   }
 

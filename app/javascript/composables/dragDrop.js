@@ -22,12 +22,7 @@
  * @param {number} tasksLength - Total number of tasks
  * @returns {DropPosition} The determined drop position
  */
-export function findDropPosition(
-  taskElements,
-  mouseY,
-  draggingIndex,
-  tasksLength,
-) {
+export function findDropPosition(taskElements, mouseY, draggingIndex) {
   // Handle empty list or invalid inputs case
   if (taskElements.length === 0 || mouseY === undefined) {
     return { index: 0, position: "first" };

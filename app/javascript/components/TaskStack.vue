@@ -75,7 +75,6 @@
 </template>
 
 <script>
-import { ref, watch } from "vue";
 import TaskBlock from "./TaskBlock.vue";
 import { useTaskCreation } from "../composables/useTaskCreation";
 import { useDragDrop } from "../composables/useDragDrop";
@@ -95,6 +94,7 @@ export default {
       default: false,
     },
   },
+  emits: ["remove-task", "create-task", "reorder-tasks"],
   setup(properties, { emit }) {
     // Set up task creation functionality
     const {

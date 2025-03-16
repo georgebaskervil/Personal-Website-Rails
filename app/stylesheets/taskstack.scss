@@ -65,13 +65,13 @@
   font-size: 16px;
   transition: all 0.3s;
 
-  &:hover:not(:disabled) {
-    background-color: #d1a0a7;
-  }
-
   &:disabled {
     background-color: #444;
     cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: #d1a0a7;
   }
 }
 

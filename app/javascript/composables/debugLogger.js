@@ -65,7 +65,7 @@ export class DebugLogger {
       `color: ${data.success ? "#4CAF50" : "#FFC107"}; font-weight: bold`,
     );
     console.groupEnd();
-    this._lastTarget = null;
+    this._lastTarget = undefined;
   }
 
   /**
