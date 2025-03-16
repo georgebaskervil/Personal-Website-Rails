@@ -28,8 +28,9 @@
     <% end %>
     <!--SEO config Options. Will allow these to be configured from elsewhere at
     some point-->
-    <% name = "George Baskerville's Personal Website"
-    page_name = "George Baskerville's Personal Website"
+    <% current_page_title = yield(:page_title).presence
+    name = page_title(current_page_title)
+    page_name = "George Baskerville#{' - ' + current_page_title if current_page_title}"
     description =
       "I'm George, a mad (computer) scientist. Here's my website."
     keywords = "George Baskerville, George, Baskerville, geor.me"
