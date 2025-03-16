@@ -21,13 +21,20 @@
             >
               Add
             </button>
-            <button class="taskstack-button cancel-task-button" @click="cancelNewTask">
+            <button
+              class="taskstack-button cancel-task-button"
+              @click="cancelNewTask"
+            >
               Cancel
             </button>
           </div>
         </div>
       </template>
-      <button v-else class="taskstack-button add-task-button" @click="showAddTaskForm">
+      <button
+        v-else
+        class="taskstack-button add-task-button"
+        @click="showAddTaskForm"
+      >
         <span class="add-icon">+</span> New Task
       </button>
     </div>
@@ -132,4 +139,3 @@ export default {
   },
 };
 </script>
-

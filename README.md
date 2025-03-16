@@ -1,24 +1,53 @@
-# README
+# Personal Website with Rails
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is George Baskerville's personal website built with Ruby on Rails.
 
-Things you may want to cover:
+## Article Metadata
 
-- Ruby version
+Articles are stored as Markdown files in the `app/articles` directory. Each article should have a YAML front matter section at the top of the file, enclosed between `---` markers.
 
-- System dependencies
+### Required Fields
 
-- Configuration
+- `title`: The article title
+- `description`: A brief summary of the article
+- `publishedAt`: Publication date (YYYY-MM-DD)
 
-- Database creation
+### Optional Fields for SEO and Social Sharing
 
-- Database initialization
+- `updatedAt`: Last modification date (YYYY-MM-DD)
+- `tags`: Array of keywords or topics
+- `section`: Category/section the article belongs to (defaults to "Blog")
+- `author`: Author name (defaults to "George Baskerville")
 
-- How to run the test suite
+Note: The slug for each article is automatically generated from the filename, so name your article files with SEO-friendly names (e.g., `how-the-metaverse-will-kill-us-all.md`).
 
-- Services (job queues, cache servers, search engines, etc.)
+### Example Article Front Matter
 
-- Deployment instructions
+```yaml
+---
+title: How the metaverse will kill us all
+description: Why Zuck's right, and why that's a problem.
+publishedAt: 2024-05-05
+updatedAt: 2024-05-10
+tags:
+  - Metaverse
+  - Social Media
+  - Technology
+  - Privacy
+  - Digital Wellbeing
+section: Technology
+author: George Baskerville
+---
+```
 
-- ...
+## Development
+
+To run this project locally:
+
+1. Clone the repository
+2. Run `bundle install`
+3. Run `rails server`
+
+## License
+
+See the LICENSE file for details.

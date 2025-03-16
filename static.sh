@@ -48,11 +48,6 @@ echo "====================="
 bun eslint . --fix
 
 echo "====================="
-echo "coffeelint results"
-echo "====================="
-bun coffeelint -f coffeelint.json app/javascript/controllers/*.coffee
-
-echo "====================="
 echo "Stylelint results"
 echo "====================="
 bun stylelint "**/*.scss" --fix
@@ -66,6 +61,11 @@ echo "====================="
 echo "Prettier results"
 echo "====================="
 bun prettier --write . | grep -v "unchanged"
+
+echo "====================="
+echo "Typos results"
+echo "====================="
+typos
 
 echo "====================="
 echo "Brakeman results"

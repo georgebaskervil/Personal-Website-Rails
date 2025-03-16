@@ -66,10 +66,10 @@ export default defineConfig({
     }),
     stimulusHMR(),
     legacy({
-      targets: ['defaults', 'not IE 11'],
-      additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+      targets: ["defaults", "not IE 11"],
+      additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
       renderLegacyChunks: true,
-      modernPolyfills: true
+      modernPolyfills: true,
     }),
     vitePluginCompression({
       algorithm: "brotliCompress",

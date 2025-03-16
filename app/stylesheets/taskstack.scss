@@ -18,11 +18,13 @@
 .taskstack-h1 {
   font-size: 2.5rem;
   margin-bottom: 24px;
+
   @apply text-4xl font-bold mb-4 text-text;
 }
 
 .taskstack-p {
   margin-bottom: 16px;
+
   @apply text-text;
 }
 
@@ -424,7 +426,7 @@
 
 .is-dragging {
   cursor: grabbing !important;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 15px 30px rgb(0 0 0 / 40%) !important;
   opacity: 0.95;
   pointer-events: none;
   transform-origin: center center;
@@ -448,9 +450,9 @@
 
 .drag-placeholder {
   box-sizing: border-box;
-  border: 2px dashed rgba(195, 147, 153, 0.3);
+  border: 2px dashed rgb(195 147 153 / 30%);
   border-radius: 8px;
-  background: rgba(195, 147, 153, 0.05);
+  background: rgb(195 147 153 / 5%);
   transition: all 0.2s;
 }
 
@@ -462,10 +464,11 @@
 // Animations
 @keyframes subtle-pulse {
   from {
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 15px 30px rgb(0 0 0 / 40%);
   }
+
   to {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 20px 40px rgb(0 0 0 / 60%);
   }
 }
 
@@ -474,10 +477,12 @@
     opacity: 0.5;
     transform: scaleY(1);
   }
+
   50% {
     opacity: 1;
     transform: scaleY(1.2);
   }
+
   100% {
     opacity: 0.5;
     transform: scaleY(1);

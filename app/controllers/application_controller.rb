@@ -95,10 +95,32 @@ class ApplicationController < ActionController::Base
           begin
             metadata = YAML.safe_load(front_matter, permitted_classes: [ Date ]) # Updated safe_load with permitted_classes
 
+            # Extract filename as slug if not specified
+            slug = metadata["slug"] || File.basename(file, ".md")
+
+            # Process tags from comma-separated string or array
+            tags = if metadata["tags"].is_a?(String)
+                    metadata["tags"].split(",").map(&:strip)
+            elsif metadata["tags"].is_a?(Array)
+                    metadata["tags"]
+            else
+                    []
+            end
+
+            # Get the section or default to 'Blog'
+            section = metadata["section"] || "Blog"
+
+            # Handle the updated_at date
+            updated_at = metadata["updatedAt"] || metadata["publishedAt"]
+
+            # Handle the preview image
+            preview_image = metadata["previewImage"]
+
             {
               title: metadata["title"],
               description: metadata["description"],
               published_at: metadata["publishedAt"], # Directly use the Date object
+              updated_at: updated_at,
               content_html: Nokogiri::HTML::DocumentFragment.parse(Kramdown::Document.new(body).to_html).tap do |doc|
                 doc.traverse do |node|
                   if node.element?
@@ -107,7 +129,12 @@ class ApplicationController < ActionController::Base
                   end
                 end
               end.to_html,
-              file_path: file
+              file_path: file,
+              slug: slug,
+              tags: tags,
+              section: section,
+              author: metadata["author"] || "George Baskerville",
+              preview_image: preview_image
             }
           rescue StandardError => e
             Rails.logger.warn "Error parsing YAML front matter in #{file}: #{e.message}"
@@ -129,7 +156,7 @@ class ApplicationController < ActionController::Base
   def set_article
     identifier = params[:id]
     @article = @articles.find do |article|
-      File.basename(article[:file_path], ".md") == identifier
+      article[:slug] == identifier || File.basename(article[:file_path], ".md") == identifier
     end
   end
 
@@ -154,5 +181,10 @@ class ApplicationController < ActionController::Base
     Digest::MD5.hexdigest(
       files.sort.map { |f| "#{f}:#{File.mtime(f).to_i}" }.join("|")
     )
+  end
+
+  def meta_image
+    # Use a fixed default image since preview images will be generated programmatically in the future
+    vite_asset_path("~/images/site-screenshot.png")
   end
 end

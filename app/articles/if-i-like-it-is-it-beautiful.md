@@ -2,6 +2,15 @@
 title: If I like it, is it beautiful?
 description: Why there's no link between liking something and finding it beautiful.
 publishedAt: 2025-01-19
+updatedAt: 2025-01-25
+tags:
+  - Philosophy
+  - Aesthetics
+  - Beauty
+  - Subjective Experience
+  - Art Theory
+section: Philosophy
+author: George Baskerville
 ---
 
 The idea "If I like it, it's beautiful" is composed of two separate questions: "What does it mean to like something?" and "What does it mean for something to be beautiful?". I'll address these in sequence.

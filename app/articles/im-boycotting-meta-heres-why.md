@@ -2,6 +2,16 @@
 title: I'm Boycotting Meta. Here's Why
 description: Why we can't let Meta continue getting away with things.
 publishedAt: 2024-05-07
+updatedAt: 2024-05-20
+tags:
+  - Meta
+  - Facebook
+  - Privacy
+  - Ethics
+  - Digital Rights
+  - Social Media
+section: Ethics
+author: George Baskerville
 ---
 
 I'm normally vehemently against the idea of cancel culture.
