@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   def homepage
-    base_url + "/"
+    "#{base_url}/"
   end
 
   def theme_color
@@ -31,9 +31,9 @@ module ApplicationHelper
       {
         name: "Signal",
         url:
-          "https://signal.me/#eu/Ui1-KTmlgnCbNj491iq3HSOJtrkY1aVHm4n0v97dvkGDbCqWsExOu66Fzg7-7iC9",
+          "https://signal.me/#eu/Ui1-KTmlgnCbNj491iq3HSOJtrkY1aVHm4n0v97dvkGDbCqWsExOu66Fzg7-7iC9"
       },
-      { name: "GitHub", url: "https://github.com/georgebaskervil" },
+      { name: "GitHub", url: "https://github.com/georgebaskervil" }
     ]
   end
 

@@ -1,35 +1,33 @@
 <!DOCTYPE html>
 <html lang="en-GB" dir="ltr">
   <head>
-    <%
-    # Page metadata (using helper methods defined in ApplicationHelper)
-    site_name_text = site_name
-    specific_page_title = page_specific_title(@article)
-    full_page_title = page_title(specific_page_title)
-    page_description = meta_description(@article)
-    page_keywords = meta_keywords(@article)
-    content_type = page_type(@article)
-    current_url = canonical_url(@article)
-    
-    # Image metadata
-    preview_image = meta_image
-    preview_image_type = "image/png"
-    preview_image_width = "1435"
-    preview_image_height = "780"
-    preview_image_alt =
-      "A preview of #{specific_page_title.present? ? specific_page_title : site_name_text}"
-    
-    # Article metadata
-    metadata = article_metadata(@article)
-    published_date = metadata[:published_date]
-    modified_date = metadata[:modified_date]
-    author = metadata[:author]
-    section = metadata[:section]
-    article_tags = metadata[:tags] || []
-    
-    # Icons
-    favicon_path = vite_asset_path("~/images/favicon.jpg")
-    %>
+    <%# Page metadata (using helper methods defined in ApplicationHelper) -%>
+    <%- site_name_text = site_name -%>
+    <%- specific_page_title = page_specific_title(@article) -%>
+    <%- full_page_title = page_title(specific_page_title) -%>
+    <%- page_description = meta_description(@article) -%>
+    <%- page_keywords = meta_keywords(@article) -%>
+    <%- content_type = page_type(@article) -%>
+    <%- current_url = canonical_url(@article) -%>
+
+    <%-# Image metadata -%>
+    <%- preview_image = meta_image -%>
+    <%- preview_image_type = "image/png" -%>
+    <%- preview_image_width = "1435" -%>
+    <%- preview_image_height = "780" -%>
+    <%- preview_image_alt =
+      "A preview of #{specific_page_title.present? ? specific_page_title : site_name_text}" -%>
+
+    <%-# Article metadata -%>
+    <%- metadata = article_metadata(@article) -%>
+    <%- published_date = metadata[:published_date] -%>
+    <%- modified_date = metadata[:modified_date] -%>
+    <%- author = metadata[:author] -%>
+    <%- section = metadata[:section] -%>
+    <%- article_tags = metadata[:tags] || [] -%>
+
+    <%-# Icons -%>
+    <%- favicon_path = vite_asset_path("~/images/favicon.jpg") -%>
     <!--Preconnects and DNS prefetches-->
     <link rel="dns-prefetch" href="<%= domain %>">
     <link rel="preconnect" href="<%= domain %>">
