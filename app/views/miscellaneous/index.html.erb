@@ -12,14 +12,20 @@
   {
     title: "Javascript Waveform Viewer",
     description:
-      "A simple waveform viewer that uses the Web Audio API to display a waveform of an audio file. I made it while researching audio compression for the neuralink compression challenge.",
+      "A simple waveform viewer that uses the Web Audio API to display a waveform of an audio file. I made it while researching audio compression for the <a href=\"https://x.com/neuralink/status/1747020548212437228\" target=\"_blank\" rel=\"noopener noreferrer\">neuralink compression challenge</a>.",
     path: "/waveform",
   },
   {
     title: "Site data analytics",
     description:
-      "A page displaying anonymous data about the site. Some is coded manually, some is through an umami analytics share URL.",
+      "A page displaying anonymous data about the site. Some is coded manually, some is through an <a href=\"https://umami.is\" target=\"_blank\" rel=\"noopener noreferrer\">umami</a> analytics share URL.",
     path: "/data",
+  },
+  {
+    title: "Eclecticon Apps",
+    description:
+      "Some of the apps from <a class=\"eclecticonapps-link\" href=\"https://eclecticon.info\" target=\"_blank\" rel=\"noopener\">eclecticon.info</a> that I've ported to javascript. Unfinished and now discontinued.",
+    path: "/eclecticonapps",
   },
 ] %>
 
@@ -28,7 +34,7 @@
     <strong><%= index + 1 %>:
       <%= item[:title] %></strong>
   </p>
-  <p class="misc-p"><%= item[:description] %></p>
+  <p class="misc-p"><%= item[:description].html_safe %></p>
   <p class="misc-p">
     Link:
     <a href="<%= item[:path] %>" rel="noopener" class="misc-link"><%= item[:title] %></a>

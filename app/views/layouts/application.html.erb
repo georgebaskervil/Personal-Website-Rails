@@ -198,30 +198,41 @@
     <%= render 'layouts/shortcutswrapper' do %>
       <%= render 'layouts/distractionmodewrapper' do %>
         <%= render 'layouts/locomotivescrollwrapper' do %>
-          <%= render "layouts/underconstruction" %>
+          <!-- <%= render "layouts/underconstruction" %> -->
           <%= render "layouts/noscript" %>
           <div class="layout-main">
             <header class="layout-header">
               <a href="/" class="layout-home-link" rel="noopener">George Baskerville</a>
               <% nav_items = [
-                { title: "Posts", path: "/posts" },
-                { title: "Images", path: "/images" },
-                { title: "TaskStack", path: "/taskstack" },
-                { title: "Eclecticon Apps", path: "/eclecticonapps" },
-                { title: "Miscellaneous", path: "/miscellaneous" },
-                { title: "Legal", path: "/legal" },
+                { title: "Posts", path: "/posts", external: false },
+                { title: "Images", path: "/images", external: false },
+                { title: "Libreverse", path: "https://libreverse.geor.me", external: true },
+                { title: "TaskStack", path: "/taskstack", external: false },
+                { title: "Miscellaneous", path: "/miscellaneous", external: false },
+                { title: "Legal", path: "/legal", external: false },
               ] %>
 
               <nav class="layout-nav" data-controller="heading-highlight">
                 <ul>
                   <% nav_items.each do |item| %>
                     <li>
-                      <a
-                        class="<%= 'text-accent' if request.path == item[:path] %>"
-                        href="<%= item[:path] %>"
-                      >
-                        <%= item[:title] %>
-                      </a>
+                      <% if item[:external] %>
+                        <a 
+                          href="<%= item[:path] %>"
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          class="<%= 'text-accent' if !item[:external] && request.path == item[:path] %>"
+                        >
+                          <%= item[:title] %>↗
+                        </a>
+                      <% else %>
+                        <a 
+                          href="<%= item[:path] %>"
+                          class="<%= 'text-accent' if request.path == item[:path] %>"
+                        >
+                          <%= item[:title] %>
+                        </a>
+                      <% end %>
                     </li>
                   <% end %>
                   <li>
