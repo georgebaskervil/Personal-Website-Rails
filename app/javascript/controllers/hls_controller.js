@@ -14,7 +14,14 @@ export default class extends Controller {
       return;
     }
 
-    // If the container is visible, initialize immediately
+    // Check if this is a carousel video (no floating window container)
+    if (!container) {
+      // For carousel videos, initialize immediately
+      this.initializeHLS(videoElement, null, source);
+      return;
+    }
+
+    // For floating window videos, check visibility
     if (container.style.display !== "none") {
       this.initializeHLS(videoElement, container, source);
       return;
@@ -35,7 +42,8 @@ export default class extends Controller {
   }
 
   initializeHLS(videoElement, container, source) {
-    if (container.style.display === "none") return;
+    // Skip visibility check for carousel videos (container is null)
+    if (container && container.style.display === "none") return;
 
     if (Hls.isSupported()) {
       const hlsOptions = {
@@ -70,7 +78,9 @@ export default class extends Controller {
       hls.attachMedia(videoElement);
 
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        if (container.style.display !== "none") {
+        // For carousel videos (no container), always try to play
+        // For floating window videos, check container visibility
+        if (!container || container.style.display !== "none") {
           videoElement.play().catch((error) => {
             if (error.name === "NotAllowedError") {
               console.info("Autoplay blocked - waiting for user interaction");

@@ -109,6 +109,9 @@ application.register("poweraid", PoweraidController);
 import ProjectileController from "./projectile_controller";
 application.register("projectile", ProjectileController);
 
+import ProjectCarouselController from "./project_carousel_controller";
+application.register("project-carousel", ProjectCarouselController);
+
 import QuadraticaController from "./quadratica_controller";
 application.register("quadratica", QuadraticaController);
 

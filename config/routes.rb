@@ -38,10 +38,16 @@ Rails.application.routes.draw do
   get "/cipher", to: "cipher#index"
   get "/binomilator", to: "binomilator#index"
   get "/bayesometer", to: "bayesometer#index"
-  get "/streaming/gta_optimised_video", to: "videos#gta_optimised_video", defaults: { format: :m3u8 }
-  get "/streaming/mc_optimised_video", to: "videos#mc_optimised_video", defaults: { format: :m3u8 }
-  get "/streaming/soapcarving_optimised_video", to: "videos#soapcarving_optimised_video", defaults: { format: :m3u8 }
-  get "/streaming/subwaysurfers_optimised_video", to: "videos#subwaysurfers_optimised_video", defaults: { format: :m3u8 }
+  get "/streaming/gta_optimised_video", to: "videos#gta_optimised", defaults: { format: :m3u8 }
+  get "/streaming/mc_optimised_video", to: "videos#mc_optimised", defaults: { format: :m3u8 }
+  get "/streaming/soapcarving_optimised_video", to: "videos#soapcarving_optimised", defaults: { format: :m3u8 }
+  get "/streaming/subwaysurfers_optimised_video", to: "videos#subwaysurfers_optimised", defaults: { format: :m3u8 }
+  get "/streaming/georlist_video", to: "videos#georlist", defaults: { format: :m3u8 }
+  get "/streaming/libreverse_video", to: "videos#libreverse", defaults: { format: :m3u8 }
+  get "/streaming/robustext_video", to: "videos#robustext", defaults: { format: :m3u8 }
+  get "/streaming/spaceshooter_video", to: "videos#spaceshooter", defaults: { format: :m3u8 }
+  get "/streaming/taskstack_video", to: "videos#taskstack", defaults: { format: :m3u8 }
+  get "/streaming/uwuifier_video", to: "videos#uwuifier", defaults: { format: :m3u8 }
   get "/neudec", to: "neudec#index"
   get "/doomdisclaimer", to: "doomdisclaimer#index"
   get "/posts", to: "posts#index"
