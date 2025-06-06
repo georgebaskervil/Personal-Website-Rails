@@ -239,6 +239,14 @@
   @apply bg-gradient-to-t from-black/80 to-transparent;
   @apply text-white p-4;
   backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.project-content {
+  flex: 1;
 }
 
 .project-title {
@@ -247,6 +255,21 @@
 
 .project-description {
   @apply text-sm opacity-90 leading-relaxed;
+}
+
+.project-link-btn {
+  @apply text-white text-2xl no-underline;
+  @apply transition-all duration-200 hover:scale-110;
+  @apply flex items-center justify-center;
+  @apply w-12 h-12 rounded-full;
+  @apply bg-white/20 backdrop-blur-sm;
+  @apply border border-white/30;
+  flex-shrink: 0;
+  
+  &:hover {
+    @apply bg-white/30 scale-110;
+    text-decoration: none;
+  }
 }
 
 .iframe-container {
