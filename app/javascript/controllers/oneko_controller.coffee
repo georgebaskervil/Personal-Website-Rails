@@ -1,23 +1,44 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller
+  STORAGE_KEY = 'oneko-state'
 
   connect: =>
     @running = false
     @requestId = undefined
     @nekoEl = @element
-    @onDistractionToggle = @onDistractionToggle.bind(@)
-    document.addEventListener "distractionmode:toggle", @onDistractionToggle
+    
+    # Bind methods for event listeners
+    @saveNekoState = @saveNekoState.bind(@)
+    @loadNekoState = @loadNekoState.bind(@)
+    @handleVisibilityChange = @handleVisibilityChange.bind(@)
+    
+    # Add event listeners for state preservation
+    document.addEventListener('turbo:before-visit', @saveNekoState)
+    document.addEventListener('turbo:load', @loadNekoState)
+    window.addEventListener('beforeunload', @saveNekoState)
+    window.addEventListener('pagehide', @saveNekoState)
+    document.addEventListener('visibilitychange', @handleVisibilityChange)
+    
+    # Load saved state first
+    @loadNekoState()
+    
+    # Start oneko automatically (not just in distraction mode)
+    @startNeko()
 
   disconnect: =>
-    document.removeEventListener "distractionmode:toggle", @onDistractionToggle
+    # Save state before disconnecting
+    @saveNekoState()
+    
+    # Clean up event listeners
+    document.removeEventListener('turbo:before-visit', @saveNekoState)
+    document.removeEventListener('turbo:load', @loadNekoState)
+    window.removeEventListener('beforeunload', @saveNekoState)
+    window.removeEventListener('pagehide', @saveNekoState)
+    document.removeEventListener('visibilitychange', @handleVisibilityChange)
+    
+    # Cancel animation
     cancelAnimationFrame @requestId if @requestId
-
-  onDistractionToggle: (event) =>
-    if event.detail.enabled
-      @startNeko()
-    else
-      @stopNeko()
 
   startNeko: =>
     return if @running
@@ -34,15 +55,75 @@ export default class extends Controller
     cancelAnimationFrame @requestId if @requestId
     @requestId = undefined
 
+  handleVisibilityChange: =>
+    if document.visibilityState == 'hidden'
+      @saveNekoState()
+
+  # Saves oneko state to localStorage
+  saveNekoState: =>
+    return unless @running # Only save if oneko is running
+    
+    nekoState = {
+      nekoPosX: @nekoPosX
+      nekoPosY: @nekoPosY
+      mousePosX: @mousePosX
+      mousePosY: @mousePosY
+      idleTime: @idleTime
+      idleAnimation: @idleAnimation
+      idleAnimationFrame: @idleAnimationFrame
+      frameCount: @frameCount
+      running: @running
+      timestamp: Date.now()
+    }
+    
+    try
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(nekoState))
+    catch e
+      console.error("Failed to save oneko state to localStorage", e)
+    
+  # Loads oneko state from localStorage
+  loadNekoState: =>
+    try
+      savedState = localStorage.getItem(STORAGE_KEY)
+      return unless savedState
+      
+      state = JSON.parse(savedState)
+      
+      # Get the timestamp of the saved state
+      timestamp = state.timestamp || 0
+      currentTime = Date.now()
+      timeDifference = currentTime - timestamp
+      
+      # If the saved state is recent (less than 2 seconds old), use it
+      # This likely means we're navigating between pages on the site
+      if timeDifference < 2000 and state.running
+        # Use the saved state
+        @nekoPosX = state.nekoPosX || 32
+        @nekoPosY = state.nekoPosY || 32
+        @mousePosX = state.mousePosX || 0
+        @mousePosY = state.mousePosY || 0
+        @idleTime = state.idleTime || 0
+        @idleAnimation = state.idleAnimation
+        @idleAnimationFrame = state.idleAnimationFrame || 0
+        @frameCount = state.frameCount || 0
+        
+        # Apply position if oneko element exists
+        if @nekoEl
+          @nekoEl.style.left = "#{@nekoPosX - 16}px"
+          @nekoEl.style.top = "#{@nekoPosY - 16}px"
+    catch e
+      console.error("Failed to load oneko state from localStorage", e)
+
   initNeko: =>
-    @nekoPosX = 32
-    @nekoPosY = 32
-    @mousePosX = 0
-    @mousePosY = 0
-    @frameCount = 0
-    @idleTime = 0
-    @idleAnimation = null
-    @idleAnimationFrame = 0
+    # Only initialize values that weren't loaded from saved state
+    @nekoPosX = 32 unless @nekoPosX?
+    @nekoPosY = 32 unless @nekoPosY?
+    @mousePosX = 0 unless @mousePosX?
+    @mousePosY = 0 unless @mousePosY?
+    @frameCount = 0 unless @frameCount?
+    @idleTime = 0 unless @idleTime?
+    @idleAnimation = null unless @idleAnimation?
+    @idleAnimationFrame = 0 unless @idleAnimationFrame?
     @lastFrameTimestamp = undefined
     @nekoSpeed = 10
     @spriteSets =
@@ -106,6 +187,13 @@ export default class extends Controller
     @nekoPosY = Math.min Math.max(16, @nekoPosY), window.innerHeight - 16
     @nekoEl.style.left = "#{@nekoPosX - 16}px"
     @nekoEl.style.top = "#{@nekoPosY - 16}px"
+    
+    # Throttled save - only save state occasionally to avoid performance issues
+    @lastSaveTime = 0 unless @lastSaveTime?
+    currentTime = Date.now()
+    if currentTime - @lastSaveTime > 1000 # Save every 1 second
+      @saveNekoState()
+      @lastSaveTime = currentTime
 
   idle: =>
     @idleTime++
