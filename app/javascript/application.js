@@ -33,3 +33,4 @@ import wdosboxWasmUrl from "emulators/dist/wdosbox.wasm?url";
 
 import "@hotwired/turbo-rails";
 import "./controllers";
+import "./live_updater";

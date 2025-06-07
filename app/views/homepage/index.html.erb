@@ -7,17 +7,20 @@
       <h2 class="hp-h2">
         Mad (computer) scientist. That's it. That's the bio. (I did make my
         first site
-        <% duration = Time.now - Time.new(2019, 5, 7)
-        years = (duration / (86_400 * 365)).to_i
-        remaining_days = duration % (86_400 * 365)
-        months = (remaining_days / (86_400 * 30)).to_i
-        days = ((remaining_days % (86_400 * 30)) / 86_400).to_i %>
-        <%= years %>
-        years,
-        <%= months %>
-        months, and
-        <%= days %>
-        days ago though!)
+        <span data-live-time-since>
+          <% duration = Time.now - Time.new(2019, 5, 7)
+          years = (duration / (86_400 * 365)).to_i
+          remaining_days = duration % (86_400 * 365)
+          months = (remaining_days / (86_400 * 30)).to_i
+          days = ((remaining_days % (86_400 * 30)) / 86_400).to_i %>
+          <%= years %>
+          years,
+          <%= months %>
+          months, and
+          <%= days %>
+          days
+        </span>
+        ago though!)
       </h2>
       <% social_links = [
         { name: "X", url: "https://x.com/georgebaskervil" },
