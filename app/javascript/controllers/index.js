@@ -150,3 +150,6 @@ application.register("waveformer", WaveformerController);
 
 import TurboMountController from "./turbo_mount_controller";
 application.register("turbo-mount", TurboMountController);
+
+import ReactMountController from "./react_mount_controller";
+application.register("react-mount", ReactMountController);

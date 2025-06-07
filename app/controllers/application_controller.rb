@@ -6,7 +6,6 @@ require "date" # Added to handle Date parsing
 
 class ApplicationController < ActionController::Base
   before_action :set_custom_headers
-  before_action :increment_HTTP_req_counter
   before_action :load_images
   before_action :load_articles
   before_action :set_all_posts
@@ -28,21 +27,12 @@ class ApplicationController < ActionController::Base
     response.set_header("X-UA-Compatible", "IE=edge,chrome=1")
   end
 
-  def increment_HTTP_req_counter
-    counter = HttpReqCounter.first_or_create
-    counter.increment(:count)
-    counter.save!
-  end
-
   def load_images
-    Rails.logger.debug "Fetching images_list from cache or computing it"
-
     # Generate a unique cache key based on image files' modification times
     images_cache_key = "images_list-#{images_checksum}"
 
     @images = Rails.cache.fetch(images_cache_key) do
       glob_pattern = Rails.root.join("app/photos/JPGs/**/*.JPG")
-      Rails.logger.debug { "Glob pattern: #{glob_pattern}" }
 
       photos_dir = Rails.root.join("app/photos/JPGs")
       unless Dir.exist?(photos_dir)
@@ -51,28 +41,18 @@ class ApplicationController < ActionController::Base
       end
 
       files = Dir.glob(glob_pattern)
-      Rails.logger.debug { "Files found: #{files.size}" }
-      Rails.logger.debug { "Files: #{files.join(', ')}" }
-
       mapped_files = files.map { |f| f.sub(%r{.*app/photos/}, "") }
-      Rails.logger.debug { "Mapped files count: #{mapped_files.size}" }
-      Rails.logger.debug { "Mapped files: #{mapped_files.join(', ')}" }
 
       mapped_files
     end
-
-    Rails.logger.debug { "Total images to display: #{@images.size}" }
   end
 
   def load_articles
-    Rails.logger.debug "Fetching articles_list from cache or computing it"
-
     # Generate a unique cache key based on article files' modification times
     articles_cache_key = "articles_list-#{articles_checksum}"
 
     @articles = Rails.cache.fetch(articles_cache_key) do
       articles_glob = Rails.root.join("app//articles/**/*.md")
-      Rails.logger.debug { "Articles glob pattern: #{articles_glob}" }
 
       articles_dir = Rails.root.join("app//articles")
       unless Dir.exist?(articles_dir)
@@ -81,8 +61,6 @@ class ApplicationController < ActionController::Base
       end
 
       article_files = Dir.glob(articles_glob)
-      Rails.logger.debug { "Article files found: #{article_files.size}" }
-      Rails.logger.debug { "Article files: #{article_files.join(', ')}" }
 
       articles = article_files.map do |file|
         content = File.read(file)
@@ -149,8 +127,6 @@ class ApplicationController < ActionController::Base
       # Sort articles by published_at date in descending order
       articles.sort_by { |article| article[:published_at] }.reverse
     end
-
-    Rails.logger.debug { "Total articles to display: #{@articles.size}" }
   end
 
   def set_article

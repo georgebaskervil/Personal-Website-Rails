@@ -6,6 +6,7 @@ export default {
     "./app/views/**/*.erb",
     "./app/helpers/**/*.rb",
     "./app/javascript/**/*.js",
+    "./app/javascript/components/**/*.{js,jsx,ts,tsx}",
     "./app/components/**/*.html.erb",
   ],
   theme: {
@@ -15,6 +16,7 @@ export default {
         text: "#c6c2c7",
         accent: "#c39399",
         mamba: "#898296",
+        background: "#161820",
       },
     },
   },

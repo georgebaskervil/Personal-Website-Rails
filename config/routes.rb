@@ -61,6 +61,11 @@ Rails.application.routes.draw do
   get "/credits", to: "credits#index"
   get "/data", to: "data#index"
   get "/dmca", to: "dmca#index"
+  
+  # Home Control Panel routes
+  get "/homecontrolpanel", to: "home_control#index"
+  get "/homecontrolpanel/manage", to: "home_control#manage"
+
   root "homepage#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
