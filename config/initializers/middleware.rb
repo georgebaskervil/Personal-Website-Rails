@@ -1,41 +1,46 @@
+require Rails.root.join("app/middleware/rack_zstd")
+require Rails.root.join("app/middleware/whitespace_compressor")
+
 # Strange as it may seem this is the order that gets the html minifier
 # to run before the deflater and brotli because middlewares are,
 # unintuitively, run as a stack from the bottom up.
-Rails.application.config.middleware.use Rack::Deflater,
-                                        sync: false,
-                                        include: %w[text/html]
-Rails.application.config.middleware.use Rack::Brotli,
-                                        quality: 11,
-                                        deflater: {
-                                          lgwin: 22,
-                                          lgblock: 0,
-                                          mode: :text
-                                        },
-                                        sync: false,
-                                        include: %w[text/html]
+COMPRESSIBLE_CONTENT_TYPES = %w[
+  text/html
+  text/plain
+  text/css
+  text/javascript
+  application/javascript
+  application/json
+  application/xml
+  application/rss+xml
+  application/atom+xml
+  image/svg+xml
+  application/x-mpegURL
+].map(&:downcase).freeze
 
-# this option set is from the default readme of htmlcompressor
-Rails.application.config.middleware.use HtmlCompressor::Rack,
-                                        enabled: true,
-                                        remove_spaces_inside_tags: true,
-                                        remove_multi_spaces: true,
-                                        remove_comments: true,
-                                        remove_intertag_spaces: false,
-                                        remove_quotes: false,
-                                        compress_css: false,
-                                        compress_javascript: false,
-                                        simple_doctype: false,
-                                        remove_script_attributes: false,
-                                        remove_style_attributes: false,
-                                        remove_link_attributes: false,
-                                        remove_form_attributes: false,
-                                        remove_input_attributes: false,
-                                        remove_javascript_protocol: false,
-                                        remove_http_protocol: false,
-                                        remove_https_protocol: false,
-                                        preserve_line_breaks: false,
-                                        simple_boolean_attributes: false,
-                                        compress_js_templates: false
+Rails.application.config.middleware.use Rack::Deflater,
+  sync: false,
+  include: COMPRESSIBLE_CONTENT_TYPES
+
+Rails.application.config.middleware.use Rack::Brotli,
+  quality: 11,
+  deflater: {
+    lgwin: 22,
+    lgblock: 0,
+    mode: :text
+  },
+  sync: false,
+  include: COMPRESSIBLE_CONTENT_TYPES
+
+Rails.application.config.middleware.use Rack::Zstd,
+  window_log: 27,
+  chain_log: 27,
+  hash_log: 25,
+  search_log: 9,
+  min_match: 3,
+  strategy: :btultra2
+
+Rails.application.config.middleware.use WhitespaceCompressor
 
 # We insert the emoji middleware here so that it precedes
 # the html minifier but still avoids unnecessary work

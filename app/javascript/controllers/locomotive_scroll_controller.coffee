@@ -10,9 +10,9 @@ export default class extends Controller
           el: el
           smooth: true
           smartphone:
-            smooth: false
+            smooth: true
           tablet:
-            smooth: false
+            smooth: true
         @scrollInstances.push(scroll)
       catch error
         console.error "Failed to initialize Locomotive Scroll for", el, ":", error
