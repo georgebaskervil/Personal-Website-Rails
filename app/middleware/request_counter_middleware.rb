@@ -19,26 +19,24 @@ class RequestCounterMiddleware
   def call(env)
     # Continue with the request first
     status, headers, response = @app.call(env)
-    
+
     # Only increment counter for HTML requests
-    content_type = headers['Content-Type']
-    if content_type && content_type.include?('text/html')
-      increment_memory_counter
-    end
-    
-    [status, headers, response]
+    content_type = headers["Content-Type"]
+    increment_memory_counter if content_type&.include?("text/html")
+
+    [ status, headers, response ]
   rescue StandardError => e
     # Still increment the counter even if there's an error and it was an HTML request,
     # as it was still a valid HTTP request
     Rails.logger.error "RequestCounterMiddleware: Error during request: #{e.message}"
-    
+
     # For errors, we can check the request Accept header as a fallback
     request = Rack::Request.new(env)
-    if request.accepts.include?('text/html') || 
-       (request.accepts.empty? && !env['PATH_INFO'].match?(/\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|json|xml|txt)$/i))
+    if request.accepts.include?("text/html") ||
+       (request.accepts.empty? && !env["PATH_INFO"].match?(/\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|json|xml|txt)$/i))
       increment_memory_counter
     end
-    
+
     raise e
   end
 

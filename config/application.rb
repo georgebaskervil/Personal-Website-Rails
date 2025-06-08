@@ -18,8 +18,8 @@ module PersonalWebsiteRailsWebpack
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    
+
     # Exclude middleware directory from Zeitwerk autoloading since these are manually required
-    config.autoload_paths -= [Rails.root.join("app/middleware")]
+    config.autoload_paths -= [ Rails.root.join("app/middleware") ]
   end
 end
