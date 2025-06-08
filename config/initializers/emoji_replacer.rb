@@ -60,11 +60,9 @@ class EmojiReplacer
       return emoji
     end
 
-    img_tag = %(<img src="#{svg_path}" alt="#{emoji}" class="emoji" loading="eager" decoding="sync" fetchpriority="low" draggable="false" tabindex="-1">)
-    img_tag
+    %(<img src="#{svg_path}" alt="#{emoji}" class="emoji" loading="eager" decoding="sync" fetchpriority="low" draggable="false" tabindex="-1">)
   rescue StandardError => e
     Rails.logger.error "EmojiReplacer: Failed to build img tag for emoji '#{emoji}': #{e.message}"
     emoji
   end
-
 end

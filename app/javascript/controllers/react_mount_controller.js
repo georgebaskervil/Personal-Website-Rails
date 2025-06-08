@@ -6,7 +6,7 @@ import DeviceManagement from "../components/DeviceManagement.jsx";
 
 const components = {
   HomeControlPanel,
-  DeviceManagement
+  DeviceManagement,
 };
 
 export default class extends Controller {

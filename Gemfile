@@ -12,8 +12,8 @@ gem "vite_rails"
 # Use SQLite 3 as the database for Active Record
 gem "sqlite3"
 
-# Use the falcon web server
-gem "falcon"
+# Use the iodine web server
+gem "iodine"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"

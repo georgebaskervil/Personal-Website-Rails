@@ -198,7 +198,9 @@
     <%= render 'layouts/shortcutswrapper' do %>
       <%= render 'layouts/distractionmodewrapper' do %>
         <%= render 'layouts/locomotivescrollwrapper' do %>
-          <!-- <%= render "layouts/underconstruction" %> -->
+          <!--
+          <%= render "layouts/underconstruction" %>
+          -->
           <%= render "layouts/noscript" %>
           <div class="layout-main">
             <header class="layout-header">
@@ -217,16 +219,16 @@
                   <% nav_items.each do |item| %>
                     <li>
                       <% if item[:external] %>
-                        <a 
+                        <a
                           href="<%= item[:path] %>"
-                          target="_blank" 
+                          target="_blank"
                           rel="noopener noreferrer"
                           class="<%= 'text-accent' if !item[:external] && request.path == item[:path] %>"
                         >
                           <%= item[:title] %>
                         </a>
                       <% else %>
-                        <a 
+                        <a
                           href="<%= item[:path] %>"
                           class="<%= 'text-accent' if request.path == item[:path] %>"
                         >

@@ -17,7 +17,7 @@ export default class extends Controller {
     // Check if this is a carousel video (no floating window container)
     if (!container) {
       // For carousel videos, initialize immediately
-      this.initializeHLS(videoElement, null, source);
+      this.initializeHLS(videoElement, undefined, source);
       return;
     }
 

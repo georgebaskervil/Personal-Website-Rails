@@ -184,7 +184,7 @@
   @apply transition-all duration-200 hover:scale-110 hover:shadow-md hover:bg-accent;
   @apply absolute top-1/2 transform -translate-y-1/2 z-20;
   @apply backdrop-blur-sm;
-  
+
   &:disabled {
     @apply opacity-50 cursor-not-allowed;
   }
@@ -205,11 +205,11 @@
 .indicator {
   @apply w-3 h-3 rounded-full bg-neutral border-none cursor-pointer;
   @apply transition-all duration-200;
-  
+
   &.active {
     @apply bg-accent;
   }
-  
+
   &:hover {
     @apply scale-110;
   }
@@ -217,6 +217,7 @@
 
 .carousel-wrapper {
   @apply relative overflow-hidden;
+
   height: 600px; /* Much taller carousel */
 }
 
@@ -227,8 +228,9 @@
 .carousel-slide {
   @apply min-w-full flex flex-col relative;
   @apply opacity-0 pointer-events-none transition-opacity duration-500;
+
   height: 100%;
-  
+
   &.active {
     @apply opacity-100 pointer-events-auto;
   }
@@ -238,6 +240,7 @@
   @apply absolute bottom-0 left-0 right-0 z-10;
   @apply bg-gradient-to-t from-black/80 to-transparent;
   @apply text-white p-4;
+
   backdrop-filter: blur(8px);
   display: flex;
   justify-content: space-between;
@@ -264,10 +267,12 @@
   @apply w-12 h-12 rounded-full;
   @apply bg-white/20 backdrop-blur-sm;
   @apply border border-white/30;
+
   flex-shrink: 0;
-  
+
   &:hover {
     @apply bg-white/30 scale-110;
+
     text-decoration: none;
   }
 }
@@ -286,6 +291,7 @@
 
 .carousel-video {
   @apply w-full h-full object-cover;
+
   background: #000;
 }
 
@@ -294,33 +300,33 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 1024px) {
+@media (width <= 1024px) {
   .carousel-wrapper {
     height: 450px; /* Shorter on tablets */
   }
 }
 
-@media (max-width: 640px) {
+@media (width <= 640px) {
   .carousel-header {
     @apply flex-col gap-3 items-stretch;
   }
-  
+
   .carousel-controls {
     @apply justify-center;
   }
-  
+
   .carousel-wrapper {
     height: 350px; /* Shorter on mobile */
   }
-  
+
   .project-info {
     @apply p-3;
   }
-  
+
   .project-title {
     @apply text-base;
   }
-  
+
   .project-description {
     @apply text-xs;
   }

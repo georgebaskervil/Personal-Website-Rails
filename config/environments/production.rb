@@ -22,6 +22,16 @@ Rails.application.configure do
   # Disable serving static files from `public/`, relying on NGINX/Apache to do so instead.
   # config.public_file_server.enabled = false
 
+  # NOTE: X-Sendfile headers are disabled to ensure our RequestCounterMiddleware
+  # counts all requests. If you enable X-Sendfile, make sure your reverse proxy
+  # is configured to log requests appropriately.
+  # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for Apache
+  # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
+
+  # Ensure public file server is enabled so Rails middleware processes static file requests
+  # This is important for RequestCounterMiddleware to count all requests
+  config.public_file_server.enabled = true
+
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for Apache
   # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX

@@ -90,7 +90,7 @@ end
 
 Rails.application.config.middleware.use Rack::Attack
 
-# Explicitly require and add request counter middleware after Rack::Attack so that only 
+# Explicitly require and add request counter middleware after Rack::Attack so that only
 # legitimate requests (that pass rate limiting) get counted
-require Rails.root.join('app', 'middleware', 'request_counter_middleware')
+require Rails.root.join("app/middleware/request_counter_middleware")
 Rails.application.config.middleware.use RequestCounterMiddleware

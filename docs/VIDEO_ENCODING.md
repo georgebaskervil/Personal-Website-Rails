@@ -20,11 +20,13 @@ choco install ffmpeg
 ## Quick Start
 
 1. **Use the encoding script** (recommended):
+
    ```bash
    ./scripts/encode_video.sh input_video.mp4 my_project
    ```
 
 2. **Manual encoding** (for custom settings):
+
    ```bash
    ffmpeg -i input_video.mp4 \
      -c:v libx264 -preset medium -crf 23 \
@@ -38,6 +40,7 @@ choco install ffmpeg
 ## Encoding Settings Explained
 
 ### Video Settings
+
 - **Codec**: `libx264` - Best compatibility across browsers
 - **Preset**: `slow` - Higher quality compression (slower encoding)
 - **CRF**: `18` - Constant Rate Factor (lower = higher quality)
@@ -47,12 +50,14 @@ choco install ffmpeg
 - **Level**: `4.0` - Supports higher bitrates and resolutions
 
 ### Audio Settings
+
 - **Codec**: `aac` - Standard for web
 - **Bitrate**: `192k` - Higher quality for web
 - **Channels**: `2` (stereo)
 - **Sample Rate**: `44100 Hz`
 
 ### HLS Settings
+
 - **Segment Duration**: `8 seconds` - Good balance for seeking vs overhead
 - **Container**: `mpegts` (.m2ts) - Required for HLS
 - **Playlist Type**: `vod` (Video on Demand)
@@ -61,7 +66,7 @@ choco install ffmpeg
 
 After encoding, you'll have:
 
-```
+```text
 app/
 ├── videos/                          # Video segments (served by Vite)
 │   ├── my_project-optimised0.m2ts
@@ -74,11 +79,13 @@ app/
 ## Adding New Videos to Your App
 
 ### 1. Encode the Video
+
 ```bash
 ./scripts/encode_video.sh my_awesome_video.mp4 awesome_project
 ```
 
 ### 2. Add Controller Method
+
 Edit `app/controllers/videos_controller.rb`:
 
 ```ruby
@@ -90,6 +97,7 @@ end
 ```
 
 ### 3. Add Route
+
 Edit `config/routes.rb`:
 
 ```ruby
@@ -97,6 +105,7 @@ get "/streaming/awesome_project_video", to: "videos#awesome_project", defaults: 
 ```
 
 ### 4. Use in Carousel
+
 Edit `app/views/homepage/index.html.erb`:
 
 ```erb
@@ -111,16 +120,19 @@ Edit `app/views/homepage/index.html.erb`:
 ## Optimization Tips
 
 ### For Smaller File Sizes
+
 - Increase CRF value: `-crf 28` (lower quality, smaller files)
 - Use faster preset: `-preset fast`
 - Lower resolution: `-vf "scale=960:540"`
 
 ### For Higher Quality
+
 - Decrease CRF value: `-crf 18` (higher quality, larger files)
 - Use slower preset: `-preset slow`
 - Higher bitrate: `-maxrate 4M -bufsize 8M`
 
 ### For Mobile Optimization
+
 ```bash
 ffmpeg -i input.mp4 \
   -c:v libx264 -preset medium -crf 25 \
@@ -134,16 +146,19 @@ ffmpeg -i input.mp4 \
 ## Troubleshooting
 
 ### Video Won't Play
+
 - Check browser console for HLS errors
 - Verify M3U8 endpoint returns correct MIME type
 - Ensure video segments are accessible via Vite
 
 ### Segments Not Found (404 errors)
+
 - Check that `.m2ts` files are in `app/videos/`
 - Verify `vite_asset_path` URLs in browser network tab
 - Restart Vite dev server: `bin/dev`
 
 ### Poor Quality/Large Files
+
 - Adjust CRF value (23 is default)
 - Check input video resolution
 - Consider two-pass encoding for better compression
@@ -156,7 +171,7 @@ For better compression (slower but smaller files):
 # Pass 1
 ffmpeg -i input.mp4 -c:v libx264 -preset slow -b:v 1M -pass 1 -f null /dev/null
 
-# Pass 2  
+# Pass 2
 ffmpeg -i input.mp4 -c:v libx264 -preset slow -b:v 1M -pass 2 \
   -c:a aac -b:a 128k -f hls -hls_time 8 \
   -hls_segment_filename "segments%d.m2ts" \
@@ -170,7 +185,7 @@ ffmpeg -i input.mp4 -c:v libx264 -preset slow -b:v 1M -pass 2 \
 ./scripts/encode_video.sh ~/Downloads/my_demo.mov portfolio_demo
 
 # 2. Add to controller (manual step)
-# 3. Add route (manual step)  
+# 3. Add route (manual step)
 # 4. Add to carousel (manual step)
 
 # 5. Test

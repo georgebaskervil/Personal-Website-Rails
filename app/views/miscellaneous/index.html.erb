@@ -34,7 +34,7 @@
     <strong><%= index + 1 %>:
       <%= item[:title] %></strong>
   </p>
-  <p class="misc-p"><%= item[:description].html_safe %></p>
+  <p class="misc-p"><%= sanitize(item[:description], tags: %w[a], attributes: %w[href target rel class]) %></p>
   <p class="misc-p">
     Link:
     <a href="<%= item[:path] %>" rel="noopener" class="misc-link"><%= item[:title] %></a>
