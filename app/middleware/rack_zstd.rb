@@ -99,3 +99,7 @@ module Rack
     end
   end
 end
+
+# Create a compatibility alias for Zeitwerk autoloading
+# Since the file is named rack_zstd.rb, Zeitwerk expects a RackZstd constant
+RackZstd = Rack::Zstd
