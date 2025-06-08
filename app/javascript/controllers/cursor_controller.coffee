@@ -124,16 +124,25 @@ export default class extends Controller
       threshold = 0.1
 
       if distance > threshold
+        # Enable will-change when actively animating
+        @circle?.style.setProperty("will-change", "transform")
+        
         easingAmount = 0.2
         @circleX = lerp(@circleX, @targetX, easingAmount)
         @circleY = lerp(@circleY, @targetY, easingAmount)
+        
+        # Update position
+        @circle?.style.setProperty("--translate-x", "#{@circleX}px")
+        @circle?.style.setProperty("--translate-y", "#{@circleY}px")
       else
+        # Static position - remove will-change optimization
+        @circle?.style.setProperty("will-change", "auto")
         @circleX = @targetX
         @circleY = @targetY
         
-      # Update position
-      @circle?.style.setProperty("--translate-x", "#{@circleX}px")
-      @circle?.style.setProperty("--translate-y", "#{@circleY}px")
+        # Update position
+        @circle?.style.setProperty("--translate-x", "#{@circleX}px")
+        @circle?.style.setProperty("--translate-y", "#{@circleY}px")
 
     requestAnimationFrame(@animateCursor)
 

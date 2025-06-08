@@ -76,6 +76,14 @@
   &:hover {
     transform: rotate(5deg) scale(1.2);
     color: variables.$accent;
+    
+    /* Enable optimization only during hover */
+    will-change: transform, color;
+  }
+  
+  &:not(:hover) {
+    /* Remove optimization when not hovering */
+    will-change: auto;
   }
 }
 
@@ -94,6 +102,14 @@
     &:hover {
       color: variables.$accent;
       transform: scale(1.1);
+      
+      /* Enable optimization during hover */
+      will-change: transform, color;
+    }
+    
+    &:not(:hover) {
+      /* Remove optimization when not hovering */
+      will-change: auto;
     }
   }
 }
@@ -111,6 +127,14 @@
   &:hover {
     color: variables.$accent;
     transform: scale(1.1);
+    
+    /* Enable optimization during hover */
+    will-change: transform, color;
+  }
+  
+  &:not(:hover) {
+    /* Remove optimization when not hovering */
+    will-change: auto;
   }
 }
 

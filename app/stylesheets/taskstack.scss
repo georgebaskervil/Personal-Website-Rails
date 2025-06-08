@@ -382,6 +382,14 @@
   &:hover {
     background-color: rgb(170 68 72 / 70%);
     transform: scale(1.05);
+    
+    /* Enable optimization during hover */
+    will-change: transform, background-color;
+  }
+  
+  &:not(:hover) {
+    /* Remove optimization when not hovering */
+    will-change: auto;
   }
 }
 

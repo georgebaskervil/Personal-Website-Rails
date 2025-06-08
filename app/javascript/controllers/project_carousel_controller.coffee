@@ -37,13 +37,13 @@ export default class extends Controller
     @showSlide(0)
 
   setupEventListeners: ->
-    @slidesTarget.addEventListener 'touchstart', @handleTouchStart.bind(@)
-    @slidesTarget.addEventListener 'touchend', @handleTouchEnd.bind(@)
+    @slidesTarget.addEventListener 'touchstart', @handleTouchStart.bind(@), { passive: true }
+    @slidesTarget.addEventListener 'touchend', @handleTouchEnd.bind(@), { passive: true }
     document.addEventListener 'keydown', @handleKeydown.bind(@)
 
   removeEventListeners: ->
-    @slidesTarget.removeEventListener 'touchstart', @handleTouchStart.bind(@)
-    @slidesTarget.removeEventListener 'touchend', @handleTouchEnd.bind(@)
+    @slidesTarget.removeEventListener 'touchstart', @handleTouchStart.bind(@), { passive: true }
+    @slidesTarget.removeEventListener 'touchend', @handleTouchEnd.bind(@), { passive: true }
     document.removeEventListener 'keydown', @handleKeydown.bind(@)
 
   showSlide: (index) ->

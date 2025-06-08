@@ -40,6 +40,9 @@
     z-index: 2;
     opacity: 1;
     box-shadow: variables.$strong-box-shadow; /* Assuming $box-shadow is defined elsewhere */
+    
+    /* Enable optimization only during hover */
+    will-change: transform, box-shadow;
   }
 
   &:not(:hover) {
@@ -47,6 +50,9 @@
     z-index: 1;
     opacity: 1;
     box-shadow: variables.$strong-box-shadow; /* Assuming $box-shadow-lg is defined for the 'lg' shadow */
+    
+    /* Remove optimization when not hovering */
+    will-change: auto;
   }
 }
 

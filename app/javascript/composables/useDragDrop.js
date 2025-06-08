@@ -91,6 +91,7 @@ export function useDragDrop({ onReorder }) {
     element.style.width = `${rect.width}px`; // Maintain width
     element.style.margin = "0"; // Remove margins
     element.style.transition = "none"; // Remove transition during drag
+    element.style.willChange = "transform, box-shadow"; // Enable optimization for drag
 
     // Apply initial Trello-like transform with rotation and scale
     element.style.transform = `rotate(${rotationFactor / 2}deg) scale(${scaleFactor})`;
@@ -203,7 +204,7 @@ export function useDragDrop({ onReorder }) {
             animation: pulse 1.5s infinite;
             box-shadow: 0 0 8px rgba(195, 147, 153, 0.6);
             opacity: 0.8;
-            will-change: opacity;
+            will-change: opacity, transform;
         `;
 
     // Add data attributes for drop operation
@@ -346,6 +347,7 @@ export function useDragDrop({ onReorder }) {
       element.style.width = "";
       element.style.margin = "";
       element.style.zIndex = "";
+      element.style.willChange = ""; // Remove will-change optimization
       element.classList.remove("is-dragging");
     }
 
