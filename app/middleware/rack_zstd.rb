@@ -60,18 +60,18 @@ module Rack
     private
 
     COMPRESSIBLE_CONTENT_TYPES = %w[
-                                    text/html
-                                    text/plain
-                                    text/css
-                                    text/javascript
-                                    application/javascript
-                                    application/json
-                                    application/xml
-                                    application/rss+xml
-                                    application/atom+xml
-                                    image/svg+xml
-                                    application/x-mpegURL
-                                  ].map(&:downcase).freeze
+      text/html
+      text/plain
+      text/css
+      text/javascript
+      application/javascript
+      application/json
+      application/xml
+      application/rss+xml
+      application/atom+xml
+      image/svg+xml
+      application/x-mpegURL
+    ].map(&:downcase).freeze
 
     def compressible?(env, headers)
       # Skip if already encoded

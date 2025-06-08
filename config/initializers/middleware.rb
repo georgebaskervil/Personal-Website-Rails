@@ -19,26 +19,26 @@ COMPRESSIBLE_CONTENT_TYPES = %w[
 ].map(&:downcase).freeze
 
 Rails.application.config.middleware.use Rack::Deflater,
-  sync: false,
-  include: COMPRESSIBLE_CONTENT_TYPES
+                                        sync: false,
+                                        include: COMPRESSIBLE_CONTENT_TYPES
 
 Rails.application.config.middleware.use Rack::Brotli,
-  quality: 11,
-  deflater: {
-    lgwin: 22,
-    lgblock: 0,
-    mode: :text
-  },
-  sync: false,
-  include: COMPRESSIBLE_CONTENT_TYPES
+                                        quality: 11,
+                                        deflater: {
+                                          lgwin: 22,
+                                          lgblock: 0,
+                                          mode: :text
+                                        },
+                                        sync: false,
+                                        include: COMPRESSIBLE_CONTENT_TYPES
 
 Rails.application.config.middleware.use Rack::Zstd,
-  window_log: 27,
-  chain_log: 27,
-  hash_log: 25,
-  search_log: 9,
-  min_match: 3,
-  strategy: :btultra2
+                                        window_log: 27,
+                                        chain_log: 27,
+                                        hash_log: 25,
+                                        search_log: 9,
+                                        min_match: 3,
+                                        strategy: :btultra2
 
 Rails.application.config.middleware.use WhitespaceCompressor
 
