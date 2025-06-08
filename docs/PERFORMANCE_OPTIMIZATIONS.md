@@ -13,6 +13,7 @@ The optimizations focus primarily on the strategic use of `will-change` CSS prop
 Rather than applying `will-change` statically in CSS, we now manage it dynamically via JavaScript to avoid memory overhead when animations aren't active.
 
 **Files affected:**
+
 - `app/javascript/controllers/cursor_controller.coffee`
 - `app/javascript/composables/useDragDrop.js`
 - `app/javascript/utils/performance.js` (new utility file)
@@ -22,6 +23,7 @@ Rather than applying `will-change` statically in CSS, we now manage it dynamical
 Elements with hover animations now enable `will-change` only during hover states:
 
 **Files optimized:**
+
 - `app/stylesheets/homepage.scss` - Project cards, carousel controls, indicators
 - `app/stylesheets/posts.scss` - Post cards
 - `app/stylesheets/images.scss` - Image containers
@@ -30,6 +32,7 @@ Elements with hover animations now enable `will-change` only during hover states
 - `app/stylesheets/taskstack.scss` - Task control buttons
 
 **Pattern:**
+
 ```scss
 &:hover {
   transform: scale(1.1);
@@ -54,6 +57,7 @@ Elements that frequently animate have optimized `will-change` properties:
 ### 4. **Drag & Drop Optimizations**
 
 The drag and drop system now:
+
 - Enables `will-change: transform, box-shadow` during drag start
 - Removes `will-change` during cleanup
 - Optimizes drop indicators with `will-change: opacity, transform`
@@ -71,12 +75,14 @@ A new utility file `app/javascript/utils/performance.js` provides:
 
 ## 📊 Expected Performance Benefits
 
-### Before Optimizations:
+### Before Optimizations
+
 - Unnecessary composite layers created for static elements
 - Higher memory usage from permanent `will-change` declarations
 - Suboptimal animation performance during hover/interaction states
 
-### After Optimizations:
+### After Optimizations
+
 - **Reduced Memory Usage** - `will-change` only active when needed
 - **Smoother Animations** - Optimized compositing for active animations
 - **Better Battery Life** - Reduced GPU load when animations aren't running
@@ -84,13 +90,15 @@ A new utility file `app/javascript/utils/performance.js` provides:
 
 ## 🔧 Implementation Best Practices
 
-### Do's:
+### Do's
+
 ✅ Enable `will-change` just before animations start
 ✅ Disable `will-change` when animations complete
 ✅ Use specific properties in `will-change` rather than `auto`
 ✅ Respect user's reduced motion preferences
 
-### Don'ts:
+### Don'ts
+
 ❌ Leave `will-change` enabled permanently on static elements
 ❌ Use `will-change: auto` for elements that will animate
 ❌ Apply `will-change` to too many elements simultaneously
@@ -101,11 +109,13 @@ A new utility file `app/javascript/utils/performance.js` provides:
 To verify these optimizations:
 
 1. **Chrome DevTools Performance Tab**
+
    - Record performance during animations
    - Check for reduced paint/composite times
    - Verify fewer composite layers created
 
 2. **Browser Memory Usage**
+
    - Monitor memory usage before/after hover states
    - Ensure memory is freed when animations stop
 
@@ -124,6 +134,7 @@ To verify these optimizations:
 ## 🐛 Troubleshooting
 
 If animations feel less smooth after these changes:
+
 1. Check browser console for JavaScript errors
 2. Verify `will-change` is being applied during animations
 3. Test with different browsers to isolate issues

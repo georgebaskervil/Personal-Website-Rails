@@ -1,3 +1,4 @@
+import MillionLint from "@million/lint";
 import { defineConfig } from "vite";
 import rubyPlugin from "vite-plugin-ruby";
 import fullReload from "vite-plugin-full-reload";
@@ -58,6 +59,10 @@ export default defineConfig({
     },
   },
   plugins: [
+    MillionLint.vite({
+      enabled: true,
+      optimizeDOM: true,
+    }),
     rubyPlugin(),
     fullReload(["config/routes.rb", "app/views/**/*"]),
     vue(),
@@ -66,8 +71,6 @@ export default defineConfig({
     }),
     stimulusHMR(),
     legacy({
-      targets: ["defaults", "not IE 11"],
-      additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
       renderLegacyChunks: true,
       modernPolyfills: true,
     }),

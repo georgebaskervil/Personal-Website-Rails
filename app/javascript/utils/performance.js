@@ -10,9 +10,11 @@
  */
 export function enableWillChange(element, properties) {
   if (!element) return;
-  
-  const propsString = Array.isArray(properties) ? properties.join(', ') : properties;
-  element.style.willChange = propsString;
+
+  const propertiesString = Array.isArray(properties)
+    ? properties.join(", ")
+    : properties;
+  element.style.willChange = propertiesString;
 }
 
 /**
@@ -21,8 +23,8 @@ export function enableWillChange(element, properties) {
  */
 export function disableWillChange(element) {
   if (!element) return;
-  
-  element.style.willChange = 'auto';
+
+  element.style.willChange = "auto";
 }
 
 /**
@@ -33,9 +35,9 @@ export function disableWillChange(element) {
  */
 export function temporaryWillChange(element, properties, duration = 300) {
   if (!element) return;
-  
+
   enableWillChange(element, properties);
-  
+
   // Clear will-change after animation completes
   setTimeout(() => {
     disableWillChange(element);
@@ -47,14 +49,14 @@ export function temporaryWillChange(element, properties, duration = 300) {
  * @param {HTMLElement} element - The element to optimize
  * @param {string|string[]} properties - CSS properties that will change on hover
  */
-export function optimizeForHover(element, properties = ['transform']) {
+export function optimizeForHover(element, properties = ["transform"]) {
   if (!element) return;
-  
-  element.addEventListener('mouseenter', () => {
+
+  element.addEventListener("mouseenter", () => {
     enableWillChange(element, properties);
   });
-  
-  element.addEventListener('mouseleave', () => {
+
+  element.addEventListener("mouseleave", () => {
     disableWillChange(element);
   });
 }
@@ -64,10 +66,10 @@ export function optimizeForHover(element, properties = ['transform']) {
  * @param {NodeList|HTMLElement[]} elements - Elements to optimize
  * @param {string|string[]} properties - CSS properties that will change on hover
  */
-export function optimizeMultipleForHover(elements, properties = ['transform']) {
-  elements.forEach(element => {
+export function optimizeMultipleForHover(elements, properties = ["transform"]) {
+  for (const element of elements) {
     optimizeForHover(element, properties);
-  });
+  }
 }
 
 /**
@@ -78,10 +80,10 @@ export function optimizeMultipleForHover(elements, properties = ['transform']) {
  */
 export function debouncedWillChange(element, properties, delay = 100) {
   let timeoutId;
-  
-  return function() {
+
+  return function () {
     enableWillChange(element, properties);
-    
+
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => {
       disableWillChange(element);
@@ -94,7 +96,7 @@ export function debouncedWillChange(element, properties, delay = 100) {
  * @returns {boolean} - True if user prefers reduced motion
  */
 export function prefersReducedMotion() {
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  return globalThis.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
 /**
