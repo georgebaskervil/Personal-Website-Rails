@@ -19,9 +19,6 @@ Rails.application.configure do
   # key such as config/credentials/production.key. This key is used to decrypt credentials (and other encrypted files).
   # config.require_master_key = true
 
-  # Disable serving static files from `public/`, relying on NGINX/Apache to do so instead.
-  # config.public_file_server.enabled = false
-
   # Disable Rails' public file server since Iodine handles static files natively
   # Iodine automatically serves static files from the public folder with better performance
   # and bypasses Ruby entirely, which means our RequestCounter won't count static file requests
@@ -62,9 +59,6 @@ Rails.application.configure do
   config.action_controller.enable_fragment_cache_logging = false
 
   config.cache_store = :memory_store
-  config.public_file_server.headers = {
-    "Cache-Control" => "public, max-age=#{1.year.to_i} must-revalidate"
-  }
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter = :resque
