@@ -6,7 +6,7 @@ module Api
 
   def request_count
     render json: {
-      count: RequestCounterMiddleware.current_count,
+      count: RequestCounter.current_count,
       timestamp: Time.current.iso8601
     }
   end

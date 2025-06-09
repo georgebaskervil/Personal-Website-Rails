@@ -22,19 +22,13 @@ Rails.application.configure do
   # Disable serving static files from `public/`, relying on NGINX/Apache to do so instead.
   # config.public_file_server.enabled = false
 
-  # NOTE: X-Sendfile headers are disabled to ensure our RequestCounterMiddleware
-  # counts all requests. If you enable X-Sendfile, make sure your reverse proxy
-  # is configured to log requests appropriately.
-  # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for Apache
-  # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
+  # Disable Rails' public file server since Iodine handles static files natively
+  # Iodine automatically serves static files from the public folder with better performance
+  # and bypasses Ruby entirely, which means our RequestCounter won't count static file requests
+  config.public_file_server.enabled = false
 
-  # Ensure public file server is enabled so Rails middleware processes static file requests
-  # This is important for RequestCounterMiddleware to count all requests
-  config.public_file_server.enabled = true
-
-  # Specifies the header that your server uses for sending files.
-  # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for Apache
-  # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
+  # Iodine automatically supports X-Sendfile when serving static files
+  # No need to configure X-Sendfile headers since Iodine handles this internally
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local

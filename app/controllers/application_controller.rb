@@ -5,6 +5,7 @@ require "digest"
 require "date" # Added to handle Date parsing
 
 class ApplicationController < ActionController::Base
+  before_action :increment_request_counter
   before_action :set_custom_headers
   before_action :load_images
   before_action :load_articles
@@ -20,6 +21,16 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def increment_request_counter
+    # Only increment counter for HTML requests
+    return unless request.format.html? || request.accepts.include?("text/html")
+    
+    RequestCounter.increment_memory_counter
+  rescue StandardError => e
+    # Don't let counter errors break requests
+    Rails.logger.error "Failed to increment request counter: #{e.message}"
+  end
 
   def set_custom_headers
     # Only set strict COEP headers in production to avoid blocking development tools
