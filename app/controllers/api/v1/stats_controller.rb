@@ -3,10 +3,13 @@ module Api
   class StatsController < ApplicationController
   # Skip CSRF for API endpoints
   skip_before_action :verify_authenticity_token
+  # Skip request counter for API endpoints
+  skip_before_action :increment_request_counter
 
   def request_count
+    count = HttpReqCounter.first&.count || 0
     render json: {
-      count: RequestCounter.current_count,
+      count: count,
       timestamp: Time.current.iso8601
     }
   end

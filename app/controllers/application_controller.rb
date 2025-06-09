@@ -23,10 +23,16 @@ class ApplicationController < ActionController::Base
   private
 
   def increment_request_counter
-    # Only increment counter for HTML requests
+    # Only increment counter for HTML requests that are not API calls
     return unless request.format.html? || request.accepts.include?("text/html")
+    return if request.path.start_with?("/api/")
     
-    RequestCounter.increment_memory_counter
+    # Directly increment the database counter
+    if HttpReqCounter.exists?
+      HttpReqCounter.first.increment!(:count)
+    else
+      HttpReqCounter.create!(count: 1)
+    end
   rescue StandardError => e
     # Don't let counter errors break requests
     Rails.logger.error "Failed to increment request counter: #{e.message}"
