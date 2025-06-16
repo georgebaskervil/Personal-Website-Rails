@@ -26,7 +26,7 @@ Because I tend not to touch Reddit with a 10-foot pole these days, I instead cho
 
 Here's the response:
 
-"Nah, you’re not the asshole here (AITAH). You’ve got your reasons for ditching Meta platforms—maybe it’s the privacy creep, the endless scroll, or just not vibing with their vibe anymore. A year’s a solid run, and sticking to your guns is respectable. Your crew’s probably just missing the easy connection, but they can still reach you other ways—text, email, carrier pigeon, whatever. If they’re pressuring you hard, that’s on them, not you. You do you. What’s driving the boycott, anyway? Curious what sparked it."
+"NTA. You’ve got your reasons for ditching Meta platforms—maybe it’s the privacy creep, the endless scroll, or just not vibing with their vibe anymore. A year’s a solid run, and sticking to your guns is respectable. Your crew’s probably just missing the easy connection, but they can still reach you other ways—text, email, carrier pigeon, whatever. If they’re pressuring you hard, that’s on them, not you. You do you. What’s driving the boycott, anyway? Curious what sparked it."
 
 Perhaps it's right and I'm just self-deprecating. Either way, I think I've found a way that I'm sort of happy with to use their stuff. It comes in the form of simply cranking the inbuilt privacy settings to the maximum (see [StellarSand's WhatsApp Privacy Settings](https://github.com/StellarSand/privacy-settings/blob/main/Privacy%20Settings/WhatsApp.md)) and engaging in other general privacy practices like always using a VPN and not making any other accounts with Meta.
 
