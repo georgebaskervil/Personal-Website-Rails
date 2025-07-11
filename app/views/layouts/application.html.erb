@@ -31,10 +31,10 @@
     <!--Preconnects and DNS prefetches-->
     <link rel="dns-prefetch" href="<%= domain %>">
     <link rel="preconnect" href="<%= domain %>">
-    <link rel="dns-prefetch" href="umami.<%= domain %>">
-    <link rel="preconnect" href="umami.<%= domain %>">
     <link rel="dns-prefetch" href="r2.<%= domain %>">
     <link rel="preconnect" href="r2.<%= domain %>">
+    <link rel="dns-prefetch" href="cloud.umami.is">
+    <link rel="preconnect" href="cloud.umami.is">
     <%= yield :specifcstylesheets %>
     <%= vite_stylesheet_tag "~/stylesheets/application.scss" %>
     <link
@@ -47,13 +47,7 @@
     <%= vite_javascript_tag "~/javascript/application.js" %>
     <%= vite_legacy_javascript_tag "~/javascript/application.js" %>
     <% if Rails.env.production? %>
-      <script
-        async
-        defer
-        src="/umami/script.js"
-        data-website-id="aedd1629-915b-4671-b815-1edb044b6d2a"
-        data-host-url="https://umami.<%= domain %>"
-      ></script>
+      <script defer src="/umami/script.js" data-website-id="77d51e44-cbc3-43da-8dd8-f4e21d38c495"></script>
     <% end %>
     <!--Basic HTML metadata-->
     <meta charset="utf-8">

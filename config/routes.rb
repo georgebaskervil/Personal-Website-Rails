@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   get "/taskstack", to: "taskstack#index"
-  get "/umami/script.js", to: "proxy#umami_script"
   get "/neudec", to: "neudec#index"
   get "/eclecticonapps", to: "eclecticonapps#index"
   get "/waveformer", to: "waveformer#index"
@@ -62,6 +61,9 @@ Rails.application.routes.draw do
   get "/credits", to: "credits#index"
   get "/data", to: "data#index"
   get "/dmca", to: "dmca#index"
+
+  # Proxy routes for analytics and other functionality requiring specific headers
+  get "/umami/script.js", to: "proxy#umami_script"
 
   # Home Control Panel routes
   get "/homecontrolpanel", to: "home_control#index"

@@ -5,7 +5,7 @@ class ProxyController < ApplicationController
   require "uri"
 
   def umami_script
-    remote_url = "https://umami.geor.me/script.js"
+    remote_url = "https://cloud.umami.is/script.js"
     uri = URI.parse(remote_url)
     res = Net::HTTP.get_response(uri)
 
