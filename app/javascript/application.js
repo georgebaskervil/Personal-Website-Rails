@@ -3,7 +3,7 @@ import * as Sentry from "@sentry/browser";
 if (!import.meta.env.DEV) {
   // Only initialize Sentry when not in development mode
   Sentry.init({
-    dsn: "https://3bb363a19fa84e9fb16b7af2e5ef1bf8@glitchtip-k8wwcks4kogokwkgok8k84os.geor.me/1",
+    dsn: "https://9037f39780e6400bac586d00e38790dc@app.glitchtip.com/12062",
   });
 }
 
