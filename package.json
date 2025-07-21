@@ -14,7 +14,7 @@
     "@million/lint": "^1.0.14",
     "@rails/request.js": "^0.0.11",
     "@sentry/browser": "^9.5.0",
-    "@vitejs/plugin-legacy": "^5.4.3",
+    "@vitejs/plugin-legacy": "^7.0.1",
     "@vitejs/plugin-vue": "^5.2.1",
     "@wllama/wllama": "^2.3.0",
     "coffeescript": "^2.7.0",
