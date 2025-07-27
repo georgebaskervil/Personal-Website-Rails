@@ -1,4 +1,5 @@
-# Personal Website with Rails
+# Personal Website with Rails - Archived
+See <https://github.com/georgebaskervil/geor.me> for new development
 
 This is George Baskerville's personal website built with Ruby on Rails.
 
